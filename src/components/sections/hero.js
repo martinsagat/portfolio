@@ -179,6 +179,12 @@ const Hero = () => {
       />
       <StaticImage className="tech-icon" alt="git" src="../../images/stack/git.png" width={50} />
       <StaticImage className="tech-icon" alt="git" src="../../images/stack/linux.png" width={50} />
+      <StaticImage
+        className="tech-icon"
+        alt="postman"
+        src="../../images/stack/postman.svg"
+        width={50}
+      />
     </div>
   );
 
