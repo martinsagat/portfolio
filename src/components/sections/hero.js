@@ -101,8 +101,7 @@ const Hero = () => {
 
   const one = <h1>Hi, my name is</h1>;
   const two = <h2 className="big-heading">Martin Sagat</h2>;
-  const three = <h3 className="big-heading">Integrating imagination into web realities.</h3>;
-  const four = (
+  const three = (
     <>
       <p>
         I'm a<div className="chip">software engineer</div> focused on building scalable web and
@@ -110,7 +109,7 @@ const Hero = () => {
       </p>
     </>
   );
-  const five = (
+  const four = (
     <a
       className="email-link"
       href="https://www.linkedin.com/in/martinsagat"
@@ -120,7 +119,7 @@ const Hero = () => {
     </a>
   );
 
-  const six = (
+  const five = (
     <div className="technologies">
       <StaticImage
         className="tech-icon"
@@ -188,7 +187,7 @@ const Hero = () => {
     </div>
   );
 
-  const items = [one, two, three, four, five, six];
+  const items = [one, two, three, four, five];
 
   return (
     <StyledHeroSection className="styledHeroSection">

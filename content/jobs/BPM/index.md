@@ -18,5 +18,9 @@ tech:
   - Docker
 ---
 
-- Worked alongside designers, product owners and other engineers to develop new product and its features
-- Took part in solutionizing the product requirements
+Big Picture Medical is a MedTech company that specialises in digitisation of healthcare records. In this role as a Software Engineer:
+
+- I worked alongside a team of Product Designers & Software Engineers to map user authentication features end-to-end using BPMN Workflow.
+- I contributed to the SSO login features using access integration with the [National Health Care System (NHS)](https://www.nhs.uk/).
+- I feature-engineered the activation mode for Medical Pathways at an organisational level, which helped Medical Practitioners to configure the fitting Medical Pathways depending on their specialisations.
+- I helped expand the custom Vue-based component library called MedKit UI. It’s a library utilised across all BPM Products to ensure design consistency.

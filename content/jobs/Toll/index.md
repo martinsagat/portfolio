@@ -16,8 +16,7 @@ tech:
   - Vue.js
 ---
 
-- Managed and supported large volume production tracking system
-- Handled database services and various stored procedures
-- Maintained on-prem legacy infrastructure
-- Worked alongside BAs to provide ad-hoc data inquiries
-- Developed internal tools to streamline stakeholders’ workflows
+Toll Group is a global logistics company operating in 25 countries. The division's global reach is to more than 220 countries and territories. During my tenure, I worked as a Software Developer:
+
+- Responsible for supporting large volume production tracking system by ensuring streamlining of data from source devices into databases.
+- In 2020, [Toll Groups system was hit by ransomware](https://www.itnews.com.au/news/toll-groups-corporate-data-stolen-by-attackers-548033), which exfiltrated commercial agreements and employee data. Post-attack, we ensured the servers are back in operation for business continuity and prevented further data leaks by introducing robust security measures.

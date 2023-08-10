@@ -133,12 +133,22 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              As a skilled Software Engineer with a diverse background in the Logistics, Marketing,
-              and Healthcare sectors, I began my journey in the industry with Toll Group. While
-              simultaneously pursuing higher education, my passion for technology guided me towards
-              Information Technology, where I embarked on a dynamic career as a Software Developer.
-              Throughout my professional trajectory, I have consistently utilised my expertise to
-              deliver impactful solutions and drive innovation within the domains I have served.
+              As a skilled Software Engineer with a diverse experience in the Logistics, Marketing,
+              and Healthcare industries, I am eager to continously deliver impactful solutions and
+              drive innovations. I'm highly adaptable, experimental and persistent in my approach to
+              problem solving. I always strive to find the meaning to my work by exploring the{' '}
+              <b>
+                <i>why</i>
+              </b>{' '}
+              behind the{' '}
+              <b>
+                <i>what</i>
+              </b>{' '}
+              and{' '}
+              <b>
+                <i>how</i>
+              </b>
+              .
             </p>
           </div>
         </StyledText>
