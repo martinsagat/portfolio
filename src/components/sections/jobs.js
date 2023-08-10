@@ -61,8 +61,18 @@ const JobCard = styled.div`
 
   .job-description {
     padding-top: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     max-width: 600px;
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    li {
+      a {
+        ${({ theme }) => theme.mixins.inlineLink};
+      }
+    }
   }
 
   .job-logo-wrapper {
