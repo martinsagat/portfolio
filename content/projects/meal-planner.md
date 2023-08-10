@@ -10,4 +10,4 @@ tech:
 showInProjects: true
 ---
 
-Nuxt 3+Vuetify - Playground
+Nuxt 3 & Vuetify - Playground
