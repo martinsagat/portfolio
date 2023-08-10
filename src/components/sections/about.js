@@ -134,9 +134,9 @@ const About = () => {
           <div>
             <p>
               As a skilled Software Engineer with a diverse experience in the Logistics, Marketing,
-              and Healthcare industries, I am eager to continously deliver impactful solutions and
+              and Healthcare industries, I am eager to continuously deliver impactful solutions and
               drive innovations. I'm highly adaptable, experimental and persistent in my approach to
-              problem solving. I always strive to find the meaning to my work by exploring the{' '}
+              problem-solving. I always strive to find the meaning to my work by exploring the{' '}
               <b>
                 <i>why</i>
               </b>{' '}
