@@ -8,7 +8,9 @@ url: 'https://oneaffiniti.com/'
 logo: './1a.png'
 tech:
   - Vue.js
+  - Angular
   - Laravel
+  - Node.js
   - PHP
   - AWS
   - Terraform
