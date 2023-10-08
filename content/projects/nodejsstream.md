@@ -7,4 +7,4 @@ tech:
 showInProjects: true
 ---
 
-Learning project
+Example of a video streaming API endpoint using Node.js
