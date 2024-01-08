@@ -3,7 +3,7 @@ date: '2023-07-01'
 title: 'Software Engineering Consultant'
 company: 'Autom8'
 location: 'Sydney NSW'
-range: 'Jul 2023 - Present'
+range: 'Oct 2023 - Present'
 url: 'https://icl.autom8au.com.au/'
 logo: './autom8.png'
 tech:
