@@ -5,8 +5,9 @@ github: 'https://github.com/martinsagat/nestjs-starter'
 tech:
   - Node.js
   - JavaScript
-  - JWT Authentication
+  - JWT Auth
   - Jest
+  - API
 showInProjects: true
 ---
 
