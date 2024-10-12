@@ -4,9 +4,7 @@
     "private": true,
     "type": "module",
     "workspaces": [
-      "packages/*",
-      "packages/shared/*",
-      "packages/services/*"
+      "packages/*"
     ],
     "scripts": {
       "dev": "npx sst dev --mode=basic --verbose",

@@ -1,9 +1,4 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
-
+const fs = require('fs-extra');
 const path = require('path');
 const _ = require('lodash');
 
@@ -66,9 +61,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   });
 };
 
-// https://www.gatsbyjs.org/docs/node-apis/#onCreateWebpackConfig
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
-  // https://www.gatsbyjs.org/docs/debugging-html-builds/#fixing-third-party-modules
   if (stage === 'build-html' || stage === 'develop-html') {
     actions.setWebpackConfig({
       module: {
@@ -104,4 +97,22 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
       },
     },
   });
+};
+
+// Move public folder to build/client after build
+exports.onPostBuild = async () => {
+  const publicDir = path.join(__dirname, 'public');
+  const targetDir = path.join(__dirname, 'build', 'client');
+
+  try {
+    // Ensure the target directory exists
+    await fs.ensureDir(targetDir);
+
+    // Move the public directory to the target build/client directory
+    await fs.move(publicDir, targetDir, { overwrite: true });
+
+    console.log(`Moved public to ${targetDir}`);
+  } catch (err) {
+    console.error(`Error moving public to ${targetDir}`, err);
+  }
 };

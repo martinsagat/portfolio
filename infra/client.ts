@@ -1,12 +1,8 @@
 
 export const client = new sst.aws.React("MartinSagat", {
     path: "packages/react",
-    buildCommand: "npm run build",
+    buildCommand: "yarn build",
     domain: 'martinsagat.com',
-    environment: {
-    
-    },
+    environment: {},
+    dev: false
 });
-  
-
-  

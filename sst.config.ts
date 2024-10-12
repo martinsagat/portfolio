@@ -9,15 +9,15 @@ export default $config({
       providers: {
         aws: {
           region: "us-east-1",
-          profile: "homestep-dev",
+          profile: "martinsagat-personal",
         },
       },
     };
   },
   async run() {
-    const client = await import("./infra/client");
-
+    const react = await import("./infra/client");
     return {
+      domain: react.client.url,
     };
   },
 });
