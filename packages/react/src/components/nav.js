@@ -445,9 +445,7 @@ const Nav = ({ isHome }) => {
           </>
         )}
 
-        <StyledHamburger onClick={toggleMenu} aria-label="Toggle menu">
-          <span className={isMenuOpen ? 'open' : ''} />
-        </StyledHamburger>
+
       </StyledNav>
 
       <StyledMenu className={isMenuOpen ? 'menu-open' : ''}>

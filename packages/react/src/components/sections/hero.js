@@ -26,17 +26,6 @@ const StyledHeroSection = styled.section`
     }
   }
 
-  @keyframes expandCard {
-    0% {
-      transform: scale(0.95);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
   @keyframes float {
     0% {
       transform: translateY(0px);
@@ -126,8 +115,6 @@ const StyledHeroContent = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   width: 100%;
-  animation: expandCard 0.8s ease-out forwards;
-  opacity: 0;
 
   @media (max-width: 768px) {
     background: rgba(17, 34, 64, 0.9);
@@ -145,7 +132,7 @@ const StyledHeroContent = styled.div`
     font-family: var(--font-mono);
     font-size: clamp(var(--fz-md), 5vw, var(--fz-xl));
     font-weight: 400;
-    animation: slideInLeft 0.8s ease-out 0.2s backwards;
+    animation: slideInLeft 0.8s ease-out;
     letter-spacing: 2px;
 
     @media (max-width: 480px) {
@@ -160,7 +147,7 @@ const StyledHeroContent = styled.div`
     font-size: clamp(40px, 8vw, 80px);
     font-weight: 600;
     text-align: center;
-    animation: slideInRight 0.8s ease-out 0.4s backwards;
+    animation: slideInRight 0.8s ease-out 0.2s backwards;
     letter-spacing: -1px;
     position: relative;
     cursor: pointer;
@@ -201,7 +188,7 @@ const StyledHeroContent = styled.div`
     font-size: clamp(24px, 4vw, 40px);
     font-weight: 600;
     text-align: center;
-    animation: slideInLeft 0.8s ease-out 0.6s backwards;
+    animation: slideInLeft 0.8s ease-out 0.4s backwards;
     letter-spacing: -1px;
 
     @media (max-width: 768px) {
@@ -216,7 +203,7 @@ const StyledHeroContent = styled.div`
     color: var(--slate);
     font-size: clamp(var(--fz-md), 2vw, var(--fz-lg));
     line-height: 1.8;
-    animation: slideInRight 0.8s ease-out 0.8s backwards;
+    animation: slideInRight 0.8s ease-out 0.6s backwards;
     font-weight: 400;
     letter-spacing: 0.3px;
     padding: 0 20px;
@@ -247,7 +234,7 @@ const StyledHeroContent = styled.div`
     gap: 20px;
     margin-top: 40px;
     justify-content: center;
-    animation: slideInLeft 0.8s ease-out 1s backwards;
+    animation: slideInLeft 0.8s ease-out 0.8s backwards;
 
     @media (max-width: 480px) {
       flex-direction: column;
