@@ -105,7 +105,8 @@ const Hero = () => {
     <>
       <p>
         I'm a<div className="chip">software engineer</div> focused on building scalable web and
-        mobile applications with architecture in mind.
+        mobile applications with architecture in mind. I specialize in full-stack development with expertise in
+        cloud technologies and modern web frameworks.
       </p>
     </>
   );
@@ -130,60 +131,20 @@ const Hero = () => {
       <StaticImage className="tech-icon" alt="css3" src="../../images/stack/css3.png" width={50} />
       <StaticImage className="tech-icon" alt="js" src="../../images/stack/js.png" width={50} />
       <StaticImage className="tech-icon" alt="node" src="../../images/stack/node.png" />
+      <StaticImage className="tech-icon" alt="react" src="../../images/stack/react.png" width={50} />
       <StaticImage className="tech-icon" alt="vue" src="../../images/stack/vue.png" />
-      <StaticImage
-        className="tech-icon"
-        alt="react"
-        src="../../images/stack/react.png"
-        width={50}
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="graphql"
-        src="../../images/stack/graphql.png"
-        width={50}
-      />
+      <StaticImage className="tech-icon" alt="graphql" src="../../images/stack/graphql.png" width={50} />
       <StaticImage className="tech-icon" alt="laravel" src="../../images/stack/laravel.png" />
       <StaticImage className="tech-icon" alt=".net" src="../../images/stack/net.png" />
-      <StaticImage
-        className="tech-icon"
-        alt="mysql"
-        src="../../images/stack/mysql.png"
-        width={50}
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="postgresql"
-        src="../../images/stack/postgresql.png"
-        width={50}
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="mongodb"
-        src="../../images/stack/mongodb.png"
-        width={50}
-      />
+      <StaticImage className="tech-icon" alt="mysql" src="../../images/stack/mysql.png" width={50} />
+      <StaticImage className="tech-icon" alt="postgresql" src="../../images/stack/postgresql.png" width={50} />
+      <StaticImage className="tech-icon" alt="mongodb" src="../../images/stack/mongodb.png" width={50} />
       <StaticImage className="tech-icon" alt="aws" src="../../images/stack/aws.png" width={50} />
-      <StaticImage
-        className="tech-icon"
-        alt="azure"
-        src="../../images/stack/azure.png"
-        width={50}
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="terraform"
-        src="../../images/stack/terraform.png"
-        width={50}
-      />
+      <StaticImage className="tech-icon" alt="azure" src="../../images/stack/azure.png" width={50} />
+      <StaticImage className="tech-icon" alt="terraform" src="../../images/stack/terraform.png" width={50} />
       <StaticImage className="tech-icon" alt="git" src="../../images/stack/git.png" width={50} />
-      <StaticImage className="tech-icon" alt="git" src="../../images/stack/linux.png" width={50} />
-      <StaticImage
-        className="tech-icon"
-        alt="postman"
-        src="../../images/stack/postman.svg"
-        width={50}
-      />
+      <StaticImage className="tech-icon" alt="linux" src="../../images/stack/linux.png" width={50} />
+      <StaticImage className="tech-icon" alt="postman" src="../../images/stack/postman.svg" width={50} />
     </div>
   );
 
