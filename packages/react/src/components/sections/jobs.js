@@ -8,15 +8,54 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import { StaticImage } from 'gatsby-plugin-image';
 
 const StyledJobsSection = styled.section`
-  max-width: 990px;
+  width: 100%;
+  background: var(--gradient-dark);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  .numbered-heading {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    font-size: clamp(24px, 5vw, var(--fz-heading));
+
+    @media (max-width: 768px) {
+      padding: 0 20px 40px;
+    }
+  }
 
   .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
 
     @media (max-width: 600px) {
       display: block;
+      text-align: center;
+      padding: 0 20px;
     }
 
     // Prevent container from jumping
@@ -26,9 +65,91 @@ const StyledJobsSection = styled.section`
   }
 `;
 
-const JobCard = styled.div`
+const StyledJob = styled.div`
   position: relative;
   padding: 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition);
+  z-index: 2;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue);
+    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+  }
+
+  .job-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    flex-wrap: nowrap;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  .job-title {
+    color: var(--lightest-slate);
+    font-size: var(--fz-xl);
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .job-date {
+    color: var(--light-slate);
+    font-family: var(--font-mono);
+    font-size: var(--fz-sm);
+    white-space: nowrap;
+  }
+
+  .job-company {
+    color: var(--blue);
+    font-family: var(--font-mono);
+    font-size: var(--fz-md);
+    margin-bottom: 1rem;
+    white-space: nowrap;
+  }
+
+  .job-description {
+    color: var(--light-slate);
+    font-size: var(--fz-md);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+
+      &:before {
+        content: '▹';
+        position: absolute;
+        left: 0;
+        color: var(--blue);
+      }
+    }
+  }
+`;
+
+const JobCard = styled.div`
+  position: relative;
+  padding: 2.5rem;
   flex: 1;
   margin-bottom: 2rem;
   border-radius: var(--border-radius);
@@ -36,6 +157,8 @@ const JobCard = styled.div`
   background-color: var(--light-navy);
   box-shadow: var(--shadow-md);
   border: 1px solid rgba(100, 255, 218, 0.1);
+  max-width: 800px;
+  width: 100%;
 
   &:hover {
     transform: translateY(-5px);
@@ -43,27 +166,33 @@ const JobCard = styled.div`
     border-color: rgba(100, 255, 218, 0.2);
   }
 
-  max-width: 800px;
   ul {
     ${({ theme }) => theme.mixins.fancyList};
   }
 
   @media (max-width: 600px) {
     margin-bottom: 3rem;
-    padding: 1.5rem;
+    padding: 2rem;
   }
 
   .job-header {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 1.5rem;
-    gap: 1.5rem;
+    margin-bottom: 2rem;
+    gap: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+
+    @media (max-width: 600px) {
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   .job-logo-wrapper {
     flex-shrink: 0;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     background-color: var(--light-blue);
     border-radius: 12px;
     transition: var(--transition);
@@ -71,10 +200,16 @@ const JobCard = styled.div`
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-sm);
-    padding: 8px;
+    padding: 12px;
 
     &:hover {
       transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      width: 60px;
+      height: 60px;
+      padding: 10px;
     }
   }
 
@@ -91,13 +226,30 @@ const JobCard = styled.div`
     font-size: var(--fz-xxl);
     font-weight: 600;
     line-height: 1.3;
+    letter-spacing: -0.5px;
+
+    @media (max-width: 600px) {
+      font-size: var(--fz-xl);
+    }
   }
 
   .job-card-company {
     color: var(--blue);
     font-size: var(--fz-lg);
     font-weight: 500;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
+    display: block;
+    text-align: left;
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color var(--transition-normal) var(--easing);
+
+      &:hover {
+        color: var(--green);
+      }
+    }
   }
 
   .job-dates {
@@ -106,28 +258,42 @@ const JobCard = styled.div`
     font-family: var(--font-mono);
     margin-top: 0.5rem;
     display: block;
+    text-align: left;
   }
 
   .job-description {
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
     max-width: 600px;
-    border-top: 1px solid rgba(100, 255, 218, 0.1);
+    text-align: left;
 
     p {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       color: var(--light-slate);
-      line-height: 1.7;
+      line-height: 1.8;
       font-size: var(--fz-md);
+      text-align: left;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
     }
 
     li {
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
       color: var(--light-slate);
-      line-height: 1.7;
+      line-height: 1.8;
       font-size: var(--fz-md);
       padding-left: 1.5rem;
       position: relative;
+      text-align: left;
 
       &:before {
         content: "▹";
@@ -136,8 +302,18 @@ const JobCard = styled.div`
         color: var(--blue);
       }
 
+      &:last-child {
+        margin-bottom: 0;
+      }
+
       a {
-        ${({ theme }) => theme.mixins.inlineLink};
+        color: var(--blue);
+        text-decoration: none;
+        transition: color var(--transition-normal) var(--easing);
+
+        &:hover {
+          color: var(--green);
+        }
       }
     }
   }
@@ -145,55 +321,32 @@ const JobCard = styled.div`
   .job-tech-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
+    gap: 12px;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(100, 255, 218, 0.1);
-    justify-content: center;
-  }
 
-  .job-tech-chip {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.5rem;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background-color: rgba(100, 255, 218, 0.1);
-    color: var(--blue);
-    border-radius: 20px;
-    font-weight: 500;
-    font-size: var(--fz-sm);
-    transition: var(--transition);
-    border: 1px solid rgba(100, 255, 218, 0.2);
-    min-width: 100px;
-    height: 36px;
-    text-align: center;
-    flex: 0 0 auto;
-    margin: 0;
+    .job-tech-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      background: rgba(100, 255, 218, 0.1);
+      border-radius: 20px;
+      color: var(--blue);
+      font-size: var(--fz-sm);
+      font-family: var(--font-mono);
+      transition: all var(--transition-normal) var(--easing);
 
-    .tech-icon {
-      width: 16px;
-      height: 16px;
-      object-fit: contain;
+      &:hover {
+        background: rgba(100, 255, 218, 0.2);
+        transform: translateY(-2px);
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
-
-    // When there's no icon, center the text
-    &:not(:has(.tech-icon)) {
-      grid-template-columns: 1fr;
-      justify-items: center;
-    }
-
-    &:hover {
-      transform: translateY(-2px);
-      background-color: rgba(100, 255, 218, 0.15);
-      box-shadow: var(--shadow-sm);
-    }
-  }
-
-  .job-achievement {
-    color: var(--green);
-    font-weight: 500;
-    margin-left: 0.5rem;
   }
 `;
 

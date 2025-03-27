@@ -8,12 +8,36 @@ import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
 
 const StyledProjectsSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
+  background: var(--gradient-dark);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
+    opacity: 0.5;
+    z-index: 1;
+  }
 
   h2 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
     font-size: clamp(24px, 5vw, var(--fz-heading));
+
+    @media (max-width: 768px) {
+      padding: 0 20px 40px;
+    }
   }
 
   .archive-link {
@@ -26,11 +50,14 @@ const StyledProjectsSection = styled.section`
 
   .projects-grid {
     ${({ theme }) => theme.mixins.resetList};
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
     display: grid;
     grid-template-columns: repeat(3, minmax(250px, 1fr));
     grid-gap: 15px;
     position: relative;
-    margin-top: 50px;
+    z-index: 2;
 
     @media (max-width: 800px) {
       grid-template-columns: repeat(2, minmax(300px, 1fr));
@@ -38,6 +65,7 @@ const StyledProjectsSection = styled.section`
 
     @media (max-width: 600px) {
       grid-template-columns: repeat(1, minmax(400px, 1fr));
+      padding: 0 20px;
     }
   }
 
@@ -47,68 +75,82 @@ const StyledProjectsSection = styled.section`
   }
 
   .note {
-    margin-top: 50px;
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding: 0 40px;
     font-size: var(--fz-sm);
     color: var(--light-slate);
     font-style: italic;
     text-align: center;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      padding: 0 20px;
+    }
   }
 `;
 
-const StyledProject = styled.li`
+const StyledProject = styled.div`
   position: relative;
-  cursor: default;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  background: rgba(17, 34, 64, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 255, 218, 0.1);
+  border-radius: 12px;
+  padding: 40px;
   transition: var(--transition);
+  z-index: 2;
+  overflow: hidden;
 
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover,
-    &:focus-within {
-      .project-inner {
-        transform: translateY(-7px);
-      }
-    }
+  &:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue);
+    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
   }
 
-  a {
-    position: relative;
-    z-index: 1;
+  @media (max-width: 768px) {
+    padding: 25px;
   }
 
   .project-inner {
-    ${({ theme }) => theme.mixins.boxShadow};
-    ${({ theme }) => theme.mixins.flexBetween};
-    flex-direction: column;
-    align-items: flex-start;
-    position: relative;
-    height: 100%;
-    padding: 2rem 1.75rem;
-    border-radius: var(--border-radius);
-    background-color: var(--light-navy);
-    transition: var(--transition);
-    overflow: auto;
+    width: 100%;
   }
 
   .project-top {
     ${({ theme }) => theme.mixins.flexBetween};
     margin-bottom: 35px;
+    width: 100%;
 
     .folder {
       color: var(--blue);
       svg {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
       }
     }
 
     .project-links {
       display: flex;
       align-items: center;
-      margin-right: -10px;
+      gap: 10px;
       color: var(--light-slate);
 
       a {
         ${({ theme }) => theme.mixins.flexCenter};
         padding: 5px 7px;
+        color: var(--light-slate);
+        transition: var(--transition);
+        position: relative;
+        z-index: 2;
+
+        &:hover,
+        &:focus {
+          color: var(--blue);
+        }
 
         &.external {
           svg {
@@ -127,12 +169,24 @@ const StyledProject = styled.li`
   }
 
   .project-title {
-    margin: 0 0 10px;
     color: var(--lightest-slate);
-    font-size: var(--fz-xxl);
+    font-size: clamp(24px, 5vw, 28px);
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
 
     a {
       position: static;
+      text-decoration: none;
+      color: inherit;
+      width: 100%;
+      display: block;
+      transition: var(--transition);
+
+      &:hover {
+        color: var(--blue);
+      }
 
       &:before {
         content: '';
@@ -148,30 +202,69 @@ const StyledProject = styled.li`
   }
 
   .project-description {
+    position: relative;
+    z-index: 2;
+    padding: 20px 0;
+    background-color: transparent;
     color: var(--light-slate);
-    font-size: 17px;
+    font-size: var(--fz-lg);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
 
-    a {
-      ${({ theme }) => theme.mixins.inlineLink};
+    @media (max-width: 768px) {
+      padding: 20px 0;
+      background-color: transparent;
+      font-size: var(--fz-md);
     }
   }
 
   .project-tech-list {
     display: flex;
-    align-items: flex-end;
-    flex-grow: 1;
     flex-wrap: wrap;
-    padding: 0;
-    margin: 20px 0 0 0;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+    margin: 25px 0 10px 0;
+    color: var(--light-slate);
+    font-family: var(--font-mono);
+    font-size: var(--fz-xs);
     list-style: none;
+    padding: 0;
+
+    @media (max-width: 768px) {
+      margin: 20px 0 10px;
+    }
 
     li {
-      font-family: var(--font-mono);
-      font-size: var(--fz-xxs);
-      line-height: 1.75;
+      color: var(--light-slate);
+      white-space: nowrap;
+    }
+  }
 
-      &:not(:last-of-type) {
-        margin-right: 15px;
+  .project-links {
+    margin-top: 10px;
+    margin-right: -10px;
+    color: var(--lightest-slate);
+    font-size: var(--fz-xxl);
+
+    a {
+      padding: 10px;
+
+      &:hover,
+      &:focus {
+        color: var(--blue);
+      }
+
+      &:focus-visible {
+        color: var(--blue);
+        outline: 2px solid var(--blue);
+        outline-offset: 2px;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
       }
     }
   }

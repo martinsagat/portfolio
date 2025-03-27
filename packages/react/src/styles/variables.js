@@ -2,9 +2,9 @@ import { css } from 'styled-components';
 
 const variables = css`
   :root {
-    --dark-navy: #020c1b;
-    --navy: #0a192f;
-    --light-navy: #112240;
+    --dark-navy: #0a192f;
+    --navy: #112240;
+    --light-navy: #1d3461;
     --lightest-navy: #233554;
     --navy-shadow: rgba(2, 12, 27, 0.7);
     --dark-slate: #495670;
@@ -12,15 +12,31 @@ const variables = css`
     --light-slate: #a8b2d1;
     --lightest-slate: #ccd6f6;
     --white: #e6f1ff;
-    --red: #f56c6c;
-    --red-tint: rgba(100, 255, 218, 0.1);
-    --pink: #f57dff;
-    --light-blue: #0baceb44;
+    --red: #ff6b6b;
+    --red-tint: rgba(255, 107, 107, 0.1);
+    --pink: #ff6b6b;
+    --light-blue: rgba(11, 172, 235, 0.1);
     --blue: #0badeb;
     --lightest-green: #64d8ff;
-    --light-green: #55d9d547;
+    --light-green: rgba(85, 217, 213, 0.1);
     --green: #55d9d4;
 
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
+    --gradient-dark: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
+    --gradient-light: linear-gradient(135deg, var(--light-navy) 0%, var(--lightest-navy) 100%);
+
+    /* Glass Effect */
+    --glass-bg: rgba(17, 34, 64, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    /* Animation Durations */
+    --transition-fast: 0.2s;
+    --transition-normal: 0.3s;
+    --transition-slow: 0.5s;
+
+    /* Existing Variables */
     --font-sans: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui,
       sans-serif;
     --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;

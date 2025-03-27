@@ -17,12 +17,11 @@ const StyledHeader = styled.header`
   padding: 0px 50px;
   width: 100%;
   height: var(--nav-height);
-  background-color: rgba(10, 25, 47, 0.85);
-  filter: none !important;
-  pointer-events: auto !important;
-  user-select: auto !important;
+  background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  transition: var(--transition);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all var(--transition-normal) var(--easing);
 
   @media (max-width: 1080px) {
     padding: 0 40px;
@@ -64,13 +63,18 @@ const StyledNav = styled.nav`
 
   .logo {
     ${({ theme }) => theme.mixins.flexCenter};
+    width: 42px;
+    height: 42px;
+    position: relative;
+    z-index: 13;
 
     a {
-      color: var(--blue);
-      width: 42px;
-      height: 42px;
+      width: 100%;
+      height: 100%;
       position: relative;
       z-index: 1;
+      color: var(--blue);
+      text-decoration: none;
 
       .hex-container {
         position: absolute;
@@ -127,16 +131,25 @@ const StyledLinks = styled.div`
       margin: 0 5px;
       position: relative;
       counter-increment: item 1;
-      font-size: var(--fz-xs);
+      font-size: var(--fz-sm);
 
       a {
         padding: 10px;
+        display: block;
+        color: var(--lightest-slate);
+        text-decoration: none;
+        transition: color var(--transition-normal) var(--easing);
+        position: relative;
+
+        &:hover {
+          color: var(--blue);
+        }
 
         &:before {
           content: '0' counter(item) '.';
           margin-right: 5px;
           color: var(--blue);
-          font-size: var(--fz-xxs);
+          font-size: var(--fz-xs);
           text-align: right;
         }
       }
@@ -147,6 +160,157 @@ const StyledLinks = styled.div`
     ${({ theme }) => theme.mixins.smallButton};
     margin-left: 15px;
     font-size: var(--fz-xs);
+    background: var(--gradient-primary);
+    border: none;
+    color: var(--dark-navy);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    transition: all var(--transition-normal) var(--easing);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
+    }
+  }
+`;
+
+const StyledHamburger = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: relative;
+    z-index: 13;
+    width: var(--hamburger-width);
+    height: var(--hamburger-width);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+
+    &:hover {
+      span {
+        background: var(--blue);
+      }
+    }
+
+    span {
+      display: block;
+      position: relative;
+      width: var(--hamburger-width);
+      height: 2px;
+      background: var(--lightest-slate);
+      transition: all var(--transition-normal) var(--easing);
+      margin: 0 auto;
+
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        width: var(--hamburger-width);
+        height: 2px;
+        background: var(--lightest-slate);
+        transition: all var(--transition-normal) var(--easing);
+      }
+
+      &:before {
+        top: -8px;
+      }
+
+      &:after {
+        bottom: -8px;
+      }
+    }
+  }
+`;
+
+const StyledMenu = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 12;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal) var(--easing);
+
+    &.menu-open {
+      transform: translateX(0);
+    }
+
+    nav {
+      ${({ theme }) => theme.mixins.flexCenter};
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 50px;
+      text-align: center;
+
+      ol {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+          position: relative;
+          margin: 0;
+          font-size: var(--fz-xl);
+          counter-increment: item 1;
+
+          a {
+            ${({ theme }) => theme.mixins.link};
+            width: 100%;
+            padding: 3px 20px 20px;
+            display: block;
+            color: var(--lightest-slate);
+            text-decoration: none;
+            transition: color var(--transition-normal) var(--easing);
+
+            &:hover {
+              color: var(--blue);
+            }
+
+            &:before {
+              content: '0' counter(item) '.';
+              margin-right: 5px;
+              color: var(--blue);
+              font-size: var(--fz-sm);
+              text-align: right;
+            }
+          }
+        }
+      }
+
+      .resume-button {
+        ${({ theme }) => theme.mixins.smallButton};
+        margin-top: 20px;
+        font-size: var(--fz-sm);
+        background: var(--gradient-primary);
+        border: none;
+        color: var(--dark-navy);
+        font-weight: 600;
+        padding: 1rem 2rem;
+        border-radius: var(--border-radius);
+        transition: all var(--transition-normal) var(--easing);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
+        }
+      }
+    }
   }
 `;
 
@@ -155,6 +319,7 @@ const Nav = ({ isHome }) => {
   const scrollDirection = useScrollDirection('down');
   const [scrolledToTop, setScrolledToTop] = useState(true);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleScroll = () => {
     setScrolledToTop(window.pageYOffset < 50);
@@ -210,6 +375,8 @@ const Nav = ({ isHome }) => {
       Resume
     </a>
   );
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <StyledHeader scrollDirection={scrollDirection} scrolledToTop={scrolledToTop}>
@@ -277,7 +444,35 @@ const Nav = ({ isHome }) => {
             </TransitionGroup>
           </>
         )}
+
+        <StyledHamburger onClick={toggleMenu} aria-label="Toggle menu">
+          <span className={isMenuOpen ? 'open' : ''} />
+        </StyledHamburger>
       </StyledNav>
+
+      <StyledMenu className={isMenuOpen ? 'menu-open' : ''}>
+        <nav>
+          <ol>
+            {navLinks &&
+              navLinks.map(({ url, name }, i) => (
+                <li key={i}>
+                  <a href={url} onClick={toggleMenu}>
+                    {name}
+                  </a>
+                </li>
+              ))}
+          </ol>
+          <a
+            className="resume-button"
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={toggleMenu}
+          >
+            Resume
+          </a>
+        </nav>
+      </StyledMenu>
     </StyledHeader>
   );
 };

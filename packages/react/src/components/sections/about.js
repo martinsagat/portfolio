@@ -6,19 +6,78 @@ import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
 
 const StyledAboutSection = styled.section`
-  max-width: 990px;
+  width: 100%;
+  background: var(--gradient-dark);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  .numbered-heading {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      padding: 0 20px;
+    }
+  }
 
   .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
     display: grid;
-    grid-template-columns: 3fr 2fr;
-    grid-gap: 50px;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    justify-items: center;
 
     @media (max-width: 768px) {
       display: block;
+      text-align: center;
+      grid-gap: 40px;
+      padding: 0 20px;
     }
   }
 `;
 const StyledText = styled.div`
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
+  margin: 0;
+  padding: 0;
+
+  p {
+    font-size: var(--fz-lg);
+    line-height: 1.8;
+    color: var(--light-slate);
+    margin-bottom: 1.5rem;
+    text-align: left;
+    padding: 0;
+
+    @media (max-width: 768px) {
+      font-size: var(--fz-md);
+      line-height: 1.6;
+    }
+  }
+
   ul.skills-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(140px, 200px));
@@ -27,6 +86,7 @@ const StyledText = styled.div`
     margin: 20px 0 0 0;
     overflow: hidden;
     list-style: none;
+    text-align: left;
 
     li {
       position: relative;
@@ -48,7 +108,9 @@ const StyledText = styled.div`
 `;
 const StyledPic = styled.div`
   position: relative;
+  width: 100%;
   max-width: 300px;
+  margin: 0;
 
   @media (max-width: 768px) {
     margin: 50px auto 0;

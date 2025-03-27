@@ -21,6 +21,16 @@ const StyledProject = styled.li`
   grid-gap: 10px;
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
+  cursor: default;
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:hover,
+    &:focus-within {
+      .project-inner {
+        transform: translateY(-7px);
+      }
+    }
+  }
 
   @media (max-width: 768px) {
     ${({ theme }) => theme.mixins.boxShadow};
@@ -38,62 +48,11 @@ const StyledProject = styled.li`
     }
   }
 
-  &:nth-of-type(odd) {
-    .project-content {
-      grid-column: 7 / -1;
-      text-align: right;
-
-      @media (max-width: 1080px) {
-        grid-column: 5 / -1;
-      }
-      @media (max-width: 768px) {
-        grid-column: 1 / -1;
-        padding: 40px 40px 30px;
-        text-align: left;
-      }
-      @media (max-width: 480px) {
-        padding: 25px 25px 20px;
-      }
-    }
-    .project-tech-list {
-      justify-content: flex-end;
-
-      @media (max-width: 768px) {
-        justify-content: flex-start;
-      }
-
-      li {
-        margin: 0 0 5px 20px;
-
-        @media (max-width: 768px) {
-          margin: 0 10px 5px 0;
-        }
-      }
-    }
-    .project-links {
-      justify-content: flex-end;
-      margin-left: 0;
-      margin-right: -10px;
-
-      @media (max-width: 768px) {
-        justify-content: flex-start;
-        margin-left: -10px;
-        margin-right: 0;
-      }
-    }
-    .project-image {
-      grid-column: 1 / 8;
-
-      @media (max-width: 768px) {
-        grid-column: 1 / -1;
-      }
-    }
-  }
-
   .project-content {
     position: relative;
     grid-column: 1 / 7;
     grid-row: 1 / -1;
+    z-index: 2;
 
     @media (max-width: 1080px) {
       grid-column: 1 / 9;
@@ -124,7 +83,6 @@ const StyledProject = styled.li`
 
   .project-title {
     color: var(--lightest-slate);
-    font-size: clamp(24px, 5vw, 28px);
 
     @media (min-width: 768px) {
       margin: 0 0 20px;
@@ -132,20 +90,21 @@ const StyledProject = styled.li`
 
     @media (max-width: 768px) {
       color: var(--white);
+    }
 
-      a {
-        position: static;
+    a {
+      position: static;
+      z-index: 1;
 
-        &:before {
-          content: '';
-          display: block;
-          position: absolute;
-          z-index: 0;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-        }
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
       }
     }
   }
@@ -245,58 +204,33 @@ const StyledProject = styled.li`
     grid-row: 1 / -1;
     position: relative;
     z-index: 1;
+    max-width: 400px;
+    margin: 0 auto;
 
     @media (max-width: 768px) {
       grid-column: 1 / -1;
       height: 100%;
       opacity: 0.25;
+      max-width: 300px;
     }
 
     a {
       width: 100%;
       height: 100%;
-      background-color: var(--blue);
       border-radius: var(--border-radius);
       vertical-align: middle;
-
-      &:hover,
-      &:focus {
-        background: transparent;
-        outline: 0;
-
-        &:before,
-        .img {
-          background: transparent;
-          filter: none;
-        }
-      }
-
-      &:before {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 3;
-        transition: var(--transition);
-        background-color: var(--navy);
-        mix-blend-mode: screen;
-      }
     }
 
     .img {
       border-radius: var(--border-radius);
-      mix-blend-mode: multiply;
-      filter: grayscale(100%) contrast(1) brightness(90%);
+      width: 100%;
+      height: auto;
+      object-fit: cover;
 
       @media (max-width: 768px) {
         object-fit: cover;
-        width: auto;
-        height: 100%;
-        filter: grayscale(100%) contrast(1) brightness(50%);
+        width: 100%;
+        height: auto;
       }
     }
   }
@@ -345,12 +279,44 @@ const Featured = () => {
   }, []);
 
   return (
-    <section id="interests">
-      <h2 className="numbered-heading" ref={revealTitle}>
+    <section id="interests" style={{
+      width: '100%',
+      background: 'var(--gradient-dark)',
+      padding: '100px 0',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      <div style={{
+        content: '',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%)',
+        opacity: 0.5,
+        zIndex: 1
+      }} />
+
+      <h2 className="numbered-heading" ref={revealTitle} style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 40px 60px',
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: 2,
+        fontSize: 'clamp(24px, 5vw, var(--fz-heading))'
+      }}>
         When I don't work...
       </h2>
 
-      <StyledProjectsGrid>
+      <StyledProjectsGrid style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 40px',
+        position: 'relative',
+        zIndex: 2
+      }}>
         {featuredProjects &&
           featuredProjects.map(({ node }, i) => {
             const { frontmatter, html } = node;
