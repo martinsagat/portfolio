@@ -109,7 +109,6 @@ const StyledHeroContent = styled.div`
   padding: 3rem;
   background: rgba(17, 34, 64, 0.7);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
   border-radius: var(--border-radius);
   box-shadow: var(--glass-shadow);
   max-width: 1000px;
@@ -117,10 +116,10 @@ const StyledHeroContent = styled.div`
   width: 100%;
 
   @media (max-width: 768px) {
-    background: rgba(17, 34, 64, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+    backdrop-filter: none;
+    box-shadow: none;
+    background: transparent;
+    border-radius: 0;
     padding: 1rem;
   }
 
@@ -154,7 +153,7 @@ const StyledHeroContent = styled.div`
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     @media (max-width: 768px) {
-      font-size: clamp(35px, 7vw, 70px);
+      font-size: clamp(55px, 7vw, 70px);
     }
 
     &::before {
@@ -399,6 +398,7 @@ const StyledButton = styled.a`
   border: 2px solid var(--blue);
   color: var(--blue);
   font-weight: 700;
+  width: 300px;
   font-size: var(--fz-md);
   letter-spacing: 0.5px;
   transition: all var(--transition-normal) var(--easing);
