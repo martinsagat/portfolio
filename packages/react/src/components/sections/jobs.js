@@ -32,9 +32,12 @@ const JobCard = styled.div`
   margin-bottom: 30px;
   border-radius: var(--border-radius);
   transition: var(--transition);
+  background-color: var(--light-navy);
+  box-shadow: var(--shadow-md);
 
   &:hover {
-    background-color: var(--light-navy);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
   }
 
   max-width: 800px;
@@ -66,9 +69,15 @@ const JobCard = styled.div`
 
     p {
       margin-bottom: 15px;
+      color: var(--light-slate);
+      line-height: 1.7;
     }
 
     li {
+      margin-bottom: 10px;
+      color: var(--light-slate);
+      line-height: 1.7;
+
       a {
         ${({ theme }) => theme.mixins.inlineLink};
       }
@@ -87,6 +96,11 @@ const JobCard = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0 0 0 20px;
+    box-shadow: var(--shadow-sm);
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   .job-logo {
@@ -108,6 +122,18 @@ const JobCard = styled.div`
     height: 30px;
     align-items: center;
     justify-content: center;
+    transition: var(--transition);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+  }
+
+  .job-achievement {
+    color: var(--green);
+    font-weight: 500;
+    margin-left: 5px;
   }
 `;
 
@@ -180,7 +206,7 @@ const Jobs = () => {
 
   return (
     <StyledJobsSection id="jobs" ref={revealContainer}>
-      <h2 className="numbered-heading">Where I’ve Worked</h2>
+      <h2 className="numbered-heading">Where I've Worked</h2>
       <div className="inner">
         {jobsData.map(({ node }, i) => {
           const { frontmatter, html } = node;

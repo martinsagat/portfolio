@@ -48,27 +48,64 @@ const StyledHeroSection = styled.section`
     line-height: 1.8;
   }
 
+  .cta-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 60px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
   .email-link {
     ${({ theme }) => theme.mixins.bigButton};
-    margin-top: 60px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 1rem 2rem;
+
+    &.secondary {
+      background-color: transparent;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+
+      &:hover {
+        background-color: var(--blue);
+        color: var(--navy);
+      }
+    }
   }
 
   .technologies {
     display: flex;
     flex-wrap: wrap;
-    display: flex;
     width: 100%;
     justify-content: center;
-    // background-color: var(--light-navy);
     padding: 10px;
     border-radius: 5px;
     margin-top: 50px;
+    background-color: var(--light-navy);
+    box-shadow: var(--shadow-md);
   }
 
   .tech-icon {
     width: 20px;
     padding: 15px;
     margin: 10px;
+    transition: var(--transition);
+
+    &:hover {
+      transform: translateY(-3px);
+    }
   }
 
   .chip {
@@ -83,6 +120,7 @@ const StyledHeroSection = styled.section`
     height: 30px;
     line-height: 30px;
     vertical-align: middle;
+    box-shadow: var(--shadow-sm);
   }
 `;
 
@@ -104,20 +142,29 @@ const Hero = () => {
   const three = (
     <>
       <p>
-        I'm a<div className="chip">software engineer</div> focused on building scalable web and
-        mobile applications with architecture in mind. I specialize in full-stack development with expertise in
-        cloud technologies and modern web frameworks.
+        I'm a<div className="chip">Senior Software Engineer</div> specializing in building scalable web and
+        mobile applications. With expertise in cloud technologies and modern web frameworks, I create
+        efficient, maintainable solutions that drive business growth.
       </p>
     </>
   );
   const four = (
-    <a
-      className="email-link"
-      href="https://www.linkedin.com/in/martinsagat"
-      target="_blank"
-      rel="noreferrer">
-      Let's Connect on LinkedIn!
-    </a>
+    <div className="cta-buttons">
+      <a
+        className="email-link"
+        href="https://www.linkedin.com/in/martinsagat"
+        target="_blank"
+        rel="noreferrer">
+        Connect on LinkedIn
+      </a>
+      <a
+        className="email-link secondary"
+        href="/resume.pdf"
+        target="_blank"
+        rel="noreferrer">
+        View Resume
+      </a>
+    </div>
   );
 
   const five = (
