@@ -146,6 +146,9 @@ const StyledPic = styled.div`
       mix-blend-mode: multiply;
       filter: grayscale(50%) contrast(1);
       transition: var(--transition);
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     &:before,
@@ -220,10 +223,15 @@ const About = () => {
             <StaticImage
               className="img"
               src="../../images/me.jpg"
-              width={500}
-              quality={95}
+              width={800}
+              height={800}
+              quality={100}
               formats={['AUTO', 'WEBP', 'AVIF']}
               alt="Headshot"
+              placeholder="blurred"
+              layout="constrained"
+              objectFit="cover"
+              objectPosition="center"
             />
           </div>
         </StyledPic>

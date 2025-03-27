@@ -59,7 +59,8 @@
     "react-helmet": "^6.1.0",
     "react-transition-group": "^4.3.0",
     "scrollreveal": "^4.0.5",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "three": "^0.174.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

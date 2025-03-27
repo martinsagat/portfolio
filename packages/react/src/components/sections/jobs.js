@@ -199,25 +199,18 @@ const JobCard = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow-sm);
-    padding: 12px;
+    padding: 10px;
 
     &:hover {
-      transform: scale(1.05);
+      transform: translateY(-3px);
+      background-color: var(--blue);
     }
 
-    @media (max-width: 600px) {
-      width: 60px;
-      height: 60px;
-      padding: 10px;
+    .job-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-  }
-
-  .job-logo {
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-    object-fit: contain;
   }
 
   .job-title {
@@ -321,31 +314,27 @@ const JobCard = styled.div`
   .job-tech-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(100, 255, 218, 0.1);
+  }
 
-    .job-tech-chip {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
-      background: rgba(100, 255, 218, 0.1);
-      border-radius: 20px;
-      color: var(--blue);
-      font-size: var(--fz-sm);
-      font-family: var(--font-mono);
-      transition: all var(--transition-normal) var(--easing);
+  .job-tech-chip {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(100, 255, 218, 0.1);
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-size: var(--fz-xs);
+    color: var(--light-slate);
+    transition: var(--transition);
+    list-style: none;
 
-      &:hover {
-        background: rgba(100, 255, 218, 0.2);
-        transform: translateY(-2px);
-      }
-
-      svg {
-        width: 16px;
-        height: 16px;
-      }
+    &:hover {
+      background: rgba(100, 255, 218, 0.2);
+      transform: translateY(-2px);
     }
   }
 `;
@@ -382,10 +371,33 @@ const Jobs = () => {
           }
         }
       }
+      techIcons: allFile(filter: { relativeDirectory: { eq: "images/stack" } }) {
+        edges {
+          node {
+            relativePath
+            name
+            childImageSharp {
+              gatsbyImageData(
+                width: 16
+                height: 16
+                formats: [AUTO, WEBP, AVIF]
+                quality: 100
+                placeholder: BLURRED
+                layout: FIXED
+              )
+            }
+          }
+        }
+      }
     }
   `);
 
   const jobsData = data.jobs.edges;
+  const techIcons = data.techIcons.edges.reduce((acc, { node }) => {
+    acc[node.name] = node.childImageSharp.gatsbyImageData;
+    return acc;
+  }, {});
+
   const [tabFocus, setTabFocus] = useState(null);
   const tabs = useRef([]);
   const revealContainer = useRef(null);
@@ -419,151 +431,11 @@ const Jobs = () => {
 
   const getTechIcon = (tech) => {
     const techLower = tech.toLowerCase();
-    switch (techLower) {
-      case 'react':
-      case 'reactjs':
-      case 'react.js':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/react.png" width={16} height={16} />;
-      case 'javascript':
-      case 'js':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/js.png" width={16} height={16} />;
-      case 'typescript':
-      case 'ts':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/typescript.png" width={16} height={16} />;
-      case 'node':
-      case 'nodejs':
-      case 'node.js':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/node.png" width={16} height={16} />;
-      case 'python':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/python.png" width={16} height={16} />;
-      case 'aws':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/aws.png" width={16} height={16} />;
-      case 'docker':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/docker.png" width={16} height={16} />;
-      case 'kubernetes':
-      case 'k8s':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/kubernetes.png" width={16} height={16} />;
-      case 'graphql':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/graphql.png" width={16} height={16} />;
-      case 'git':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/git.png" width={16} height={16} />;
-      case 'vue':
-      case 'vue.js':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/vue.png" width={16} height={16} />;
-      case 'mysql':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/mysql.png" width={16} height={16} />;
-      case 'postgresql':
-      case 'postgres':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/postgresql.png" width={16} height={16} />;
-      case 'mongodb':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/mongodb.png" width={16} height={16} />;
-      case 'angular':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/angular.png" width={16} height={16} />;
-      case 'next':
-      case 'next.js':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/nextjs.png" width={16} height={16} />;
-      case 'nestjs':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/nestjs.png" width={16} height={16} />;
-      case 'express':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/express.png" width={16} height={16} />;
-      case 'webpack':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/webpack.png" width={16} height={16} />;
-      case 'jest':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/jest.png" width={16} height={16} />;
-      case 'cypress':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/cypress.png" width={16} height={16} />;
-      case 'tailwind':
-      case 'tailwindcss':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/tailwind.png" width={16} height={16} />;
-      case 'sass':
-      case 'scss':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/sass.png" width={16} height={16} />;
-      case 'less':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/less.png" width={16} height={16} />;
-      case 'redux':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/redux.png" width={16} height={16} />;
-      case 'gatsby':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/gatsby.png" width={16} height={16} />;
-      case 'wordpress':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/wordpress.png" width={16} height={16} />;
-      case 'php':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/php.png" width={16} height={16} />;
-      case 'laravel':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/laravel.png" width={16} height={16} />;
-      case 'symfony':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/symfony.png" width={16} height={16} />;
-      case 'dotnet':
-      case '.net':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/net.png" width={16} height={16} />;
-      case 'csharp':
-      case 'c#':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/csharp.png" width={16} height={16} />;
-      case 'java':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/java.png" width={16} height={16} />;
-      case 'spring':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/spring.png" width={16} height={16} />;
-      case 'ruby':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/ruby.png" width={16} height={16} />;
-      case 'rails':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/rails.png" width={16} height={16} />;
-      case 'go':
-      case 'golang':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/go.png" width={16} height={16} />;
-      case 'terraform':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/terraform.png" width={16} height={16} />;
-      case 'jenkins':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/jenkins.png" width={16} height={16} />;
-      case 'circleci':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/circleci.png" width={16} height={16} />;
-      case 'github':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/github.png" width={16} height={16} />;
-      case 'gitlab':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/gitlab.png" width={16} height={16} />;
-      case 'bitbucket':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/bitbucket.png" width={16} height={16} />;
-      case 'jira':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/jira.png" width={16} height={16} />;
-      case 'confluence':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/confluence.png" width={16} height={16} />;
-      case 'slack':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/slack.png" width={16} height={16} />;
-      case 'azure':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/azure.png" width={16} height={16} />;
-      case 'gcp':
-      case 'google cloud':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/gcp.png" width={16} height={16} />;
-      case 'firebase':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/firebase.png" width={16} height={16} />;
-      case 'heroku':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/heroku.png" width={16} height={16} />;
-      case 'netlify':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/netlify.png" width={16} height={16} />;
-      case 'vercel':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/vercel.png" width={16} height={16} />;
-      case 'camunda':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/camunda.png" width={16} height={16} />;
-      case 'sst':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/sst.png" width={16} height={16} />;
-      case 'serverless':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/serverless.png" width={16} height={16} />;
-      case 'dynamodb':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/dynamodb.png" width={16} height={16} />;
-      case 'nosql':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/nosql.png" width={16} height={16} />;
-      case 'cloudformation':
-      case 'aws cloudformation':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/cloudformation.png" width={16} height={16} />;
-      case 'cicd':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/cicd.png" width={16} height={16} />;
-      case 'sql':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/sql.png" width={16} height={16} />;
-      case 'windows server':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/windows-server.png" width={16} height={16} />;
-      case 'linux':
-        return <StaticImage className="tech-icon" alt={tech} src="../../images/stack/linux.png" width={16} height={16} />;
-      default:
-        return null;
+    const iconData = techIcons[techLower];
+    if (iconData) {
+      return <GatsbyImage className="tech-icon" image={iconData} alt={tech} />;
     }
+    return null;
   };
 
   return (
@@ -598,7 +470,6 @@ const Jobs = () => {
                 {tech &&
                   tech.map((tech, i) => (
                     <div className="job-tech-chip" key={i}>
-                      {getTechIcon(tech)}
                       <span>{tech}</span>
                     </div>
                   ))}

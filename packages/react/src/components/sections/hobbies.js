@@ -250,7 +250,13 @@ const Featured = () => {
               type
               cover {
                 childImageSharp {
-                  gatsbyImageData(width: 700, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+                  gatsbyImageData(
+                    width: 1200
+                    quality: 100
+                    formats: [AUTO, WEBP, AVIF]
+                    placeholder: BLURRED
+                    layout: CONSTRAINED
+                  )
                 }
               }
               tech

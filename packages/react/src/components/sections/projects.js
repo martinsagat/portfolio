@@ -105,6 +105,9 @@ const StyledProject = styled.div`
   transition: var(--transition);
   z-index: 2;
   overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     transform: translateY(-5px);
@@ -118,11 +121,14 @@ const StyledProject = styled.div`
 
   .project-inner {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .project-top {
     ${({ theme }) => theme.mixins.flexBetween};
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     width: 100%;
 
     .folder {
@@ -170,11 +176,12 @@ const StyledProject = styled.div`
 
   .project-title {
     color: var(--lightest-slate);
-    font-size: clamp(24px, 5vw, 28px);
-    margin-bottom: 20px;
+    font-size: clamp(20px, 4vw, 24px);
+    margin-bottom: 15px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     width: 100%;
+    line-height: 1.3;
 
     a {
       position: static;
@@ -202,69 +209,48 @@ const StyledProject = styled.div`
   }
 
   .project-description {
-    position: relative;
-    z-index: 2;
-    padding: 20px 0;
-    background-color: transparent;
     color: var(--light-slate);
-    font-size: var(--fz-lg);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    width: 100%;
-
-    @media (max-width: 768px) {
-      padding: 20px 0;
-      background-color: transparent;
-      font-size: var(--fz-md);
-    }
+    font-size: var(--fz-md);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .project-tech-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    position: relative;
-    z-index: 2;
-    margin: 25px 0 10px 0;
-    color: var(--light-slate);
-    font-family: var(--font-mono);
-    font-size: var(--fz-xs);
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 35px;
+    border-top: 1px solid rgba(100, 255, 218, 0.1);
     list-style: none;
     padding: 0;
+    margin: 35px 0 10px 0;
 
     @media (max-width: 768px) {
-      margin: 20px 0 10px;
+      margin: 30px 0 10px;
+      padding-top: 30px;
     }
 
     li {
       color: var(--light-slate);
+      font-family: var(--font-mono);
+      font-size: var(--fz-xs);
+      padding: 6px 12px;
+      background: rgba(100, 255, 218, 0.1);
+      border-radius: 4px;
+      transition: var(--transition);
       white-space: nowrap;
-    }
-  }
+      margin: 4px 0;
 
-  .project-links {
-    margin-top: 10px;
-    margin-right: -10px;
-    color: var(--lightest-slate);
-    font-size: var(--fz-xxl);
-
-    a {
-      padding: 10px;
-
-      &:hover,
-      &:focus {
-        color: var(--blue);
-      }
-
-      &:focus-visible {
-        color: var(--blue);
-        outline: 2px solid var(--blue);
-        outline-offset: 2px;
-      }
-
-      svg {
-        width: 20px;
-        height: 20px;
+      &:hover {
+        background: rgba(100, 255, 218, 0.2);
+        transform: translateY(-1px);
       }
     }
   }
