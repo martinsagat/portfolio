@@ -296,6 +296,46 @@ const StyledTechnologies = styled.div`
   }
 `;
 
+const StyledActionButtons = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 4rem 0 2rem;
+  animation: fadeInUp 0.5s ease-out 0.3s backwards;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
+
+const StyledButton = styled.a`
+  ${({ theme }) => theme.mixins.bigButton};
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid var(--blue);
+  color: var(--blue);
+  font-weight: 600;
+  transition: all var(--transition-normal) var(--easing);
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: var(--blue);
+    color: var(--navy);
+    box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
+  }
+`;
+
 const Hero = () => {
   const [isMounted, setIsMounted] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -332,6 +372,17 @@ const Hero = () => {
       I'm a <span className="chip">Senior Software Engineer</span> specializing in building scalable web and mobile applications.
       With expertise in cloud technologies and modern web frameworks, I create efficient, maintainable solutions that drive business growth.
     </p>
+  );
+
+  const actionButtons = (
+    <StyledActionButtons>
+      <StyledButton href="https://www.linkedin.com/in/martinsagat/" target="_blank" rel="noreferrer">
+        Connect on LinkedIn
+      </StyledButton>
+      <StyledButton href="/resume.pdf" target="_blank" rel="noreferrer">
+        View Resume
+      </StyledButton>
+    </StyledActionButtons>
   );
 
   const five = (
@@ -465,7 +516,7 @@ const Hero = () => {
     </StyledTechnologies>
   );
 
-  const items = [one, two, three, four];
+  const items = [one, two, three, four, actionButtons, five];
 
   return (
     <StyledHeroSection>
@@ -475,26 +526,16 @@ const Hero = () => {
             {items.map((item, i) => (
               <div key={i}>{item}</div>
             ))}
-            {five}
           </>
         ) : (
-          <>
-            <TransitionGroup component={null}>
-              {isMounted &&
-                items.map((item, i) => (
-                  <CSSTransition key={i} classNames="fadeup" timeout={loaderDelay}>
-                    <div style={{ transitionDelay: `${i * 100}ms` }}>{item}</div>
-                  </CSSTransition>
-                ))}
-            </TransitionGroup>
-            <TransitionGroup component={null}>
-              {isMounted && (
-                <CSSTransition classNames="fadeup" timeout={loaderDelay}>
-                  <div style={{ transitionDelay: `${items.length * 100}ms` }}>{five}</div>
+          <TransitionGroup component={null}>
+            {isMounted &&
+              items.map((item, i) => (
+                <CSSTransition key={i} classNames="fadeup" timeout={loaderDelay}>
+                  <div style={{ transitionDelay: `${i * 100}ms` }}>{item}</div>
                 </CSSTransition>
-              )}
-            </TransitionGroup>
-          </>
+              ))}
+          </TransitionGroup>
         )}
       </StyledHeroContent>
     </StyledHeroSection>
