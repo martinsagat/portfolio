@@ -30,6 +30,9 @@ const StyledProject = styled.li`
   grid-template-columns: repeat(12, 1fr);
   align-items: center;
   cursor: default;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
 
   @media (prefers-reduced-motion: no-preference) {
     &:hover,
@@ -44,13 +47,15 @@ const StyledProject = styled.li`
     ${({ theme }) => theme.mixins.boxShadow};
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 1.5rem;
     background: var(--light-navy);
     border-radius: var(--border-radius);
+    max-width: 600px;
   }
 
   @media (max-width: 480px) {
-    padding: 0.75rem;
+    padding: 1rem;
+    max-width: 100%;
   }
 
   &:not(:last-of-type) {
@@ -67,12 +72,14 @@ const StyledProject = styled.li`
 
   .project-content {
     position: relative;
-    grid-column: 1 / 7;
+    grid-column: 1 / 8;
     grid-row: 1 / -1;
     z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
 
     @media (max-width: 1080px) {
-      grid-column: 1 / 9;
+      grid-column: 1 / 10;
     }
 
     @media (max-width: 768px) {
@@ -83,6 +90,7 @@ const StyledProject = styled.li`
       grid-column: 1 / -1;
       padding: 0;
       z-index: 5;
+      max-width: 100%;
     }
 
     @media (max-width: 480px) {
@@ -96,11 +104,13 @@ const StyledProject = styled.li`
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
     font-weight: 400;
+    text-align: center;
   }
 
   .project-title {
     color: var(--lightest-slate);
     font-size: var(--fz-heading);
+    text-align: center;
 
     @media (min-width: 768px) {
       margin: 0 0 20px;
@@ -117,27 +127,61 @@ const StyledProject = styled.li`
     z-index: 2;
     padding: 25px;
     border-radius: var(--border-radius);
-    background-color: var(--light-navy);
+    background: rgba(17, 34, 64, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 255, 218, 0.1);
     color: var(--light-slate);
     font-size: var(--fz-lg);
     line-height: 1.6;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+    transform: translateX(20px);
 
     @media (max-width: 768px) {
-      padding: 10px 0;
-      background-color: transparent;
-      box-shadow: none;
+      padding: 20px;
+      background: rgba(17, 34, 64, 0.8);
+      max-width: 100%;
+      transform: none;
     }
 
     @media (max-width: 480px) {
-      padding: 5px 0;
+      padding: 15px;
     }
 
-    &:hover {
-      box-shadow: none;
+    @media (min-width: 769px) {
+      &:hover {
+        transform: translateX(20px) translateY(-2px);
+        border-color: rgba(100, 255, 218, 0.3);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      }
     }
 
     a {
-      ${({ theme }) => theme.mixins.inlineLink};
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.4s ease;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--gradient-primary);
+        transition: width 0.4s ease;
+      }
+
+      &:hover {
+        color: var(--green);
+
+        &::after {
+          width: 100%;
+        }
+      }
     }
 
     strong {
@@ -207,23 +251,25 @@ const StyledProject = styled.li`
 
   .project-image {
     ${({ theme }) => theme.mixins.boxShadow};
-    grid-column: 6 / -1;
+    grid-column: 5 / -1;
     grid-row: 1 / -1;
     position: relative;
     z-index: 1;
     max-width: 400px;
     margin: 0 auto;
+    transform: translateX(-20px);
 
     @media (max-width: 768px) {
       grid-column: 1 / -1;
-      margin: 10px auto 0;
+      margin: 20px auto 0;
       height: 100%;
       opacity: 1;
       max-width: 280px;
+      transform: none;
     }
 
     @media (max-width: 480px) {
-      margin: 8px auto 0;
+      margin: 15px auto 0;
       max-width: 240px;
     }
 
