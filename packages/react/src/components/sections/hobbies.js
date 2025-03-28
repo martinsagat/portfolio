@@ -280,44 +280,52 @@ const Featured = () => {
   }, []);
 
   return (
-    <section id="interests" style={{
-      width: '100%',
-      background: 'var(--gradient-dark)',
-      padding: '100px 0',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div style={{
-        content: '',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%)',
-        opacity: 0.5,
-        zIndex: 1
-      }} />
-
-      <h2 className="numbered-heading" ref={revealTitle} style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 40px 60px',
-        textAlign: 'center',
+    <section
+      id="interests"
+      style={{
+        width: '100%',
+        background: 'var(--gradient-dark)',
+        padding: '100px 0',
         position: 'relative',
-        zIndex: 2,
-        fontSize: 'clamp(24px, 5vw, var(--fz-heading))'
+        overflow: 'hidden',
       }}>
+      <div
+        style={{
+          content: '',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%)',
+          opacity: 0.5,
+          zIndex: 1,
+        }}
+      />
+
+      <h2
+        className="numbered-heading"
+        ref={revealTitle}
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 40px 60px',
+          textAlign: 'center',
+          position: 'relative',
+          zIndex: 2,
+          fontSize: 'clamp(24px, 5vw, var(--fz-heading))',
+        }}>
         When I don't work...
       </h2>
 
-      <StyledProjectsGrid style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 40px',
-        position: 'relative',
-        zIndex: 2
-      }}>
+      <StyledProjectsGrid
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 40px',
+          position: 'relative',
+          zIndex: 2,
+        }}>
         {featuredProjects &&
           featuredProjects.map(({ node }, i) => {
             const { frontmatter, html } = node;

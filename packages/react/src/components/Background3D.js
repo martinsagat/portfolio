@@ -26,7 +26,12 @@ const Background3D = () => {
     sceneRef.current = scene;
 
     // Camera setup
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
     camera.position.z = 5;
     cameraRef.current = camera;
 
@@ -65,7 +70,7 @@ const Background3D = () => {
     let targetX = 0;
     let targetY = 0;
 
-    const onMouseMove = (event) => {
+    const onMouseMove = event => {
       mouseX = (event.clientX - window.innerWidth / 2) / 100;
       mouseY = (event.clientY - window.innerHeight / 2) / 100;
     };

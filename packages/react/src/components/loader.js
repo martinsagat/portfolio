@@ -32,7 +32,8 @@ const StyledLoader = styled.div`
       #M {
         opacity: 0;
       }
-      path, polygon {
+      path,
+      polygon {
         stroke: var(--blue);
       }
     }

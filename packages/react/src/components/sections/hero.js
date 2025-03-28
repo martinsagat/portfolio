@@ -277,12 +277,7 @@ const StyledHeroContent = styled.div`
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: 0.5s;
     }
 
@@ -331,12 +326,7 @@ const StyledHeroContent = styled.div`
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: 0.5s;
     }
 
@@ -370,7 +360,11 @@ const StyledScrollIndicator = styled.div`
   }
 
   @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
       transform: translateY(0);
     }
     40% {
@@ -421,12 +415,7 @@ const StyledTechnologies = styled.div`
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-      );
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: 0.5s;
     }
 
@@ -492,12 +481,7 @@ const StyledButton = styled.a`
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      120deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: 0.5s;
   }
 
@@ -527,34 +511,26 @@ const Hero = () => {
     return () => clearTimeout(timeout);
   }, []);
 
-  const one = (
-    <h1>
-      Hi, my name is
-    </h1>
-  );
+  const one = <h1>Hi, my name is</h1>;
 
-  const two = (
-    <h2>
-      Martin Sagat
-    </h2>
-  );
+  const two = <h2>Martin Sagat</h2>;
 
-  const three = (
-    <h3>
-      I build things for the web.
-    </h3>
-  );
+  const three = <h3>I build things for the web.</h3>;
 
   const four = (
     <p>
-      I'm a <span className="chip">Senior Software Engineer</span> specializing in building scalable web and mobile applications.
-      With expertise in cloud technologies and modern web frameworks, I create efficient, maintainable solutions that drive business growth.
+      I'm a <span className="chip">Senior Software Engineer</span> specializing in building scalable
+      web and mobile applications. With expertise in cloud technologies and modern web frameworks, I
+      create efficient, maintainable solutions that drive business growth.
     </p>
   );
 
   const actionButtons = (
     <StyledActionButtons>
-      <StyledButton href="https://www.linkedin.com/in/martinsagat/" target="_blank" rel="noreferrer">
+      <StyledButton
+        href="https://www.linkedin.com/in/martinsagat/"
+        target="_blank"
+        rel="noreferrer">
         Connect on LinkedIn
       </StyledButton>
       <StyledButton href="/resume.pdf" target="_blank" rel="noreferrer">

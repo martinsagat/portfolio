@@ -442,8 +442,6 @@ const Nav = ({ isHome }) => {
             </TransitionGroup>
           </>
         )}
-
-
       </StyledNav>
 
       <StyledMenu className={isMenuOpen ? 'menu-open' : ''}>
@@ -463,8 +461,7 @@ const Nav = ({ isHome }) => {
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={toggleMenu}
-          >
+            onClick={toggleMenu}>
             Resume
           </a>
         </nav>

@@ -153,17 +153,34 @@ const JobCard = styled.div`
   flex: 1;
   margin-bottom: 2rem;
   border-radius: var(--border-radius);
-  transition: var(--transition);
-  background-color: var(--light-navy);
-  box-shadow: var(--shadow-md);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(17, 34, 64, 0.7);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(100, 255, 218, 0.1);
   max-width: 800px;
   width: 100%;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(100, 255, 218, 0.1) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(100, 255, 218, 0.2);
+    border-color: rgba(100, 255, 218, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   ul {
@@ -182,6 +199,22 @@ const JobCard = styled.div`
     gap: 2rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      transition: width 0.4s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
 
     @media (max-width: 600px) {
       gap: 1.5rem;
@@ -193,23 +226,42 @@ const JobCard = styled.div`
     flex-shrink: 0;
     width: 70px;
     height: 70px;
-    background-color: var(--light-blue);
+    background: rgba(100, 255, 218, 0.1);
     border-radius: 12px;
-    transition: var(--transition);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
 
     &:hover {
-      transform: translateY(-3px);
-      background-color: var(--blue);
+      transform: translateY(-3px) scale(1.05);
+      background: rgba(100, 255, 218, 0.2);
+      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+
+      &::before {
+        left: 100%;
+      }
     }
 
     .job-logo {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      transition: transform 0.4s ease;
     }
   }
 
@@ -220,6 +272,7 @@ const JobCard = styled.div`
     font-weight: 600;
     line-height: 1.3;
     letter-spacing: -0.5px;
+    transition: color 0.4s ease;
 
     @media (max-width: 600px) {
       font-size: var(--fz-xl);
@@ -233,14 +286,31 @@ const JobCard = styled.div`
     margin-top: 0.5rem;
     display: block;
     text-align: left;
+    transition: color 0.4s ease;
 
     a {
       color: var(--blue);
       text-decoration: none;
-      transition: color var(--transition-normal) var(--easing);
+      transition: all 0.4s ease;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--gradient-primary);
+        transition: width 0.4s ease;
+      }
 
       &:hover {
         color: var(--green);
+
+        &::after {
+          width: 100%;
+        }
       }
     }
   }
@@ -287,9 +357,14 @@ const JobCard = styled.div`
       padding-left: 1.5rem;
       position: relative;
       text-align: left;
+      transition: transform 0.4s ease;
+
+      &:hover {
+        transform: translateX(5px);
+      }
 
       &:before {
-        content: "▹";
+        content: '▹';
         position: absolute;
         left: 0;
         color: var(--blue);
@@ -302,10 +377,26 @@ const JobCard = styled.div`
       a {
         color: var(--blue);
         text-decoration: none;
-        transition: color var(--transition-normal) var(--easing);
+        transition: all 0.4s ease;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: var(--gradient-primary);
+          transition: width 0.4s ease;
+        }
 
         &:hover {
           color: var(--green);
+
+          &::after {
+            width: 100%;
+          }
         }
       }
     }
@@ -318,6 +409,22 @@ const JobCard = styled.div`
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(100, 255, 218, 0.1);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      transition: width 0.4s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
   }
 
   .job-tech-chip {
@@ -329,12 +436,29 @@ const JobCard = styled.div`
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
     color: var(--light-slate);
-    transition: var(--transition);
-    list-style: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
 
     &:hover {
       background: rgba(100, 255, 218, 0.2);
       transform: translateY(-2px);
+      color: var(--lightest-slate);
+
+      &::before {
+        left: 100%;
+      }
     }
   }
 `;
@@ -429,7 +553,7 @@ const Jobs = () => {
   // Only re-run the effect if tabFocus changes
   useEffect(() => focusTab(), [tabFocus]);
 
-  const getTechIcon = (tech) => {
+  const getTechIcon = tech => {
     const techLower = tech.toLowerCase();
     const iconData = techIcons[techLower];
     if (iconData) {
