@@ -125,10 +125,6 @@ const StyledHeroContent = styled.div`
   animation: float 6s ease-in-out infinite;
 
   @media (max-width: 768px) {
-    background: rgba(17, 34, 64, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: var(--border-radius);
-    box-shadow: var(--glass-shadow);
     padding: 1rem;
   }
 
@@ -161,6 +157,7 @@ const StyledHeroContent = styled.div`
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation: glow 3s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
 
     @media (max-width: 768px) {
       font-size: clamp(55px, 7vw, 70px);
@@ -199,6 +196,7 @@ const StyledHeroContent = styled.div`
     text-align: center;
     animation: slideInLeft 0.8s ease-out 0.4s backwards;
     letter-spacing: -1px;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
 
     @media (max-width: 768px) {
       font-size: clamp(20px, 3vw, 30px);
@@ -209,13 +207,14 @@ const StyledHeroContent = styled.div`
     margin: 0 auto;
     max-width: 800px;
     text-align: center;
-    color: var(--slate);
+    color: var(--lightest-slate);
     font-size: clamp(var(--fz-md), 2vw, var(--fz-lg));
     line-height: 1.8;
     animation: slideInRight 0.8s ease-out 0.6s backwards;
     font-weight: 400;
     letter-spacing: 0.3px;
     padding: 0 20px;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
 
     @media (max-width: 768px) {
       font-size: clamp(var(--fz-sm), 1.5vw, var(--fz-md));
@@ -366,6 +365,10 @@ const StyledScrollIndicator = styled.div`
   z-index: 2;
   animation: bounce 2s infinite;
 
+  @media (max-width: 768px) {
+    bottom: 20px;
+  }
+
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
       transform: translateY(0);
@@ -391,12 +394,13 @@ const StyledTechnologies = styled.div`
   border-radius: var(--border-radius);
   box-shadow: var(--glass-shadow);
   max-width: 800px;
-  margin: 2rem auto 0;
+  margin: 2rem auto 4rem;
   animation: fadeInUp 0.5s ease-out 0.4s backwards;
 
   @media (max-width: 768px) {
     padding: 1rem;
     gap: 15px;
+    margin: 2rem auto 3rem;
   }
 
   .tech-icon {
