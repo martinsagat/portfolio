@@ -354,6 +354,10 @@ const StyledScrollIndicator = styled.div`
   transform: translateX(-50%);
   z-index: 2;
   animation: bounce 2s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 
   @media (max-width: 768px) {
     bottom: 20px;
@@ -365,13 +369,13 @@ const StyledScrollIndicator = styled.div`
     50%,
     80%,
     100% {
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
     }
     40% {
-      transform: translateY(-20px);
+      transform: translateX(-50%) translateY(-20px);
     }
     60% {
-      transform: translateY(-10px);
+      transform: translateX(-50%) translateY(-10px);
     }
   }
 `;
