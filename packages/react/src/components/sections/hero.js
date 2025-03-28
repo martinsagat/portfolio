@@ -71,8 +71,20 @@ const StyledHeroSection = styled.section`
     }
   }
 
+  @keyframes glow {
+    0% {
+      text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+    }
+    50% {
+      text-shadow: 0 0 20px rgba(100, 255, 218, 0.8);
+    }
+    100% {
+      text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+    }
+  }
+
   @media (max-width: 768px) {
-    padding: 80px 0 50px;
+    padding: 120px 0 50px;
     min-height: auto;
   }
 
@@ -107,19 +119,16 @@ const StyledHeroContent = styled.div`
   z-index: 2;
   text-align: center;
   padding: 3rem;
-  background: rgba(17, 34, 64, 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: var(--border-radius);
-  box-shadow: var(--glass-shadow);
   max-width: 1000px;
   margin: 0 auto;
   width: 100%;
+  animation: float 6s ease-in-out infinite;
 
   @media (max-width: 768px) {
-    backdrop-filter: none;
-    box-shadow: none;
-    background: transparent;
-    border-radius: 0;
+    background: rgba(17, 34, 64, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    box-shadow: var(--glass-shadow);
     padding: 1rem;
   }
 
@@ -151,6 +160,7 @@ const StyledHeroContent = styled.div`
     position: relative;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: glow 3s ease-in-out infinite;
 
     @media (max-width: 768px) {
       font-size: clamp(55px, 7vw, 70px);
@@ -170,7 +180,7 @@ const StyledHeroContent = styled.div`
     }
 
     &:hover {
-      transform: translateY(-1px);
+      transform: translateY(-1px) scale(1.02);
       text-shadow: 0 2px 8px rgba(100, 255, 218, 0.2);
 
       &::before {
@@ -246,7 +256,6 @@ const StyledHeroContent = styled.div`
   }
 
   .email-link {
-    ${({ theme }) => theme.mixins.bigButton};
     width: 100%;
     text-align: center;
     display: flex;
@@ -259,10 +268,32 @@ const StyledHeroContent = styled.div`
     color: var(--dark-navy);
     font-weight: 600;
     transition: all var(--transition-normal) var(--easing);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: 0.5s;
+    }
 
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
+
+      &::before {
+        left: 100%;
+      }
     }
 
     &.secondary {
@@ -291,6 +322,24 @@ const StyledHeroContent = styled.div`
     box-shadow: 0 2px 10px rgba(11, 172, 235, 0.2);
     transition: all var(--transition-normal) var(--easing);
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: 0.5s;
+    }
 
     @media (max-width: 768px) {
       font-size: var(--fz-xs);
@@ -299,8 +348,12 @@ const StyledHeroContent = styled.div`
     }
 
     &:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.05);
       box-shadow: 0 4px 15px rgba(11, 172, 235, 0.3);
+
+      &::before {
+        left: 100%;
+      }
     }
   }
 `;
@@ -354,6 +407,24 @@ const StyledTechnologies = styled.div`
     opacity: 0.9;
     border-radius: 8px;
     filter: brightness(1.2);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: 0.5s;
+    }
 
     @media (max-width: 768px) {
       width: 40px;
@@ -362,9 +433,13 @@ const StyledTechnologies = styled.div`
     }
 
     &:hover {
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.1);
       opacity: 1;
       filter: brightness(1.4);
+
+      &::before {
+        left: 100%;
+      }
     }
   }
 `;
@@ -403,6 +478,24 @@ const StyledButton = styled.a`
   letter-spacing: 0.5px;
   transition: all var(--transition-normal) var(--easing);
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: 0.5s;
+  }
 
   &:hover {
     transform: translateY(-2px);
@@ -410,6 +503,10 @@ const StyledButton = styled.a`
     color: var(--green);
     box-shadow: 0 5px 15px rgba(11, 172, 235, 0.4);
     border-color: var(--green);
+
+    &::before {
+      left: 100%;
+    }
   }
 `;
 
@@ -615,6 +712,7 @@ const Hero = () => {
 
   return (
     <StyledHeroSection>
+      <Background3D />
       <StyledHeroContent>
         {prefersReducedMotion ? (
           <>
@@ -633,6 +731,21 @@ const Hero = () => {
           </TransitionGroup>
         )}
       </StyledHeroContent>
+      <StyledScrollIndicator>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
+        </svg>
+      </StyledScrollIndicator>
     </StyledHeroSection>
   );
 };
