@@ -54,7 +54,7 @@ const StyledJobsSection = styled.section`
 
     @media (max-width: 600px) {
       display: block;
-      text-align: center;
+      text-align: left;
       padding: 0 20px;
     }
 
@@ -88,40 +88,155 @@ const StyledJob = styled.div`
 
   .job-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    flex-wrap: nowrap;
-    gap: 1rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    position: relative;
+    width: 100%;
 
-    @media (max-width: 768px) {
-      flex-direction: column;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gradient-primary);
+      transition: width 0.4s ease;
+    }
+
+    &:hover::after {
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-direction: row;
       align-items: flex-start;
-      gap: 0.5rem;
+    }
+
+    > div:last-child {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+    }
+  }
+
+  .job-logo-wrapper {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    background: rgba(100, 255, 218, 0.1);
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    &:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: rgba(100, 255, 218, 0.2);
+      box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    .job-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
     }
   }
 
   .job-title {
-    color: var(--lightest-slate);
-    font-size: var(--fz-xl);
-    font-weight: 600;
     margin: 0;
-    white-space: nowrap;
+    color: var(--lightest-slate);
+    font-size: var(--fz-xxl);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+    transition: color 0.4s ease;
+    margin-bottom: 0.25rem;
+    text-align: left;
+    width: 100%;
+
+    @media (max-width: 600px) {
+      font-size: var(--fz-xl);
+      text-align: left;
+    }
   }
 
-  .job-date {
-    color: var(--light-slate);
-    font-family: var(--font-mono);
-    font-size: var(--fz-sm);
-    white-space: nowrap;
-  }
-
-  .job-company {
+  .job-card-company {
     color: var(--blue);
+    font-size: var(--fz-lg);
+    font-weight: 500;
+    display: block;
+    text-align: left;
+    transition: color 0.4s ease;
+    margin-bottom: 0.25rem;
+
+    @media (max-width: 600px) {
+      text-align: left;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.4s ease;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: var(--gradient-primary);
+        transition: width 0.4s ease;
+      }
+
+      &:hover {
+        color: var(--green);
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .job-dates {
+    color: var(--light-slate);
+    font-size: var(--fz-sm);
     font-family: var(--font-mono);
-    font-size: var(--fz-md);
-    margin-bottom: 1rem;
-    white-space: nowrap;
+    display: block;
+    text-align: left;
+
+    @media (max-width: 600px) {
+      text-align: left;
+    }
   }
 
   .job-description {
@@ -220,6 +335,12 @@ const JobCard = styled.div`
       gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
+
+    > div:last-child {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
   }
 
   .job-logo-wrapper {
@@ -273,6 +394,7 @@ const JobCard = styled.div`
     line-height: 1.3;
     letter-spacing: -0.5px;
     transition: color 0.4s ease;
+    margin-bottom: 0.25rem;
 
     @media (max-width: 600px) {
       font-size: var(--fz-xl);
@@ -283,10 +405,10 @@ const JobCard = styled.div`
     color: var(--blue);
     font-size: var(--fz-lg);
     font-weight: 500;
-    margin-top: 0.5rem;
     display: block;
     text-align: left;
     transition: color 0.4s ease;
+    margin-bottom: 0.25rem;
 
     a {
       color: var(--blue);
@@ -319,7 +441,6 @@ const JobCard = styled.div`
     color: var(--light-slate);
     font-size: var(--fz-sm);
     font-family: var(--font-mono);
-    margin-top: 0.5rem;
     display: block;
     text-align: left;
   }
@@ -580,8 +701,7 @@ const Jobs = () => {
                 <div>
                   <h3 className="job-title">{title}</h3>
                   <span className="job-card-company">
-                    @{' '}
-                    <a href={url} className="inline-link">
+                    @<a href={url} className="inline-link">
                       {company}
                     </a>
                   </span>

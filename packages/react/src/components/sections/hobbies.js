@@ -13,6 +13,14 @@ const StyledProjectsGrid = styled.ul`
     position: relative;
     z-index: 1;
   }
+
+  @media (max-width: 768px) {
+    padding: 0 10px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0 5px;
+  }
 `;
 
 const StyledProject = styled.li`
@@ -36,16 +44,20 @@ const StyledProject = styled.li`
     ${({ theme }) => theme.mixins.boxShadow};
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 1rem;
     background: var(--light-navy);
     border-radius: var(--border-radius);
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.75rem;
   }
 
   &:not(:last-of-type) {
     margin-bottom: 100px;
 
     @media (max-width: 768px) {
-      margin-bottom: 70px;
+      margin-bottom: 40px;
     }
 
     @media (max-width: 480px) {
@@ -111,13 +123,17 @@ const StyledProject = styled.li`
     line-height: 1.6;
 
     @media (max-width: 768px) {
-      padding: 20px 0;
+      padding: 10px 0;
       background-color: transparent;
       box-shadow: none;
+    }
 
-      &:hover {
-        box-shadow: none;
-      }
+    @media (max-width: 480px) {
+      padding: 5px 0;
+    }
+
+    &:hover {
+      box-shadow: none;
     }
 
     a {
@@ -148,10 +164,10 @@ const StyledProject = styled.li`
     }
 
     @media (max-width: 768px) {
-      margin: 10px 0;
+      margin: 8px 0;
 
       li {
-        margin: 0 10px 5px 0;
+        margin: 0 8px 5px 0;
         color: var(--lightest-slate);
       }
     }
@@ -200,15 +216,21 @@ const StyledProject = styled.li`
 
     @media (max-width: 768px) {
       grid-column: 1 / -1;
-      margin: 20px auto 0;
+      margin: 10px auto 0;
       height: 100%;
       opacity: 1;
-      max-width: 300px;
+      max-width: 280px;
+    }
+
+    @media (max-width: 480px) {
+      margin: 8px auto 0;
+      max-width: 240px;
     }
 
     a {
       width: 100%;
       height: 100%;
+      background-color: var(--blue);
       border-radius: var(--border-radius);
       vertical-align: middle;
     }
@@ -309,7 +331,7 @@ const Featured = () => {
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 40px 60px',
+          padding: '0 20px 40px',
           textAlign: 'center',
           position: 'relative',
           zIndex: 2,
@@ -322,7 +344,7 @@ const Featured = () => {
         style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 40px',
+          padding: '0 20px',
           position: 'relative',
           zIndex: 2,
         }}>
