@@ -8,38 +8,73 @@ import { Layout } from '@components';
 import { IconBookmark } from '@components/icons';
 
 const StyledMainContainer = styled.main`
-  & > header {
-    margin-bottom: 100px;
-    text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 150px 0 100px;
+  position: relative;
+  background: var(--gradient-dark);
+  min-height: 100vh;
 
-    a {
-      &:hover,
-      &:focus {
-        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>⚡</text></svg>")
-            20 0,
-          auto;
-      }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  & > header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 60px;
+    text-align: center;
+    padding: 0 40px;
+
+    @media (max-width: 768px) {
+      padding: 0 20px;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      color: var(--lightest-slate);
+      font-size: clamp(32px, 5vw, 48px);
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    p {
+      color: var(--light-slate);
+      font-size: var(--fz-lg);
+      max-width: 600px;
+      margin: 0 auto;
     }
   }
-
-  footer {
-    ${({ theme }) => theme.mixins.flexBetween};
-    width: 100%;
-    margin-top: 20px;
-  }
 `;
+
 const StyledGrid = styled.ul`
   ${({ theme }) => theme.mixins.resetList};
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  grid-gap: 15px;
-  margin-top: 50px;
   position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+  margin: 0 auto;
+  padding: 0 40px;
+  max-width: 1000px;
 
   @media (max-width: 1080px) {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
   }
 `;
+
 const StyledPost = styled.li`
   transition: var(--transition);
   cursor: default;
@@ -66,9 +101,16 @@ const StyledPost = styled.li`
     position: relative;
     height: 100%;
     padding: 2rem 1.75rem;
-    border-radius: var(--border-radius);
+    border-radius: 12px;
     transition: var(--transition);
-    background-color: var(--light-navy);
+    background: rgba(17, 34, 64, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+
+    &:hover {
+      border-color: var(--blue);
+      box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+    }
 
     header,
     a {
@@ -79,22 +121,30 @@ const StyledPost = styled.li`
   .post__icon {
     ${({ theme }) => theme.mixins.flexBetween};
     color: var(--blue);
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     margin-left: -5px;
 
     svg {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
     }
   }
 
   .post__title {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
     color: var(--lightest-slate);
-    font-size: var(--fz-xxl);
+    font-size: clamp(18px, 3vw, 22px);
+    line-height: 1.3;
 
     a {
       position: static;
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+
+      &:hover {
+        color: var(--blue);
+      }
 
       &:before {
         content: '';
@@ -111,32 +161,48 @@ const StyledPost = styled.li`
 
   .post__desc {
     color: var(--light-slate);
-    font-size: 17px;
+    font-size: var(--fz-md);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .post__date {
     color: var(--light-slate);
     font-family: var(--font-mono);
-    font-size: var(--fz-xxs);
-    text-transform: uppercase;
+    font-size: var(--fz-sm);
+    margin-bottom: 12px;
   }
 
   ul.post__tags {
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
+    gap: 6px;
     padding: 0;
     margin: 0;
     list-style: none;
 
     li {
-      color: var(--blue);
-      font-family: var(--font-mono);
-      font-size: var(--fz-xxs);
-      line-height: 1.75;
+      a {
+        color: var(--light-slate);
+        text-decoration: none;
+        transition: var(--transition);
+        padding: 3px 10px;
+        background: rgba(100, 255, 218, 0.1);
+        border-radius: 4px;
+        font-size: var(--fz-sm);
+        font-family: var(--font-mono);
 
-      &:not(:last-of-type) {
-        margin-right: 15px;
+        &:hover {
+          color: var(--blue);
+          background: rgba(100, 255, 218, 0.2);
+          transform: translateY(-1px);
+        }
       }
     }
   }
@@ -151,7 +217,8 @@ const ArticlesPage = ({ location, data }) => {
 
       <StyledMainContainer>
         <header>
-          <h1 className="big-heading">Articles</h1>
+          <h1>Articles</h1>
+          <p>Thoughts, tutorials, and insights about software development and technology.</p>
         </header>
 
         <StyledGrid>
@@ -159,7 +226,11 @@ const ArticlesPage = ({ location, data }) => {
             posts.map(({ node }, i) => {
               const { frontmatter } = node;
               const { title, description, slug, date, tags } = frontmatter;
-              const formattedDate = new Date(date).toLocaleDateString();
+              const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              });
 
               return (
                 <StyledPost key={i}>
@@ -179,7 +250,7 @@ const ArticlesPage = ({ location, data }) => {
                       <ul className="post__tags">
                         {tags.map((tag, i) => (
                           <li key={i}>
-                            <Link to={`/articles/tags/${kebabCase(tag)}/`} className="inline-link">
+                            <Link to={`/articles/tags/${kebabCase(tag)}/`}>
                               #{tag}
                             </Link>
                           </li>

@@ -13,6 +13,12 @@ const StyledContent = styled.div`
 const Layout = ({ children, location }) => {
   const isHome = location.pathname === '/';
   const [isLoading, setIsLoading] = useState(isHome);
+  const [isInitialLoad, setIsInitialLoad] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('hasLoaded') !== 'true';
+    }
+    return true;
+  });
 
   // Sets target="_blank" rel="noopener noreferrer" on external links
   const handleExternalLinks = () => {
@@ -46,6 +52,13 @@ const Layout = ({ children, location }) => {
     handleExternalLinks();
   }, [isLoading]);
 
+  useEffect(() => {
+    if (!isLoading && isInitialLoad) {
+      setIsInitialLoad(false);
+      localStorage.setItem('hasLoaded', 'true');
+    }
+  }, [isLoading, isInitialLoad]);
+
   return (
     <>
       <Head />
@@ -58,7 +71,7 @@ const Layout = ({ children, location }) => {
             <Loader finishLoading={() => setIsLoading(false)} />
           ) : (
             <StyledContent>
-              <Nav isHome={isHome} />
+              <Nav isHome={isHome} isInitialLoad={isInitialLoad} />
               <Social isHome={isHome} />
               <Email isHome={isHome} />
 
