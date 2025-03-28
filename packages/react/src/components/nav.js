@@ -116,6 +116,7 @@ const StyledNav = styled.nav`
 const StyledLinks = styled.div`
   display: flex;
   align-items: center;
+  height: 100%;
 
   @media (max-width: 768px) {
     display: none;
@@ -126,16 +127,21 @@ const StyledLinks = styled.div`
     padding: 0;
     margin: 0;
     list-style: none;
+    height: 100%;
+    align-items: center;
 
     li {
       margin: 0 5px;
       position: relative;
-      counter-increment: item 1;
-      font-size: var(--fz-sm);
+      font-size: var(--fz-md);
+      font-family: var(--font-sans);
+      font-weight: 500;
 
       a {
         padding: 10px;
-        display: block;
+        display: flex;
+        align-items: center;
+        height: 100%;
         color: var(--lightest-slate);
         text-decoration: none;
         transition: color var(--transition-normal) var(--easing);
@@ -143,14 +149,6 @@ const StyledLinks = styled.div`
 
         &:hover {
           color: var(--blue);
-        }
-
-        &:before {
-          content: '0' counter(item) '.';
-          margin-right: 5px;
-          color: var(--blue);
-          font-size: var(--fz-xs);
-          text-align: right;
         }
       }
     }

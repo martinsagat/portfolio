@@ -34,6 +34,11 @@ const StyledProject = styled.li`
 
   @media (max-width: 768px) {
     ${({ theme }) => theme.mixins.boxShadow};
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--light-navy);
+    border-radius: var(--border-radius);
   }
 
   &:not(:last-of-type) {
@@ -64,12 +69,12 @@ const StyledProject = styled.li`
       justify-content: center;
       height: 100%;
       grid-column: 1 / -1;
-      padding: 40px 40px 30px;
+      padding: 0;
       z-index: 5;
     }
 
     @media (max-width: 480px) {
-      padding: 30px 25px 20px;
+      padding: 0;
     }
   }
 
@@ -83,6 +88,7 @@ const StyledProject = styled.li`
 
   .project-title {
     color: var(--lightest-slate);
+    font-size: var(--fz-heading);
 
     @media (min-width: 768px) {
       margin: 0 0 20px;
@@ -90,27 +96,11 @@ const StyledProject = styled.li`
 
     @media (max-width: 768px) {
       color: var(--white);
-    }
-
-    a {
-      position: static;
-      z-index: 1;
-
-      &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-      }
+      margin: 0 0 10px;
     }
   }
 
   .project-description {
-    ${({ theme }) => theme.mixins.boxShadow};
     position: relative;
     z-index: 2;
     padding: 25px;
@@ -118,6 +108,7 @@ const StyledProject = styled.li`
     background-color: var(--light-navy);
     color: var(--light-slate);
     font-size: var(--fz-lg);
+    line-height: 1.6;
 
     @media (max-width: 768px) {
       padding: 20px 0;
@@ -209,8 +200,9 @@ const StyledProject = styled.li`
 
     @media (max-width: 768px) {
       grid-column: 1 / -1;
+      margin: 20px auto 0;
       height: 100%;
-      opacity: 0.25;
+      opacity: 1;
       max-width: 300px;
     }
 
@@ -230,7 +222,7 @@ const StyledProject = styled.li`
       @media (max-width: 768px) {
         object-fit: cover;
         width: 100%;
-        height: auto;
+        height: 100%;
       }
     }
   }
@@ -280,8 +272,11 @@ const Featured = () => {
       return;
     }
 
-    sr.reveal(revealTitle.current, srConfig());
-    revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
+    // Only apply scroll reveal on desktop
+    if (window.innerWidth > 768) {
+      sr.reveal(revealTitle.current, srConfig());
+      revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
+    }
   }, []);
 
   return (
