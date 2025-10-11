@@ -5,9 +5,5 @@ import "sst"
 export {}
 declare module "sst" {
   export interface Resource {
-    "MartinSagat": {
-      "type": "sst.aws.React"
-      "url": string
-    }
   }
 }
