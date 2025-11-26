@@ -5,6 +5,8 @@ import TransitionStyles from './TransitionStyles';
 import PrismStyles from './PrismStyles';
 
 const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
   ${fonts};
   ${variables};
 
@@ -12,8 +14,8 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     width: 100%;
     scroll-behavior: smooth;
-    background: var(--dark-navy);
-    color: var(--lightest-slate);
+    background: var(--bg-primary);
+    color: var(--text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -25,8 +27,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: var(--font-sans);
     font-size: var(--fz-lg);
     line-height: 1.6;
-    color: var(--lightest-slate);
-    background: var(--dark-navy);
+    color: var(--text-primary);
+    background: var(--bg-primary);
   }
 
   *,
@@ -36,14 +38,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background-color: var(--lightest-navy);
-    color: var(--lightest-slate);
+    background-color: var(--accent-light);
+    color: var(--text-primary);
   }
 
   /* Provide basic, default focus styles.*/
   :focus {
-    outline: 2px dashed var(--blue);
-    outline-offset: 3px;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   /*
@@ -61,8 +63,8 @@ const GlobalStyle = createGlobalStyle`
     focus.
   */
   :focus-visible {
-    outline: 2px dashed var(--blue);
-    outline-offset: 3px;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   /* Smooth scrolling for the whole page */
@@ -72,21 +74,20 @@ const GlobalStyle = createGlobalStyle`
 
   /* Modern scrollbar styling */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--dark-navy);
+    background: var(--bg-secondary);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--light-navy);
-    border-radius: 5px;
-    border: 2px solid var(--dark-navy);
+    background: var(--text-tertiary);
+    border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--lightest-navy);
+    background: var(--text-secondary);
   }
 
   /* Smooth transitions for all interactive elements */
@@ -96,12 +97,12 @@ const GlobalStyle = createGlobalStyle`
 
   /* Modern link styling */
   a {
-    color: var(--blue);
+    color: var(--accent);
     text-decoration: none;
     position: relative;
 
     &:hover {
-      color: var(--green);
+      color: var(--accent-hover);
     }
 
     &.underline {
@@ -144,33 +145,34 @@ const GlobalStyle = createGlobalStyle`
 
   /* Modern input styling */
   input, textarea {
-    background: var(--light-navy);
-    border: 1px solid var(--lightest-navy);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
     border-radius: var(--border-radius);
     padding: 0.75rem 1rem;
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     font-family: var(--font-sans);
     font-size: var(--fz-sm);
     transition: all var(--transition-normal) var(--easing);
 
     &:focus {
       outline: none;
-      border-color: var(--blue);
-      box-shadow: 0 0 0 2px var(--light-blue);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
     }
   }
 
   /* Modern card styling */
   .card {
-    background: var(--light-navy);
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
     border-radius: var(--border-radius);
     padding: 2rem;
     transition: transform var(--transition-normal) var(--easing),
                 box-shadow var(--transition-normal) var(--easing);
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px -10px var(--navy-shadow);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
     }
   }
 
@@ -181,28 +183,29 @@ const GlobalStyle = createGlobalStyle`
     overflow: hidden;
 
     &:nth-of-type(odd) {
-      background: var(--gradient-dark);
+      background: var(--bg-primary);
     }
 
     &:nth-of-type(even) {
-      background: var(--gradient-light);
+      background: var(--bg-secondary);
     }
   }
 
   /* Modern heading styles */
   h1, h2, h3, h4, h5, h6 {
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     margin: 0 0 10px;
     font-weight: 600;
-    line-height: 1.1;
+    line-height: 1.2;
     font-family: var(--font-sans);
+    letter-spacing: -0.02em;
   }
 
   /* Modern paragraph styles */
   p {
     margin: 0 0 20px;
-    color: var(--slate);
-    line-height: 1.6;
+    color: var(--text-secondary);
+    line-height: 1.7;
     font-family: var(--font-sans);
   }
 
@@ -210,7 +213,7 @@ const GlobalStyle = createGlobalStyle`
   ul, ol {
     margin: 0 0 20px;
     padding-left: 20px;
-    color: var(--slate);
+    color: var(--text-secondary);
     font-family: var(--font-sans);
   }
 
@@ -227,12 +230,13 @@ const GlobalStyle = createGlobalStyle`
 
   /* Modern code block styles */
   pre, code {
-    background: var(--light-navy);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
     border-radius: var(--border-radius);
     padding: 0.5rem;
     font-family: var(--font-mono);
     font-size: var(--fz-sm);
-    color: var(--lightest-slate);
+    color: var(--text-primary);
   }
 
   /* Modern table styles */
@@ -249,12 +253,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   th {
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     font-weight: 600;
   }
 
   td {
-    color: var(--slate);
+    color: var(--text-secondary);
   }
 
   /* Modern form styles */
@@ -265,7 +269,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   label {
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     font-size: var(--fz-sm);
     margin-bottom: 5px;
   }

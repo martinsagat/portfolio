@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled, { css } from 'styled-components';
 import { navLinks } from '@config';
-import { loaderDelay } from '@utils';
-import { useScrollDirection, usePrefersReducedMotion } from '@hooks';
+import { useScrollDirection } from '@hooks';
 import { Menu } from '@components';
 import { IconLogo, IconHex } from '@components/icons';
 
 const StyledHeader = styled.header`
   ${({ theme }) => theme.mixins.flexBetween};
   position: fixed;
-  top: 0;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 11;
-  padding: 0px 50px;
-  width: 100%;
+  padding: 0px 24px;
+  width: calc(100% - 40px);
+  max-width: 1200px;
   height: var(--nav-height);
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--glass-border);
-  transition: all var(--transition-normal) var(--easing);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
 
   @media (max-width: 1080px) {
-    padding: 0 40px;
+    padding: 0 20px;
+    width: calc(100% - 32px);
   }
   @media (max-width: 768px) {
-    padding: 0 25px;
+    padding: 0 16px;
+    width: calc(100% - 20px);
+    top: 15px;
+    border-radius: 15px;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -36,9 +42,9 @@ const StyledHeader = styled.header`
       !props.scrolledToTop &&
       css`
         height: var(--nav-scroll-height);
-        transform: translateY(0px);
-        background-color: rgba(10, 25, 47, 0.85);
-        box-shadow: 0 10px 30px -10px var(--navy-shadow);
+        transform: translateX(-50%) translateY(0px);
+        background-color: rgba(255, 255, 255, 0.95);
+        box-shadow: var(--shadow-lg);
       `};
 
     ${props =>
@@ -46,7 +52,7 @@ const StyledHeader = styled.header`
       !props.scrolledToTop &&
       css`
         height: var(--nav-scroll-height);
-        transform: translateY(calc(var(--nav-scroll-height) * -1));
+        transform: translateX(-50%) translateY(calc(var(--nav-scroll-height) * -1 - 20px));
         box-shadow: 0 10px 30px -10px var(--navy-shadow);
       `};
   }
@@ -56,47 +62,82 @@ const StyledNav = styled.nav`
   ${({ theme }) => theme.mixins.flexBetween};
   position: relative;
   width: 100%;
-  color: var(--lightest-slate);
+  height: 100%;
+  color: var(--text-primary);
   font-family: var(--font-mono);
   counter-reset: item 0;
   z-index: 12;
+  align-items: center;
 
   .logo {
     ${({ theme }) => theme.mixins.flexCenter};
-    width: 42px;
-    height: 42px;
+    width: 44px;
+    height: 44px;
     position: relative;
     z-index: 13;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     a {
       width: 100%;
       height: 100%;
       position: relative;
       z-index: 1;
-      color: var(--blue);
+      color: var(--accent);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all var(--transition-normal) var(--easing);
 
       .hex-container {
         position: absolute;
-        top: 0;
-        left: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         z-index: -1;
-        @media (prefers-reduced-motion: no-preference) {
-          transition: var(--transition);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.1;
+        transition: opacity var(--transition-normal) var(--easing);
+
+        svg {
+          width: 100%;
+          height: 100%;
         }
       }
 
       .logo-container {
         position: relative;
         z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         svg {
+          width: 100%;
+          height: 100%;
           fill: none;
           user-select: none;
-          @media (prefers-reduced-motion: no-preference) {
-            transition: var(--transition);
-          }
+          transition: all var(--transition-normal) var(--easing);
+
           polygon {
-            fill: var(--navy);
+            fill: var(--accent);
+            stroke: var(--accent);
+            stroke-width: 2;
+          }
+
+          path {
+            stroke: var(--accent);
+            stroke-width: 3;
           }
         }
       }
@@ -104,9 +145,22 @@ const StyledNav = styled.nav`
       &:hover,
       &:focus {
         outline: 0;
-        transform: translate(-4px, -4px);
+        background: var(--accent-light);
+
         .hex-container {
-          transform: translate(4px, 3px);
+          opacity: 0.15;
+        }
+
+        .logo-container {
+          svg {
+            polygon {
+              fill: var(--accent-hover);
+              stroke: var(--accent-hover);
+            }
+            path {
+              stroke: var(--accent-hover);
+            }
+          }
         }
       }
     }
@@ -117,18 +171,29 @@ const StyledLinks = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  flex: 1;
+  justify-content: flex-end;
 
   @media (max-width: 768px) {
     display: none;
   }
 
+  > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
   ol {
-    ${({ theme }) => theme.mixins.flexBetween};
+    display: flex;
+    align-items: center;
     padding: 0;
     margin: 0;
     list-style: none;
     height: 100%;
-    align-items: center;
 
     li {
       margin: 0 5px;
@@ -136,19 +201,23 @@ const StyledLinks = styled.div`
       font-size: var(--fz-md);
       font-family: var(--font-sans);
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      height: 100%;
 
       a {
         padding: 10px;
         display: flex;
         align-items: center;
         height: 100%;
-        color: var(--lightest-slate);
+        color: var(--text-primary);
         text-decoration: none;
         transition: color var(--transition-normal) var(--easing);
         position: relative;
+        white-space: nowrap;
 
         &:hover {
-          color: var(--blue);
+          color: var(--accent);
         }
       }
     }
@@ -156,19 +225,31 @@ const StyledLinks = styled.div`
 
   .resume-button {
     ${({ theme }) => theme.mixins.smallButton};
-    margin-left: 15px;
     font-size: var(--fz-xs);
-    background: var(--gradient-primary);
-    border: none;
-    color: var(--dark-navy);
+    background: var(--accent) !important;
+    border: none !important;
+    color: var(--text-light) !important;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius);
+    border-radius: 999px;
     transition: all var(--transition-normal) var(--easing);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    margin: 0 0 0 1.5rem;
+    box-sizing: border-box;
+    text-align: center;
+    white-space: nowrap;
+    box-shadow: none !important;
+    transform: none !important;
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
+      background: var(--accent-hover) !important;
+      color: var(--text-light) !important;
+      box-shadow: none !important;
+      transform: none !important;
     }
   }
 `;
@@ -177,7 +258,9 @@ const StyledHamburger = styled.div`
   display: none;
 
   @media (max-width: 768px) {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     z-index: 13;
     width: var(--hamburger-width);
@@ -187,6 +270,7 @@ const StyledHamburger = styled.div`
     border: none;
     padding: 0;
     margin: 0;
+    flex-shrink: 0;
 
     &:hover {
       span {
@@ -272,18 +356,18 @@ const StyledMenu = styled.div`
             width: 100%;
             padding: 3px 20px 20px;
             display: block;
-            color: var(--lightest-slate);
+            color: var(--text-primary);
             text-decoration: none;
             transition: color var(--transition-normal) var(--easing);
 
             &:hover {
-              color: var(--blue);
+              color: var(--accent);
             }
 
             &:before {
               content: '0' counter(item) '.';
               margin-right: 5px;
-              color: var(--blue);
+              color: var(--accent);
               font-size: var(--fz-sm);
               text-align: right;
             }
@@ -295,17 +379,17 @@ const StyledMenu = styled.div`
         ${({ theme }) => theme.mixins.smallButton};
         margin-top: 20px;
         font-size: var(--fz-sm);
-        background: var(--gradient-primary);
+        background: var(--accent);
         border: none;
-        color: var(--dark-navy);
+        color: var(--text-light);
         font-weight: 600;
         padding: 1rem 2rem;
-        border-radius: var(--border-radius);
+        border-radius: 999px;
         transition: all var(--transition-normal) var(--easing);
 
         &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
+          background: var(--accent-hover);
+          color: var(--text-light);
         }
       }
     }
@@ -313,10 +397,8 @@ const StyledMenu = styled.div`
 `;
 
 const Nav = ({ isHome, isInitialLoad }) => {
-  const [isMounted, setIsMounted] = useState(false);
   const scrollDirection = useScrollDirection('down');
   const [scrolledToTop, setScrolledToTop] = useState(true);
-  const prefersReducedMotion = usePrefersReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleScroll = () => {
@@ -324,28 +406,9 @@ const Nav = ({ isHome, isInitialLoad }) => {
   };
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    if (isInitialLoad) {
-      const timeout = setTimeout(() => {
-        setIsMounted(true);
-      }, 100);
-      return () => clearTimeout(timeout);
-    } else {
-      setIsMounted(true);
-    }
-  }, [isInitialLoad, prefersReducedMotion]);
-
-  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const timeout = isInitialLoad ? loaderDelay : 0;
-  const fadeClass = isInitialLoad ? 'fade' : '';
-  const fadeDownClass = isInitialLoad ? 'fadedown' : '';
 
   const Logo = (
     <div className="logo" tabIndex="-1">
@@ -382,87 +445,19 @@ const Nav = ({ isHome, isInitialLoad }) => {
   return (
     <StyledHeader scrollDirection={scrollDirection} scrolledToTop={scrolledToTop}>
       <StyledNav>
-        {prefersReducedMotion ? (
-          <>
-            {Logo}
-            <StyledLinks>
-              <ol>
-                {navLinks &&
-                  navLinks.map(({ url, name }, i) => (
-                    <li key={i}>
-                      <Link to={url}>{name}</Link>
-                    </li>
-                  ))}
-              </ol>
-              <div>{ResumeLink}</div>
-            </StyledLinks>
-            <Menu />
-          </>
-        ) : (
-          <>
-            {isInitialLoad ? (
-              <>
-                <TransitionGroup component={null}>
-                  {isMounted && (
-                    <CSSTransition classNames={fadeClass} timeout={timeout}>
-                      <>{Logo}</>
-                    </CSSTransition>
-                  )}
-                </TransitionGroup>
-
-                <StyledLinks>
-                  <ol>
-                    <TransitionGroup component={null}>
-                      {isMounted &&
-                        navLinks &&
-                        navLinks.map(({ url, name }, i) => (
-                          <CSSTransition key={i} classNames={fadeDownClass} timeout={timeout}>
-                            <li key={i} style={{ transitionDelay: `${i * 100}ms` }}>
-                              <Link to={url}>{name}</Link>
-                            </li>
-                          </CSSTransition>
-                        ))}
-                    </TransitionGroup>
-                  </ol>
-
-                  <TransitionGroup component={null}>
-                    {isMounted && (
-                      <CSSTransition classNames={fadeDownClass} timeout={timeout}>
-                        <div style={{ transitionDelay: `${navLinks.length * 100}ms` }}>
-                          {ResumeLink}
-                        </div>
-                      </CSSTransition>
-                    )}
-                  </TransitionGroup>
-                </StyledLinks>
-
-                <TransitionGroup component={null}>
-                  {isMounted && (
-                    <CSSTransition classNames={fadeClass} timeout={timeout}>
-                      <Menu />
-                    </CSSTransition>
-                  )}
-                </TransitionGroup>
-              </>
-            ) : (
-              <>
-                {Logo}
-                <StyledLinks>
-                  <ol>
-                    {navLinks &&
-                      navLinks.map(({ url, name }, i) => (
-                        <li key={i}>
-                          <Link to={url}>{name}</Link>
-                        </li>
-                      ))}
-                  </ol>
-                  <div>{ResumeLink}</div>
-                </StyledLinks>
-                <Menu />
-              </>
-            )}
-          </>
-        )}
+        {Logo}
+        <StyledLinks>
+          <ol>
+            {navLinks &&
+              navLinks.map(({ url, name }, i) => (
+                <li key={i}>
+                  <Link to={url}>{name}</Link>
+                </li>
+              ))}
+          </ol>
+          <div>{ResumeLink}</div>
+        </StyledLinks>
+        <Menu />
       </StyledNav>
 
       <StyledMenu className={isMenuOpen ? 'menu-open' : ''}>

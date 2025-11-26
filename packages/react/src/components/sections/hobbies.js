@@ -34,28 +34,29 @@ const StyledProject = styled.li`
   margin: 0 auto;
   padding: 0 20px;
 
-  @media (prefers-reduced-motion: no-preference) {
-    &:hover,
-    &:focus-within {
-      .project-inner {
-        transform: translateY(-7px);
-      }
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    max-width: 600px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
     }
   }
 
-  @media (max-width: 768px) {
-    ${({ theme }) => theme.mixins.boxShadow};
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    background: var(--light-navy);
-    border-radius: var(--border-radius);
-    max-width: 600px;
-  }
-
   @media (max-width: 480px) {
-    padding: 1rem;
+    padding: 1.5rem;
     max-width: 100%;
+    border-radius: 16px;
   }
 
   &:not(:last-of-type) {
@@ -100,7 +101,7 @@ const StyledProject = styled.li`
 
   .project-overline {
     margin: 10px 0;
-    color: var(--blue);
+    color: var(--accent);
     font-family: var(--font-mono);
     font-size: var(--fz-xs);
     font-weight: 400;
@@ -108,7 +109,7 @@ const StyledProject = styled.li`
   }
 
   .project-title {
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     font-size: var(--fz-heading);
     text-align: center;
 
@@ -117,7 +118,7 @@ const StyledProject = styled.li`
     }
 
     @media (max-width: 768px) {
-      color: var(--white);
+      color: var(--text-primary);
       margin: 0 0 10px;
     }
   }
@@ -125,68 +126,50 @@ const StyledProject = styled.li`
   .project-description {
     position: relative;
     z-index: 2;
-    padding: 25px;
-    border-radius: var(--border-radius);
-    background: rgba(17, 34, 64, 0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(100, 255, 218, 0.1);
-    color: var(--light-slate);
+    padding: 2rem;
+    border-radius: 24px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border);
+    color: var(--text-secondary);
     font-size: var(--fz-lg);
     line-height: 1.6;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     max-width: 500px;
     margin: 0 auto;
-    transform: translateX(20px);
 
     @media (max-width: 768px) {
-      padding: 20px;
-      background: rgba(17, 34, 64, 0.8);
+      padding: 1.5rem;
       max-width: 100%;
-      transform: none;
+      border-radius: 20px;
     }
 
     @media (max-width: 480px) {
-      padding: 15px;
+      padding: 1.25rem;
+      border-radius: 16px;
     }
 
     @media (min-width: 769px) {
       &:hover {
-        transform: translateX(20px) translateY(-2px);
-        border-color: rgba(100, 255, 218, 0.3);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        border-color: var(--accent);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px);
       }
     }
 
     a {
-      color: var(--blue);
+      color: var(--accent);
       text-decoration: none;
-      transition: all 0.4s ease;
-      position: relative;
-
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background: var(--gradient-primary);
-        transition: width 0.4s ease;
-      }
+      transition: color var(--transition-normal) var(--easing);
 
       &:hover {
-        color: var(--green);
-
-        &::after {
-          width: 100%;
-        }
+        color: var(--accent-hover);
       }
     }
 
     strong {
-      color: var(--white);
-      font-weight: normal;
+      color: var(--text-primary);
+      font-weight: 600;
     }
   }
 
@@ -201,7 +184,7 @@ const StyledProject = styled.li`
 
     li {
       margin: 0 20px 5px 0;
-      color: var(--light-slate);
+      color: var(--text-secondary);
       font-family: var(--font-mono);
       font-size: var(--fz-xs);
       white-space: nowrap;
@@ -212,7 +195,7 @@ const StyledProject = styled.li`
 
       li {
         margin: 0 8px 5px 0;
-        color: var(--lightest-slate);
+        color: var(--text-secondary);
       }
     }
   }
@@ -223,7 +206,7 @@ const StyledProject = styled.li`
     position: relative;
     margin-top: 10px;
     margin-left: -10px;
-    color: var(--lightest-slate);
+    color: var(--text-secondary);
 
     a {
       ${({ theme }) => theme.mixins.flexCenter};
@@ -250,14 +233,12 @@ const StyledProject = styled.li`
   }
 
   .project-image {
-    ${({ theme }) => theme.mixins.boxShadow};
     grid-column: 5 / -1;
     grid-row: 1 / -1;
     position: relative;
     z-index: 1;
     max-width: 400px;
     margin: 0 auto;
-    transform: translateX(-20px);
 
     @media (max-width: 768px) {
       grid-column: 1 / -1;
@@ -265,7 +246,6 @@ const StyledProject = styled.li`
       height: 100%;
       opacity: 1;
       max-width: 280px;
-      transform: none;
     }
 
     @media (max-width: 480px) {
@@ -276,7 +256,7 @@ const StyledProject = styled.li`
     a {
       width: 100%;
       height: 100%;
-      background-color: var(--blue);
+      background-color: var(--bg-secondary);
       border-radius: var(--border-radius);
       vertical-align: middle;
     }
@@ -352,24 +332,11 @@ const Featured = () => {
       id="interests"
       style={{
         width: '100%',
-        background: 'var(--gradient-dark)',
+        background: 'var(--bg-primary)',
         padding: '100px 0',
         position: 'relative',
         overflow: 'hidden',
       }}>
-      <div
-        style={{
-          content: '',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%)',
-          opacity: 0.5,
-          zIndex: 1,
-        }}
-      />
 
       <h2
         className="numbered-heading"

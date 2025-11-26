@@ -1,39 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { srConfig } from '@config';
-import sr from '@utils/sr';
-import { usePrefersReducedMotion } from '@hooks';
 
 const StyledAboutSection = styled.section`
   width: 100%;
-  background: var(--gradient-dark);
+  background: var(--bg-primary);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
-    opacity: 0.5;
-    z-index: 1;
-  }
-
   .numbered-heading {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
+    margin: 0 0 1.5rem 0;
+    padding: 0;
     text-align: left;
     position: relative;
     z-index: 2;
+    color: var(--text-primary);
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 600;
 
     @media (max-width: 768px) {
-      padding: 0 20px;
+      text-align: center;
+      margin: 0 0 1.25rem 0;
     }
   }
 
@@ -42,17 +30,17 @@ const StyledAboutSection = styled.section`
     margin: 0 auto;
     padding: 0 40px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     grid-gap: 80px;
     align-items: center;
     position: relative;
     z-index: 2;
-    justify-items: center;
 
     @media (max-width: 768px) {
-      display: block;
+      display: flex;
+      flex-direction: column;
       text-align: center;
-      grid-gap: 40px;
+      grid-gap: 50px;
       padding: 0 20px;
     }
   }
@@ -60,21 +48,33 @@ const StyledAboutSection = styled.section`
 const StyledText = styled.div`
   text-align: left;
   width: 100%;
-  max-width: 600px;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 
   p {
     font-size: var(--fz-lg);
     line-height: 1.8;
-    color: var(--light-slate);
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
     text-align: left;
     padding: 0;
+    margin-top: 0;
+
+    b {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
 
     @media (max-width: 768px) {
       font-size: var(--fz-md);
       line-height: 1.6;
+      text-align: center;
     }
   }
 
@@ -94,12 +94,13 @@ const StyledText = styled.div`
       padding-left: 20px;
       font-family: var(--font-mono);
       font-size: var(--fz-xs);
+      color: var(--text-secondary);
 
       &:before {
         content: '▹';
         position: absolute;
         left: 0;
-        color: var(--blue);
+        color: var(--accent);
         font-size: var(--fz-sm);
         line-height: 12px;
       }
@@ -108,94 +109,84 @@ const StyledText = styled.div`
 `;
 const StyledPic = styled.div`
   position: relative;
-  width: 100%;
-  max-width: 300px;
+  width: 250px;
+  height: 250px;
   margin: 0;
+  flex-shrink: 0;
 
   @media (max-width: 768px) {
-    margin: 50px auto 0;
-    width: 70%;
+    margin: 0 auto 50px;
+    width: 200px;
+    height: 200px;
+  }
+
+  @media (max-width: 480px) {
+    width: 180px;
+    height: 180px;
   }
 
   .wrapper {
-    ${({ theme }) => theme.mixins.boxShadow};
     display: block;
     position: relative;
     width: 100%;
-    border-radius: var(--border-radius);
-    background-color: var(--blue);
+    height: 100%;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 3px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal) var(--easing);
 
     &:hover,
     &:focus {
       outline: 0;
-      transform: translate(-4px, -4px);
-
-      &:after {
-        transform: translate(8px, 8px);
-      }
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.2);
+      transform: scale(1.02);
 
       .img {
-        filter: none;
-        mix-blend-mode: normal;
+        filter: grayscale(0%);
       }
     }
 
     .img {
       position: relative;
-      border-radius: var(--border-radius);
-      mix-blend-mode: multiply;
-      filter: grayscale(50%) contrast(1);
-      transition: var(--transition);
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      filter: grayscale(20%);
+      transition: filter var(--transition-normal) var(--easing);
       transform: translateZ(0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-    }
-
-    &:before,
-    &:after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: var(--border-radius);
-      transition: var(--transition);
-    }
-
-    &:before {
-      top: 0;
-      left: 0;
-      background-color: var(--navy);
-      mix-blend-mode: screen;
-    }
-
-    &:after {
-      border: 2px solid var(--blue);
-      top: 14px;
-      left: 14px;
-      z-index: -1;
     }
   }
 `;
 
 const About = () => {
-  const revealContainer = useRef(null);
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    sr.reveal(revealContainer.current, srConfig());
-  }, []);
-
   return (
-    <StyledAboutSection id="about" ref={revealContainer}>
-      <h2 className="numbered-heading">About Me</h2>
-
+    <StyledAboutSection id="about">
       <div className="inner">
+        <StyledPic>
+          <div className="wrapper">
+            <StaticImage
+              className="img"
+              src="../../images/me.jpg"
+              width={800}
+              height={800}
+              quality={100}
+              formats={['AUTO', 'WEBP', 'AVIF']}
+              alt="Headshot"
+              placeholder="blurred"
+              layout="constrained"
+              objectFit="cover"
+              objectPosition="center"
+            />
+          </div>
+        </StyledPic>
+
         <StyledText>
+          <h2 className="numbered-heading">About Me</h2>
           <div>
             <p>
               As a skilled Software Engineer with a diverse experience in the Logistics, Marketing,
@@ -217,24 +208,6 @@ const About = () => {
             </p>
           </div>
         </StyledText>
-
-        <StyledPic>
-          <div className="wrapper">
-            <StaticImage
-              className="img"
-              src="../../images/me.jpg"
-              width={800}
-              height={800}
-              quality={100}
-              formats={['AUTO', 'WEBP', 'AVIF']}
-              alt="Headshot"
-              placeholder="blurred"
-              layout="constrained"
-              objectFit="cover"
-              objectPosition="center"
-            />
-          </div>
-        </StyledPic>
       </div>
     </StyledAboutSection>
   );

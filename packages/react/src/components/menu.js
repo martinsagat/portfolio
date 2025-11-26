@@ -67,7 +67,7 @@ const StyledHamburgerButton = styled.button`
     width: var(--hamburger-width);
     height: 2px;
     border-radius: var(--border-radius);
-    background-color: var(--blue);
+    background-color: var(--accent);
     transition-duration: 0.22s;
     transition-property: transform;
     transition-delay: ${props => (props.menuOpen ? `0.12s` : `0s`)};
@@ -85,7 +85,7 @@ const StyledHamburgerButton = styled.button`
       width: var(--hamburger-width);
       height: 2px;
       border-radius: 4px;
-      background-color: var(--blue);
+      background-color: var(--accent);
       transition-timing-function: ease;
       transition-duration: 0.15s;
       transition-property: transform;
@@ -119,11 +119,11 @@ const StyledSidebar = styled.aside`
     width: min(85vw, 400px);
     height: 100vh;
     outline: 0;
-    background: rgba(17, 34, 64, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: -10px 0px 30px -15px var(--navy-shadow);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid var(--border);
+    box-shadow: -10px 0px 30px -15px rgba(0, 0, 0, 0.1);
     z-index: 9;
     transform: translateX(${props => (props.menuOpen ? 0 : 100)}vw);
     visibility: ${props => (props.menuOpen ? 'visible' : 'hidden')};
@@ -140,7 +140,7 @@ const StyledSidebar = styled.aside`
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--light-navy);
+      background: var(--text-tertiary);
       border-radius: 2px;
     }
   }
@@ -149,7 +149,7 @@ const StyledSidebar = styled.aside`
     ${({ theme }) => theme.mixins.flexBetween};
     width: 100%;
     flex-direction: column;
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     font-family: var(--font-mono);
     text-align: center;
     height: 100%;
@@ -166,55 +166,30 @@ const StyledSidebar = styled.aside`
       position: relative;
       margin: 0 auto 25px;
       font-size: clamp(var(--fz-md), 5vw, var(--fz-xl));
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.3s ease forwards;
-      animation-delay: ${props => props.index * 0.1}s;
 
       @media (max-width: 600px) {
         margin: 0 auto 20px;
-      }
-
-      @keyframes fadeInUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
       }
     }
 
     a {
       ${({ theme }) => theme.mixins.link};
       width: 100%;
-      padding: 3px 20px 20px;
+      padding: 12px 20px;
       position: relative;
-      transition: all 0.3s ease;
+      transition: all var(--transition-normal) var(--easing);
       display: block;
       font-weight: 500;
-
-      &:before {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 15px;
-        left: 50%;
-        background: var(--gradient-primary);
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-      }
+      color: var(--text-secondary);
+      border-radius: 999px;
 
       &:hover {
-        color: var(--blue);
-        transform: translateY(-2px);
-
-        &:before {
-          width: 70%;
-        }
+        color: var(--accent);
+        background: var(--accent-light);
       }
 
       &:active {
-        transform: translateY(0);
+        transform: scale(0.98);
       }
     }
   }
@@ -224,41 +199,23 @@ const StyledSidebar = styled.aside`
     padding: 18px 50px;
     margin: 10% auto 0;
     width: max-content;
-    background: transparent;
-    border: 2px solid var(--blue);
-    color: var(--blue);
+    background: var(--accent);
+    border: 2px solid var(--accent);
+    color: var(--text-light);
     font-weight: 600;
     letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    transition: all var(--transition-normal) var(--easing);
     font-size: var(--fz-md);
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
-    }
+    border-radius: 999px;
+    text-decoration: none;
+    display: block;
 
     &:hover {
-      background: var(--dark-navy);
-      color: var(--green);
-      border-color: var(--green);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(11, 172, 235, 0.4);
-
-      &:before {
-        left: 100%;
-      }
-    }
-
-    &:active {
-      transform: translateY(0);
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: var(--text-light) !important;
+      box-shadow: none !important;
+      transform: none !important;
     }
   }
 `;

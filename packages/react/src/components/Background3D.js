@@ -77,23 +77,23 @@ const Background3D = () => {
 
     window.addEventListener('mousemove', onMouseMove);
 
-    // Animation
-    const animate = () => {
-      requestAnimationFrame(animate);
+    // Animation disabled
+    // const animate = () => {
+    //   requestAnimationFrame(animate);
 
-      targetX = mouseX * 0.5;
-      targetY = mouseY * 0.5;
+    //   targetX = mouseX * 0.5;
+    //   targetY = mouseY * 0.5;
 
-      particlesRef.current.rotation.y += 0.001;
-      particlesRef.current.rotation.x += 0.001;
+    //   particlesRef.current.rotation.y += 0.001;
+    //   particlesRef.current.rotation.x += 0.001;
 
-      particlesRef.current.rotation.y += (targetX - particlesRef.current.rotation.y) * 0.05;
-      particlesRef.current.rotation.x += (targetY - particlesRef.current.rotation.x) * 0.05;
+    //   particlesRef.current.rotation.y += (targetX - particlesRef.current.rotation.y) * 0.05;
+    //   particlesRef.current.rotation.x += (targetY - particlesRef.current.rotation.x) * 0.05;
 
-      renderer.render(scene, camera);
-    };
+    //   renderer.render(scene, camera);
+    // };
 
-    animate();
+    // animate();
 
     // Handle window resize
     const handleResize = () => {

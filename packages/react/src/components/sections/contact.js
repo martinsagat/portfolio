@@ -6,27 +6,15 @@ import { usePrefersReducedMotion } from '@hooks';
 
 const StyledContactSection = styled.section`
   width: 100%;
-  background: var(--gradient-dark);
+  background: var(--bg-secondary);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
-    opacity: 0.5;
-    z-index: 1;
-  }
-
   .overline {
     display: block;
     margin-bottom: 20px;
-    color: var(--blue);
+    color: var(--accent);
     font-family: var(--font-mono);
     font-size: var(--fz-md);
     font-weight: 400;
@@ -50,6 +38,7 @@ const StyledContactSection = styled.section`
     position: relative;
     z-index: 2;
     margin-bottom: 20px;
+    color: var(--text-primary);
   }
 
   p {
@@ -60,7 +49,7 @@ const StyledContactSection = styled.section`
     z-index: 2;
     font-size: var(--fz-lg);
     line-height: 1.8;
-    color: var(--light-slate);
+    color: var(--text-secondary);
     padding: 0 40px;
 
     @media (max-width: 768px) {
@@ -76,6 +65,18 @@ const StyledContactSection = styled.section`
     width: fit-content;
     position: relative;
     z-index: 2;
+    background: var(--accent) !important;
+    border: none !important;
+    color: var(--text-light) !important;
+    box-shadow: none !important;
+    transform: none !important;
+
+    &:hover {
+      background: var(--accent-hover) !important;
+      color: var(--text-light) !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
   }
 `;
 

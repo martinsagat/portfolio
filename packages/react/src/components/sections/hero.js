@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import { navDelay, loaderDelay } from '@utils';
-import { usePrefersReducedMotion } from '@hooks';
-import { StaticImage } from 'gatsby-plugin-image';
-import Background3D from '@components/Background3D';
+import { useStaticQuery, graphql } from 'gatsby';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 const StyledHeroSection = styled.section`
   display: flex;
@@ -13,79 +10,16 @@ const StyledHeroSection = styled.section`
   min-height: 100vh;
   padding: 100px 0;
   position: relative;
-  background: var(--gradient-dark);
+  background: var(--bg-primary);
   overflow: hidden;
-  animation: fadeIn 1s ease-out;
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes float {
-    0% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes glow {
-    0% {
-      text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-    }
-    50% {
-      text-shadow: 0 0 20px rgba(100, 255, 218, 0.8);
-    }
-    100% {
-      text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-    }
-  }
 
   @media (max-width: 768px) {
-    padding: 120px 0 50px;
+    padding: 80px 0 40px;
     min-height: auto;
+  }
+
+  @media (max-width: 480px) {
+    padding: 60px 0 30px;
   }
 
   &::before {
@@ -95,8 +29,8 @@ const StyledHeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
-    opacity: 0.5;
+    background: radial-gradient(circle at 50% 50%, var(--bg-secondary) 0%, transparent 50%);
+    opacity: 0.3;
     z-index: 1;
   }
 
@@ -119,48 +53,119 @@ const StyledHeroContent = styled.div`
   z-index: 2;
   text-align: center;
   padding: 3rem;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  animation: float 6s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
+    gap: 4rem;
+    margin: 0 auto;
+    padding: 3rem 4rem;
+    width: 100%;
+    max-width: 1200px;
+  }
 
   @media (max-width: 768px) {
-    padding: 1rem;
+    padding: 2rem 1.5rem;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    gap: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
+    gap: 1.5rem;
+
+    @media (max-width: 1023px) {
+      align-items: center;
+      text-align: center;
+      max-width: 100%;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 480px) {
+      gap: 1rem;
+    }
+  }
+
+  .hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+
+    @media (max-width: 1023px) {
+      order: 3;
+      max-width: 100%;
+      width: 100%;
+    }
   }
 
   h1 {
     margin: 0 0 30px 4px;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--accent);
     font-family: var(--font-mono);
     font-size: clamp(var(--fz-md), 5vw, var(--fz-xl));
-    font-weight: 400;
-    animation: slideInLeft 0.8s ease-out;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 1px;
+
+    @media (max-width: 1023px) {
+      margin: 0 0 20px 0;
+      text-align: center;
+    }
 
     @media (max-width: 480px) {
-      margin: 0 0 20px 2px;
+      margin: 0 0 16px 0;
+      font-size: var(--fz-sm);
     }
   }
 
   h2 {
     margin: 0 0 20px;
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     line-height: 1.1;
     font-size: clamp(40px, 8vw, 80px);
-    font-weight: 600;
-    text-align: center;
-    animation: slideInRight 0.8s ease-out 0.2s backwards;
-    letter-spacing: -1px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: -0.03em;
     position: relative;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: glow 3s ease-in-out infinite;
-    text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+
+    @media (max-width: 1023px) {
+      text-align: center;
+      margin: 0 0 16px;
+    }
 
     @media (max-width: 768px) {
-      font-size: clamp(55px, 7vw, 70px);
+      font-size: clamp(40px, 8vw, 60px);
+      margin: 0 0 12px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: clamp(32px, 8vw, 48px);
+      margin: 0 0 10px;
     }
 
     &::before {
@@ -168,20 +173,17 @@ const StyledHeroContent = styled.div`
       position: absolute;
       left: 0;
       right: 0;
-      background: linear-gradient(120deg, var(--blue) 0%, var(--green) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--accent);
       opacity: 0;
       transform: translateY(5px);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     &:hover {
-      transform: translateY(-1px) scale(1.02);
-      text-shadow: 0 2px 8px rgba(100, 255, 218, 0.2);
+      transform: translateY(-1px) scale(1.01);
 
       &::before {
-        opacity: 0.8;
+        opacity: 0.6;
         transform: translateY(0);
       }
     }
@@ -189,32 +191,46 @@ const StyledHeroContent = styled.div`
 
   h3 {
     margin: 0 0 20px;
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     line-height: 1.1;
     font-size: clamp(24px, 4vw, 40px);
     font-weight: 600;
-    text-align: center;
-    animation: slideInLeft 0.8s ease-out 0.4s backwards;
-    letter-spacing: -1px;
-    text-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+    text-align: left;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 1023px) {
+      text-align: center;
+      margin: 0 0 16px;
+    }
 
     @media (max-width: 768px) {
-      font-size: clamp(20px, 3vw, 30px);
+      font-size: clamp(20px, 4vw, 28px);
+      margin: 0 0 12px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: clamp(18px, 4vw, 24px);
+      margin: 0 0 10px;
     }
   }
 
   p {
-    margin: 0 auto;
-    max-width: 800px;
-    text-align: center;
-    color: var(--lightest-slate);
+    margin: 0;
+    max-width: 100%;
+    text-align: left;
+    color: var(--text-secondary);
     font-size: clamp(var(--fz-md), 2vw, var(--fz-lg));
     line-height: 1.8;
-    animation: slideInRight 0.8s ease-out 0.6s backwards;
     font-weight: 400;
-    letter-spacing: 0.3px;
-    padding: 0 20px;
-    text-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
+    letter-spacing: 0.01em;
+    padding: 0;
+
+    @media (max-width: 1023px) {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
     @media (max-width: 768px) {
       font-size: clamp(var(--fz-sm), 1.5vw, var(--fz-md));
@@ -223,17 +239,17 @@ const StyledHeroContent = styled.div`
   }
 
   .highlight {
-    color: var(--blue);
+    color: var(--accent);
     font-weight: 500;
   }
 
   a {
-    color: var(--blue);
+    color: var(--accent);
     text-decoration: none;
     transition: color var(--transition-normal) var(--easing);
 
     &:hover {
-      color: var(--green);
+      color: var(--accent-hover);
     }
   }
 
@@ -241,8 +257,13 @@ const StyledHeroContent = styled.div`
     display: flex;
     gap: 20px;
     margin-top: 40px;
-    justify-content: center;
-    animation: slideInLeft 0.8s ease-out 0.8s backwards;
+    justify-content: flex-start;
+
+    @media (max-width: 1023px) {
+      justify-content: center;
+      margin-top: 32px;
+      gap: 16px;
+    }
 
     @media (max-width: 480px) {
       flex-direction: column;
@@ -251,6 +272,8 @@ const StyledHeroContent = styled.div`
       max-width: 300px;
       margin-left: auto;
       margin-right: auto;
+      margin-top: 24px;
+      gap: 12px;
     }
   }
 
@@ -262,42 +285,27 @@ const StyledHeroContent = styled.div`
     justify-content: center;
     line-height: 1.5;
     padding: 1rem 2rem;
-    background: var(--gradient-primary);
+    background: var(--accent);
     border: none;
-    color: var(--dark-navy);
+    color: var(--text-light);
     font-weight: 600;
     transition: all var(--transition-normal) var(--easing);
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
-    }
+    border-radius: 999px;
 
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(11, 172, 235, 0.3);
-
-      &::before {
-        left: 100%;
-      }
+      background: var(--accent-hover);
+      color: var(--text-light);
     }
 
     &.secondary {
       background: transparent;
-      border: 2px solid var(--blue);
-      color: var(--blue);
+      border: 2px solid var(--accent);
+      color: var(--accent);
 
       &:hover {
-        background: var(--blue);
-        color: var(--navy);
+        background: var(--accent);
+        color: var(--text-light);
+        border-color: var(--accent);
       }
     }
   }
@@ -306,43 +314,20 @@ const StyledHeroContent = styled.div`
     display: inline-block;
     padding: 0.25rem 0.75rem;
     margin: 0 0.5rem;
-    background: var(--gradient-primary);
-    color: var(--dark-navy);
-    border-radius: 20px;
+    background: var(--accent-light);
+    color: var(--accent);
+    border-radius: 12px;
     font-size: var(--fz-sm);
-    font-weight: 600;
+    font-weight: 500;
     font-family: var(--font-mono);
     vertical-align: middle;
-    box-shadow: 0 2px 10px rgba(11, 172, 235, 0.2);
     transition: all var(--transition-normal) var(--easing);
     white-space: nowrap;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
-    }
 
     @media (max-width: 768px) {
       font-size: var(--fz-xs);
       padding: 0.2rem 0.6rem;
       margin: 0 0.3rem;
-    }
-
-    &:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 4px 15px rgba(11, 172, 235, 0.3);
-
-      &::before {
-        left: 100%;
-      }
     }
   }
 `;
@@ -353,7 +338,6 @@ const StyledScrollIndicator = styled.div`
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
-  animation: bounce 2s infinite;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -362,80 +346,124 @@ const StyledScrollIndicator = styled.div`
   @media (max-width: 768px) {
     bottom: 20px;
   }
-
-  @keyframes bounce {
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-      transform: translateX(-50%) translateY(0);
-    }
-    40% {
-      transform: translateX(-50%) translateY(-20px);
-    }
-    60% {
-      transform: translateX(-50%) translateY(-10px);
-    }
-  }
 `;
 
 const StyledTechnologies = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 2rem;
-  background: rgba(17, 34, 64, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--border-radius);
-  box-shadow: var(--glass-shadow);
-  max-width: 800px;
-  margin: 2rem auto 4rem;
-  animation: fadeInUp 0.5s ease-out 0.4s backwards;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+
+  @media (min-width: 1024px) {
+    min-height: 500px;
+  }
 
   @media (max-width: 768px) {
-    padding: 1rem;
-    gap: 15px;
-    margin: 2rem auto 3rem;
+    min-height: 350px;
+  }
+
+  @media (max-width: 480px) {
+    min-height: 300px;
   }
 
   .tech-icon {
-    width: 48px;
-    height: 48px;
+    position: absolute;
     padding: 8px;
-    transition: all var(--transition-normal) var(--easing);
-    opacity: 0.9;
-    border-radius: 8px;
-    filter: brightness(1.2);
-    position: relative;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
+    flex-shrink: 0;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    opacity: 0;
+    animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    z-index: 1;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
-    @media (max-width: 768px) {
-      width: 40px;
-      height: 40px;
-      padding: 6px;
+    /* GatsbyImage creates a div wrapper */
+    > div {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin: 0 !important;
+    }
+
+    /* Gatsby Image wrapper */
+    .gatsby-image-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin: 0 !important;
+    }
+
+    /* Picture element */
+    picture {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* Actual image */
+    img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      object-position: center !important;
+      filter: grayscale(20%) brightness(0.92);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: block !important;
     }
 
     &:hover {
-      transform: translateY(-3px) scale(1.1);
-      opacity: 1;
-      filter: brightness(1.4);
+      border-color: var(--accent);
+      background: linear-gradient(135deg, var(--accent-light) 0%, rgba(100, 255, 218, 0.15) 100%);
+      box-shadow: 0 12px 32px rgba(100, 255, 218, 0.25), 0 4px 16px rgba(100, 255, 218, 0.15);
+      transform: translateY(-8px) scale(1.1) rotate(2deg);
+      z-index: 10;
 
-      &::before {
-        left: 100%;
+      img {
+        filter: grayscale(0%) brightness(1.15);
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 6px;
+      border-radius: 50%;
+      transform: scale(0.85);
+
+      &:hover {
+        transform: translateY(-6px) scale(0.95) rotate(2deg);
+      }
+    }
+
+    @media (max-width: 480px) {
+      padding: 5px;
+      border-radius: 50%;
+      transform: scale(0.75);
+
+      &:hover {
+        transform: translateY(-4px) scale(0.85) rotate(2deg);
       }
     }
   }
@@ -444,9 +472,14 @@ const StyledTechnologies = styled.div`
 const StyledActionButtons = styled.div`
   display: flex;
   gap: 20px;
-  justify-content: center;
-  margin: 4rem 0 2rem;
-  animation: fadeInUp 0.5s ease-out 0.3s backwards;
+  justify-content: flex-start;
+  margin: 2rem 0 1rem;
+
+  @media (max-width: 1023px) {
+    justify-content: center;
+    margin: 1.5rem 0 0.5rem;
+    gap: 16px;
+  }
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -455,6 +488,8 @@ const StyledActionButtons = styled.div`
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+    margin: 1.25rem 0 0.5rem;
+    gap: 12px;
   }
 `;
 
@@ -464,56 +499,159 @@ const StyledButton = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1.5;
+  line-height: 1.4;
   padding: 1rem 2rem;
-  background: transparent;
-  border: 2px solid var(--blue);
-  color: var(--blue);
-  font-weight: 700;
+  background: transparent !important;
+  border: 2px solid var(--accent) !important;
+  color: var(--accent) !important;
+  font-weight: 600;
   width: 300px;
   font-size: var(--fz-md);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   transition: all var(--transition-normal) var(--easing);
   text-decoration: none;
-  position: relative;
-  overflow: hidden;
+  border-radius: 999px;
+  box-shadow: none !important;
+  transform: none !important;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+  @media (max-width: 768px) {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.5s;
+    max-width: 240px;
+    padding: 0.7rem 1.5rem;
+    font-size: var(--fz-sm);
+    line-height: 1.3;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 100%;
+    padding: 0.625rem 1.25rem;
+    font-size: var(--fz-xs);
+    letter-spacing: 0.1px;
+    line-height: 1.3;
+    border-width: 1.5px;
   }
 
   &:hover {
-    transform: translateY(-2px);
-    background: var(--dark-navy);
-    color: var(--green);
-    box-shadow: 0 5px 15px rgba(11, 172, 235, 0.4);
-    border-color: var(--green);
-
-    &::before {
-      left: 100%;
-    }
+    background: var(--accent) !important;
+    color: var(--text-light) !important;
+    border-color: var(--accent) !important;
+    box-shadow: none !important;
+    transform: none !important;
   }
 `;
 
 const Hero = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  // Query stack images
+  const data = useStaticQuery(graphql`
+    query HeroTechIcons {
+      techIcons: allFile(
+        filter: {
+          relativeDirectory: { eq: "stack" }
+          sourceInstanceName: { eq: "images" }
+        }
+      ) {
+        edges {
+          node {
+            relativePath
+            name
+            extension
+            childImageSharp {
+              gatsbyImageData(
+                width: 200
+                formats: [AUTO, WEBP, AVIF]
+                quality: 100
+                placeholder: BLURRED
+                layout: CONSTRAINED
+              )
+            }
+            publicURL
+          }
+        }
+      }
+    }
+  `);
 
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
+  // Create a map of image names to their gatsbyImageData or publicURL
+  const techIconsMap = data.techIcons.edges.reduce((acc, { node }) => {
+    if (node.childImageSharp) {
+      acc[node.name] = node.childImageSharp.gatsbyImageData;
+    } else if (node.extension === 'svg' && node.publicURL) {
+      // For SVG files that don't go through ImageSharp
+      acc[node.name] = { publicURL: node.publicURL, isSvg: true };
+    }
+    return acc;
+  }, {});
+
+  // Debug: Log available images (remove in production)
+  if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    console.log('Hero - Available tech icons:', Object.keys(techIconsMap));
+    console.log('Hero - Total icons found:', data.techIcons.edges.length);
+    console.log('Hero - Tech icons map:', techIconsMap);
+  }
+
+  // Technology stack data - filter to only include techs that have images available
+  const technologies = useMemo(() => {
+    const techs = [
+      { name: 'html5' },
+      { name: 'css3' },
+      { name: 'js' },
+      { name: 'node' },
+      { name: 'react' },
+      // { name: 'vue' }, // File doesn't exist
+      { name: 'graphql' },
+      { name: 'laravel' },
+      { name: 'net' }, // Note: file is 'net.png', not '.net'
+      { name: 'mysql' },
+      { name: 'postgresql' },
+      { name: 'mongodb' },
+      { name: 'aws' },
+      { name: 'azure' },
+      { name: 'terraform' },
+      { name: 'git' },
+      { name: 'linux' },
+      { name: 'postman' },
+    ];
+
+    // Filter to only include techs that have images available
+    const availableTechs = techs.filter(tech => techIconsMap[tech.name]);
+
+    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+      console.log('Hero - Technologies available:', availableTechs.length, 'out of', techs.length);
+      console.log('Hero - Missing images:', techs.filter(tech => !techIconsMap[tech.name]).map(t => t.name));
     }
 
-    const timeout = setTimeout(() => setIsMounted(true), navDelay);
-    return () => clearTimeout(timeout);
-  }, []);
+    // Generate random sizes and positions for honeycomb layout
+    const colsPerRow = 4; // Number of columns in each row (reduced from 5 for narrower cluster)
+    const hexWidth = 90; // Base width for hexagon spacing (slightly reduced)
+    const hexHeight = 95; // Base height for hexagon spacing (increased for taller cluster)
+
+    return availableTechs.map((tech, index) => {
+      // Random size between 55px and 85px for elegant variation
+      const baseSize = 55 + Math.random() * 30;
+      const size = Math.round(baseSize);
+
+      // Honeycomb positioning - more refined pattern
+      const row = Math.floor(index / colsPerRow);
+      const col = index % colsPerRow;
+
+      // Hexagonal offset: every other row is offset by half a hexagon
+      const hexOffset = row % 2 === 1 ? 0.5 : 0;
+
+      // Calculate position with honeycomb offset and slight randomness for organic feel
+      const randomX = (Math.random() - 0.5) * 10;
+      const randomY = (Math.random() - 0.5) * 12;
+      const left = 15 + (col + hexOffset) * hexWidth + randomX;
+      const top = 15 + row * hexHeight * 0.92 + randomY;
+
+      return {
+        ...tech,
+        size,
+        left: `${left}px`,
+        top: `${top}px`,
+        animationDelay: `${index * 0.05}s`,
+      };
+    });
+  }, [techIconsMap]);
 
   const one = <h1>Hi, my name is</h1>;
 
@@ -545,175 +683,84 @@ const Hero = () => {
 
   const five = (
     <StyledTechnologies>
-      <StaticImage
-        className="tech-icon"
-        alt="html5"
-        src="../../images/stack/html5.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="css3"
-        src="../../images/stack/css3.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="js"
-        src="../../images/stack/js.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="node"
-        src="../../images/stack/node.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="react"
-        src="../../images/stack/react.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="vue"
-        src="../../images/stack/vue.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="graphql"
-        src="../../images/stack/graphql.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="laravel"
-        src="../../images/stack/laravel.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt=".net"
-        src="../../images/stack/net.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="mysql"
-        src="../../images/stack/mysql.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="postgresql"
-        src="../../images/stack/postgresql.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="mongodb"
-        src="../../images/stack/mongodb.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="aws"
-        src="../../images/stack/aws.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="azure"
-        src="../../images/stack/azure.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="terraform"
-        src="../../images/stack/terraform.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="git"
-        src="../../images/stack/git.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="linux"
-        src="../../images/stack/linux.png"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
-      <StaticImage
-        className="tech-icon"
-        alt="postman"
-        src="../../images/stack/postman.svg"
-        width={48}
-        height={48}
-        objectFit="contain"
-      />
+      {technologies.length === 0 && (
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: 'var(--text-secondary)',
+          fontSize: 'var(--fz-sm)'
+        }}>
+          Loading icons...
+        </div>
+      )}
+      {technologies.map((tech, index) => {
+        const imageSize = Math.max(64, tech.size - 16);
+        const imageData = techIconsMap[tech.name];
+
+        if (!imageData) {
+          if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.warn(`Hero - Image not found for: ${tech.name}`);
+          }
+          return null; // Skip if image not found
+        }
+
+        return (
+          <div
+            key={tech.name}
+            className="tech-icon"
+            style={{
+              width: `${tech.size}px`,
+              height: `${tech.size}px`,
+              left: tech.left,
+              top: tech.top,
+              animationDelay: tech.animationDelay,
+            }}>
+            {imageData.isSvg ? (
+              <img
+                src={imageData.publicURL}
+                alt={tech.name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                }}
+              />
+            ) : (
+              <GatsbyImage
+                image={imageData}
+                alt={tech.name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+                imgStyle={{
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                }}
+              />
+            )}
+          </div>
+        );
+      })}
     </StyledTechnologies>
   );
 
-  const items = [one, two, three, four, actionButtons, five];
-
   return (
     <StyledHeroSection>
-      <Background3D />
       <StyledHeroContent>
-        {prefersReducedMotion ? (
-          <>
-            {items.map((item, i) => (
-              <div key={i}>{item}</div>
-            ))}
-          </>
-        ) : (
-          <TransitionGroup component={null}>
-            {isMounted &&
-              items.map((item, i) => (
-                <CSSTransition key={i} classNames="fadeup" timeout={loaderDelay}>
-                  <div style={{ transitionDelay: `${i * 100}ms` }}>{item}</div>
-                </CSSTransition>
-              ))}
-          </TransitionGroup>
-        )}
+        <div className="hero-left">
+          {one}
+          {two}
+          {three}
+          {four}
+          {actionButtons}
+        </div>
+        <div className="hero-right">
+          {five}
+        </div>
       </StyledHeroContent>
       <StyledScrollIndicator>
         <svg

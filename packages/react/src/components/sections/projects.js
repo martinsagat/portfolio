@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import { srConfig } from '@config';
 import sr from '@utils/sr';
@@ -9,22 +8,10 @@ import { usePrefersReducedMotion } from '@hooks';
 
 const StyledProjectsSection = styled.section`
   width: 100%;
-  background: var(--gradient-dark);
+  background: var(--bg-secondary);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, var(--light-navy) 0%, transparent 50%);
-    opacity: 0.5;
-    z-index: 1;
-  }
 
   h2 {
     max-width: 1200px;
@@ -79,7 +66,7 @@ const StyledProjectsSection = styled.section`
     margin: 50px auto 0;
     padding: 0 40px;
     font-size: var(--fz-sm);
-    color: var(--light-slate);
+    color: var(--text-secondary);
     font-style: italic;
     text-align: center;
     position: relative;
@@ -97,26 +84,31 @@ const StyledProject = styled.div`
   grid-gap: 10px;
   grid-template-columns: 1fr;
   align-items: flex-start;
-  background: rgba(17, 34, 64, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(100, 255, 218, 0.1);
-  border-radius: 12px;
-  padding: 40px;
-  transition: var(--transition);
+  background: var(--bg-primary);
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
-  overflow: hidden;
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 
   &:hover {
-    transform: translateY(-5px);
-    border-color: var(--blue);
-    box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
   }
 
   @media (max-width: 768px) {
-    padding: 25px;
+    padding: 2rem;
+    border-radius: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+    border-radius: 16px;
   }
 
   .project-inner {
@@ -132,7 +124,7 @@ const StyledProject = styled.div`
     width: 100%;
 
     .folder {
-      color: var(--blue);
+      color: var(--accent);
       svg {
         width: 30px;
         height: 30px;
@@ -143,19 +135,19 @@ const StyledProject = styled.div`
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--light-slate);
+      color: var(--text-secondary);
 
       a {
         ${({ theme }) => theme.mixins.flexCenter};
         padding: 5px 7px;
-        color: var(--light-slate);
-        transition: var(--transition);
+        color: var(--text-secondary);
+        transition: color var(--transition-normal) var(--easing);
         position: relative;
         z-index: 2;
 
         &:hover,
         &:focus {
-          color: var(--blue);
+          color: var(--accent);
         }
 
         &.external {
@@ -175,7 +167,7 @@ const StyledProject = styled.div`
   }
 
   .project-title {
-    color: var(--lightest-slate);
+    color: var(--text-primary);
     font-size: clamp(20px, 4vw, 24px);
     margin-bottom: 15px;
     word-wrap: break-word;
@@ -189,27 +181,16 @@ const StyledProject = styled.div`
       color: inherit;
       width: 100%;
       display: block;
-      transition: var(--transition);
+      transition: color var(--transition-normal) var(--easing);
 
       &:hover {
-        color: var(--blue);
-      }
-
-      &:before {
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+        color: var(--accent);
       }
     }
   }
 
   .project-description {
-    color: var(--light-slate);
+    color: var(--text-secondary);
     font-size: var(--fz-md);
     line-height: 1.6;
     margin-bottom: 20px;
@@ -226,31 +207,36 @@ const StyledProject = styled.div`
     flex-wrap: wrap;
     gap: 8px;
     margin-top: auto;
-    padding-top: 35px;
-    border-top: 1px solid rgba(100, 255, 218, 0.1);
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border);
     list-style: none;
     padding: 0;
-    margin: 35px 0 10px 0;
+    margin: 1.5rem 0 0.5rem 0;
 
     @media (max-width: 768px) {
-      margin: 30px 0 10px;
-      padding-top: 30px;
+      margin: 1.25rem 0 0.5rem;
+      padding-top: 1.25rem;
     }
 
     li {
-      color: var(--light-slate);
+      color: var(--accent);
       font-family: var(--font-mono);
       font-size: var(--fz-xs);
-      padding: 6px 12px;
-      background: rgba(100, 255, 218, 0.1);
-      border-radius: 4px;
-      transition: var(--transition);
+      padding: 8px 14px;
+      background: var(--accent-light);
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
-      margin: 4px 0;
+      margin: 0;
+      border: 1px solid transparent;
 
       &:hover {
-        background: rgba(100, 255, 218, 0.2);
-        transform: translateY(-1px);
+        background: var(--accent);
+        color: var(--text-light);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+        border-color: var(--accent);
       }
     }
   }
@@ -285,13 +271,8 @@ const Projects = () => {
   const revealTitle = useRef(null);
   const revealArchiveLink = useRef(null);
   const revealProjects = useRef([]);
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
     sr.reveal(revealTitle.current, srConfig());
     sr.reveal(revealArchiveLink.current, srConfig());
     revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
@@ -359,34 +340,12 @@ const Projects = () => {
       <h2 ref={revealTitle}>Noteworthy Projects</h2>
 
       <ul className="projects-grid">
-        {prefersReducedMotion ? (
-          <>
-            {projectsToShow &&
-              projectsToShow.map(({ node }, i) => (
-                <StyledProject key={i}>{projectInner(node)}</StyledProject>
-              ))}
-          </>
-        ) : (
-          <TransitionGroup component={null}>
-            {projectsToShow &&
-              projectsToShow.map(({ node }, i) => (
-                <CSSTransition
-                  key={i}
-                  classNames="fadeup"
-                  timeout={i >= GRID_LIMIT ? (i - GRID_LIMIT) * 300 : 300}
-                  exit={false}>
-                  <StyledProject
-                    key={i}
-                    ref={el => (revealProjects.current[i] = el)}
-                    style={{
-                      transitionDelay: `${i >= GRID_LIMIT ? (i - GRID_LIMIT) * 100 : 0}ms`,
-                    }}>
-                    {projectInner(node)}
-                  </StyledProject>
-                </CSSTransition>
-              ))}
-          </TransitionGroup>
-        )}
+        {projectsToShow &&
+          projectsToShow.map(({ node }, i) => (
+            <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
+              {projectInner(node)}
+            </StyledProject>
+          ))}
       </ul>
 
       <div className="note">

@@ -14,7 +14,7 @@ const StyledLoader = styled.div`
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--dark-navy);
+  background-color: var(--bg-primary);
   z-index: 99;
 
   .logo-wrapper {
@@ -22,6 +22,13 @@ const StyledLoader = styled.div`
     max-width: 150px;
     transition: var(--transition);
     opacity: ${props => (props.isMounted ? 1 : 0)};
+    padding: 24px;
+    background: var(--bg-secondary);
+    border-radius: 28px;
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    
     svg {
       display: block;
       width: 100%;
@@ -34,7 +41,9 @@ const StyledLoader = styled.div`
       }
       path,
       polygon {
-        stroke: var(--blue);
+        stroke: var(--accent);
+        strokeLinecap: round;
+        strokeLinejoin: round;
       }
     }
   }
@@ -55,14 +64,14 @@ const Loader = ({ finishLoading }) => {
         duration: 1500,
         easing: 'easeInOutQuart',
         strokeDashoffset: [anime.setDashoffset, 0],
-        stroke: ['var(--blue)', 'var(--green)'],
+        stroke: ['var(--accent)', 'var(--accent)'],
       })
       .add({
         targets: '#logo #M',
         duration: 800,
         easing: 'easeInOutQuart',
         opacity: 1,
-        stroke: 'var(--green)',
+        stroke: 'var(--accent)',
       })
       .add({
         targets: '#logo',

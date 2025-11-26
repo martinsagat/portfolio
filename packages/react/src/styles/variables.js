@@ -2,44 +2,65 @@ import { css } from 'styled-components';
 
 const variables = css`
   :root {
-    --dark-navy: #0a192f;
-    --navy: #112240;
-    --light-navy: #1d3461;
-    --lightest-navy: #233554;
-    --navy-shadow: rgba(2, 12, 27, 0.7);
-    --dark-slate: #495670;
-    --slate: #8892b0;
-    --light-slate: #a8b2d1;
-    --lightest-slate: #ccd6f6;
-    --white: #e6f1ff;
-    --red: #ff6b6b;
-    --red-tint: rgba(255, 107, 107, 0.1);
-    --pink: #ff6b6b;
-    --light-blue: rgba(11, 172, 235, 0.1);
-    --blue: #0badeb;
-    --lightest-green: #64d8ff;
-    --light-green: rgba(85, 217, 213, 0.1);
-    --green: #55d9d4;
+    /* Simplified Elegant Color Palette */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-tertiary: #f1f3f5;
+    --bg-dark: #0d1117;
+    --bg-dark-secondary: #161b22;
 
-    /* Modern Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
-    --gradient-dark: linear-gradient(135deg, var(--dark-navy) 0%, var(--navy) 100%);
-    --gradient-light: linear-gradient(135deg, var(--light-navy) 0%, var(--lightest-navy) 100%);
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --text-light: #ffffff;
+    --text-light-secondary: #e5e7eb;
+
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: rgba(37, 99, 235, 0.1);
+
+    --border: #e5e7eb;
+    --border-dark: #30363d;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+    /* Legacy color mappings for compatibility */
+    --dark-navy: var(--bg-dark);
+    --navy: var(--bg-dark-secondary);
+    --light-navy: var(--bg-dark-secondary);
+    --lightest-navy: var(--bg-dark-secondary);
+    --navy-shadow: rgba(0, 0, 0, 0.3);
+    --dark-slate: var(--text-secondary);
+    --slate: var(--text-secondary);
+    --light-slate: var(--text-tertiary);
+    --lightest-slate: var(--text-primary);
+    --white: var(--text-light);
+    --blue: var(--accent);
+    --green: var(--accent);
+    --light-blue: var(--accent-light);
+
+    /* Simplified Gradients */
+    --gradient-primary: var(--accent);
+    --gradient-dark: var(--bg-dark);
+    --gradient-light: var(--bg-secondary);
 
     /* Glass Effect */
-    --glass-bg: rgba(17, 34, 64, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: var(--border);
+    --glass-shadow: var(--shadow-md);
 
     /* Animation Durations */
     --transition-fast: 0.2s;
     --transition-normal: 0.3s;
     --transition-slow: 0.5s;
 
-    /* Existing Variables */
-    --font-sans: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui,
-      sans-serif;
-    --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    /* Modern Font Stack */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono',
+      'Source Code Pro', monospace;
 
     --fz-xxs: 12px;
     --fz-xs: 13px;
