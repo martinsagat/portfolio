@@ -1,8 +1,6 @@
 {
-    "name": "homestep",
+    "name": "portfolio",
     "version": "1.0.0",
-    "private": true,
-    "type": "module",
     "workspaces": [
       "packages/*"
     ],
@@ -17,14 +15,18 @@
       "list:secrets": "npx sst secrets list"
     },
     "devDependencies": {
-      "husky": "^9.1.6",
-      "lint-staged": "^15.2.10",
-      "prettier": "3.3.3",
-      "typescript": "5.6.2"
-    },
-    "dependencies": {
-        "sst": "^3"
-    },
+    "@tsconfig/node22": "^22",
+    "typescript": "^5",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "3.3.3"
+  },
+  "dependencies": {
+    "@aws-sdk/middleware-stack": "^3.374.0",
+    "@pulumi/aws": "^6.80.0",
+    "@pulumi/pulumi": "^3.170.0",
+    "sst": "^3"
+  },
     "lint-staged": {
       "./**/*.{js,jsx,ts,tsx,json}": [
         "prettier --write"

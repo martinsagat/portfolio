@@ -1,0 +1,7 @@
+node_modules
+.next
+.open-next/cache
+.sst
+*.tsbuildinfo
+.DS_Store
+
