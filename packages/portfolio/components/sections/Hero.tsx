@@ -3,31 +3,94 @@
 import { Box, Container, Typography, Button, Stack } from '@mui/material';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useThemeMode } from '@/theme/ThemeContext';
 
 const technologies = [
   'html5', 'css3', 'js', 'node', 'react', 'graphql', 'laravel', 'net',
-  'mysql', 'postgresql', 'mongodb', 'aws', 'azure', 'terraform', 'git', 'linux', 'postman'
+  'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure'
 ];
 
 export default function Hero() {
+  const { mode } = useThemeMode();
   const [techPositions, setTechPositions] = useState<Array<{ name: string; left: number; top: number; size: number }>>([]);
 
   useEffect(() => {
-    const positions = technologies.map((tech, index) => {
-      const colsPerRow = 4;
-      const hexWidth = 90;
-      const hexHeight = 95;
+    const fixedSize = 70; // Fixed size for all icons
+    const colsPerRow = 4;
+    const hexWidth = 90;
+    const hexHeight = 95;
+    const padding = 20;
+    
+    // Helper function to check if two circles overlap
+    const circlesOverlap = (
+      x1: number, y1: number, r1: number,
+      x2: number, y2: number, r2: number
+    ): boolean => {
+      const dx = x1 - x2;
+      const dy = y1 - y2;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      return distance < (r1 + r2);
+    };
+    
+    const positions: Array<{ name: string; left: number; top: number; size: number }> = [];
+    
+    technologies.forEach((tech, index) => {
       const row = Math.floor(index / colsPerRow);
       const col = index % colsPerRow;
       const hexOffset = row % 2 === 1 ? 0.5 : 0;
-      const randomX = (Math.random() - 0.5) * 10;
-      const randomY = (Math.random() - 0.5) * 12;
-      const left = 15 + (col + hexOffset) * hexWidth + randomX;
-      const top = 15 + row * hexHeight * 0.92 + randomY;
-      const size = 55 + Math.random() * 30;
+      let left = 15 + (col + hexOffset) * hexWidth;
+      let top = 15 + row * hexHeight * 0.92;
+      
+      const iconRadius = fixedSize / 2;
+      let iconCenterX = left + fixedSize / 2;
+      let iconCenterY = top + fixedSize / 2;
+      
+      // Check for overlaps with already positioned tech icons
+      let maxIterations = 20;
+      let iteration = 0;
+      while (iteration < maxIterations) {
+        let hasOverlap = false;
+        
+        // Check overlaps with other tech icons
+        for (const existingIcon of positions) {
+          const existingCenterX = existingIcon.left + existingIcon.size / 2;
+          const existingCenterY = existingIcon.top + existingIcon.size / 2;
+          const existingRadius = existingIcon.size / 2;
+          
+          if (circlesOverlap(iconCenterX, iconCenterY, iconRadius, existingCenterX, existingCenterY, existingRadius)) {
+            hasOverlap = true;
+            // Calculate direction away from existing icon
+            const dx = iconCenterX - existingCenterX;
+            const dy = iconCenterY - existingCenterY;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const minDistance = iconRadius + existingRadius + padding;
+            
+            if (distance > 0) {
+              // Push icon away from existing icon
+              const pushDistance = minDistance - distance;
+              const pushX = (dx / distance) * pushDistance;
+              const pushY = (dy / distance) * pushDistance;
+              
+              left += pushX;
+              top += pushY;
+              iconCenterX = left + fixedSize / 2;
+              iconCenterY = top + fixedSize / 2;
+            } else {
+              // If exactly at center, push to the right
+              left += minDistance;
+              iconCenterX = left + fixedSize / 2;
+            }
+            break;
+          }
+        }
+        
+        if (!hasOverlap) break;
+        iteration++;
+      }
 
-      return { name: tech, left, top, size: Math.round(size) };
+      positions.push({ name: tech, left, top, size: fixedSize });
     });
+    
     setTechPositions(positions);
   }, []);
 
@@ -42,18 +105,8 @@ export default function Hero() {
         justifyContent: 'center',
         position: 'relative',
         py: { xs: 8, md: 12 },
-        background: 'linear-gradient(180deg, rgba(10, 24, 46, 0) 0%, rgba(10, 24, 46, 0.3) 100%)',
         overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'radial-gradient(circle at 50% 50%, rgba(17, 34, 64, 0.3) 0%, transparent 50%)',
-          zIndex: 1,
-        },
+        pl: { xs: 0, lg: 15 },
       }}
     >
       <Container 
@@ -79,7 +132,7 @@ export default function Hero() {
               variant="h6"
               sx={{
                 color: 'primary.main',
-                fontFamily: 'var(--font-geist-mono)',
+                fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                 mb: 2,
                 fontSize: { xs: '14px', md: '18px' },
               }}
@@ -171,6 +224,7 @@ export default function Hero() {
               position: 'relative',
               minHeight: { xs: '300px', md: '500px' },
               display: { xs: 'none', lg: 'block' },
+              mt: { lg: 20 },
             }}
           >
             {techPositions.map((tech) => (
@@ -201,7 +255,11 @@ export default function Hero() {
                 }}
               >
                 <Image
-                  src={`/content/stack/${tech.name}.${tech.name === 'postman' ? 'svg' : 'png'}`}
+                  src={`/content/stack/${
+                    tech.name === 'aws' && mode === 'light'
+                      ? 'aws-light.png'
+                      : `${tech.name}.png`
+                  }`}
                   alt={tech.name}
                   width={tech.size - 16}
                   height={tech.size - 16}

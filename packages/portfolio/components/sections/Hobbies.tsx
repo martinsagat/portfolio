@@ -59,7 +59,15 @@ export default function Hobbies() {
 
 function HobbyCard({ hobby }: { hobby: Hobby }) {
   return (
-    <Card>
+    <Card
+      sx={{
+        '&:hover': {
+          borderColor: 'divider',
+          transform: 'none',
+          boxShadow: 'none',
+        },
+      }}
+    >
       <CardContent>
         {hobby.images && hobby.images.length > 0 && (
           <Box
@@ -76,7 +84,10 @@ function HobbyCard({ hobby }: { hobby: Hobby }) {
               src={hobby.images[0]}
               alt={hobby.title}
               fill
-              style={{ objectFit: 'cover' }}
+              style={{ 
+                objectFit: 'cover',
+                objectPosition: hobby.title.toLowerCase() === 'climbing' ? 'top' : 'center'
+              }}
             />
           </Box>
         )}

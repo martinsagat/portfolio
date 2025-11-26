@@ -64,7 +64,7 @@ export default function HexagonLogo({ size = 40, onClick }: HexagonLogoProps) {
           textAnchor="middle"
           fontSize="40"
           fill="currentColor"
-          fontFamily="var(--font-geist-mono, monospace)"
+          fontFamily='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace'
           fontWeight="bold"
         >
           M

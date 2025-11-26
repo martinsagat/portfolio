@@ -9,6 +9,15 @@ export const client = new sst.aws.Nextjs('MartinSagat', {
     path: 'packages/portfolio',
     environment: {
       NEXT_PUBLIC_NODE_ENV: 'production',
+      NODE_ENV: 'production',
+    },
+    assets: {
+      fileOptions: [
+        {
+          files: 'public/**/*',
+          cacheControl: 'no-cache, no-store, must-revalidate',
+        },
+      ],
     },
     invalidation: {
       paths: 'all',
