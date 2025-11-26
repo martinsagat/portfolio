@@ -79,7 +79,15 @@ export default function Projects() {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <Card>
+    <Card
+      sx={{
+        '&:hover': {
+          borderColor: 'divider',
+          transform: 'none',
+          boxShadow: 'none',
+        },
+      }}
+    >
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
           <FolderIcon sx={{ color: 'primary.main', fontSize: 30 }} />
@@ -145,7 +153,7 @@ function ProjectCard({ project }: { project: Project }) {
                 sx={{
                   backgroundColor: 'accent.light',
                   color: 'primary.main',
-                  fontFamily: 'var(--font-geist-mono)',
+                  fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                   fontSize: '11px',
                   '&:hover': {
                     backgroundColor: 'primary.main',

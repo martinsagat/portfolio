@@ -24,7 +24,7 @@ export default function Contact() {
             variant="h6"
             sx={{
               color: 'primary.main',
-              fontFamily: 'var(--font-geist-mono)',
+              fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
               mb: 2,
             }}
           >

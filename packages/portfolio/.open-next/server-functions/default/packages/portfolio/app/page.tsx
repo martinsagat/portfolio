@@ -13,7 +13,14 @@ export default function Home() {
   return (
     <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default', width: '100%' }}>
       <Nav />
-      <main style={{ width: '100%', margin: '0 auto' }}>
+      <Box
+        component="main"
+        sx={{
+          width: '100%',
+          margin: '0 auto',
+          pl: { xs: 0, lg: 0 },
+        }}
+      >
         <Hero />
         <About />
         <Jobs />
@@ -21,7 +28,7 @@ export default function Home() {
         <Projects />
         <Hobbies />
         <Contact />
-      </main>
+      </Box>
       <Footer />
     </Box>
   );

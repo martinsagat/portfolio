@@ -65,7 +65,15 @@ export default function Blog() {
 
 function PostCard({ post }: { post: Post }) {
   return (
-    <Card>
+    <Card
+      sx={{
+        '&:hover': {
+          borderColor: 'divider',
+          transform: 'none',
+          boxShadow: 'none',
+        },
+      }}
+    >
       <CardContent>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
           <BookmarkIcon sx={{ color: 'primary.main', fontSize: 30 }} />
@@ -95,7 +103,7 @@ function PostCard({ post }: { post: Post }) {
           variant="caption"
           sx={{
             color: 'text.secondary',
-            fontFamily: 'var(--font-geist-mono)',
+            fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
             fontSize: '12px',
             display: 'block',
             mb: 1.5,
@@ -113,7 +121,7 @@ function PostCard({ post }: { post: Post }) {
                 sx={{
                   backgroundColor: 'accent.light',
                   color: 'primary.main',
-                  fontFamily: 'var(--font-geist-mono)',
+                  fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                   fontSize: '11px',
                   '&:hover': {
                     backgroundColor: 'primary.main',

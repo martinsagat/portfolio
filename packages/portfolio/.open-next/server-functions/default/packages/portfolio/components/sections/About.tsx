@@ -28,12 +28,9 @@ export default function About() {
               sx={{
                 width: { xs: 180, md: 250 },
                 height: { xs: 180, md: 250 },
-                border: '3px solid',
-                borderColor: 'divider',
                 position: 'relative',
                 zIndex: 10,
                 '&:hover': {
-                  borderColor: 'primary.main',
                   transform: 'scale(1.02)',
                 },
                 transition: 'all 0.3s ease',
@@ -53,22 +50,7 @@ export default function About() {
               About Me
             </Typography>
             <Typography variant="body1" sx={{ mb: 2, color: 'text.secondary' }}>
-              As a skilled Software Engineer with a diverse experience in the Logistics, Marketing,
-              and Healthcare industries, I am eager to continuously deliver impactful solutions and
-              drive innovations. I'm highly adaptable, experimental and persistent in my approach to
-              problem-solving. I always strive to find the meaning to my work by exploring the{' '}
-              <Box component="span" sx={{ color: 'text.primary', fontWeight: 600, fontStyle: 'italic' }}>
-                why
-              </Box>{' '}
-              behind the{' '}
-              <Box component="span" sx={{ color: 'text.primary', fontWeight: 600, fontStyle: 'italic' }}>
-                what
-              </Box>{' '}
-              and{' '}
-              <Box component="span" sx={{ color: 'text.primary', fontWeight: 600, fontStyle: 'italic' }}>
-                how
-              </Box>
-              .
+            I’m a Senior Software Engineer specializing in scalable web and mobile applications. I blend cloud and modern web expertise with hands-on AI integration to build efficient, maintainable systems that enhance user experiences and drive business impact. I’m also passionate about crafting clean, intuitive UI/UX that elevates every product I work on.
             </Typography>
           </Box>
         </Stack>

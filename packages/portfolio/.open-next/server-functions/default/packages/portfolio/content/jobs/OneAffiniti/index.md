@@ -2,7 +2,7 @@
 date: '2021-08-01'
 title: 'Software Engineer'
 company: 'OneAffiniti'
-location: 'Sydney NSW'
+location: 'Sydney NSW, (Remote)'
 range: 'Aug 2021 - Jan 2023'
 url: 'https://oneaffiniti.com/'
 logo: './1a.png'
