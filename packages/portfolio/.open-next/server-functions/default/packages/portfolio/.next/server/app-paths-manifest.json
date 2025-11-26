@@ -6,5 +6,6 @@
   "/api/posts/route": "app/api/posts/route.js",
   "/api/projects/route": "app/api/projects/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
   "/page": "app/page.js"
 }

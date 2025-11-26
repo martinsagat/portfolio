@@ -36,7 +36,7 @@ export default function Hobbies() {
         }}
       >
         <Typography variant="h2" sx={{ mb: 6, textAlign: 'center' }}>
-          Other Interests
+          Things I enjoy
         </Typography>
         <Box
           sx={{

@@ -6,5 +6,6 @@
   "/api/posts/route": "/api/posts",
   "/api/projects/route": "/api/projects",
   "/favicon.ico/route": "/favicon.ico",
+  "/icon.svg/route": "/icon.svg",
   "/page": "/"
 }

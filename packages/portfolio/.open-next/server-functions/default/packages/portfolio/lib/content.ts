@@ -225,10 +225,14 @@ export async function getHobbies(): Promise<Hobby[]> {
         content,
         htmlContent,
         images,
-      } as Hobby;
+        date: data.date || '0',
+      } as Hobby & { date: string };
     })
   );
 
-  return hobbies.filter((hobby): hobby is Hobby => hobby !== null);
+  return hobbies
+    .filter((hobby): hobby is Hobby & { date: string } => hobby !== null)
+    .sort((a, b) => Number(a.date) - Number(b.date))
+    .map(({ date, ...hobby }) => hobby);
 }
 

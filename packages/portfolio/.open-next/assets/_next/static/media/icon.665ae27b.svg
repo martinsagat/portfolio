@@ -1,0 +1,21 @@
+<svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M 50, 5
+      L 15, 27
+      A 4 4 0 0 1 11, 31
+      L 11, 69
+      A 4 4 0 0 1 15, 73
+      L 50, 95
+      L 85, 73
+      A 4 4 0 0 1 89, 69
+      L 89, 31
+      A 4 4 0 0 1 85, 27
+      Z"
+    fill="#0A75BC"
+    stroke="#0A75BC"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+</svg>
+

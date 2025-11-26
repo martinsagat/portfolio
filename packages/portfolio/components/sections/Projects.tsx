@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography, Card, CardContent, Stack, Chip, IconButton, Link } from '@mui/material';
+import { Box, Container, Typography, Card, CardContent, Stack, Chip, IconButton, Link, Tooltip } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -207,44 +207,48 @@ function ProjectCard({ project }: { project: Project }) {
           <FolderIcon sx={{ color: 'primary.main', fontSize: 36 }} />
           <Stack direction="row" spacing={0.5}>
             {project.github && (
-              <IconButton
-                component={Link}
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                size="large"
-                sx={{ 
-                  color: 'text.secondary', 
-                  '&:hover': { 
-                    color: 'primary.main',
-                    backgroundColor: 'action.hover',
-                    transform: 'scale(1.1)',
-                  },
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <GitHubIcon sx={{ fontSize: 32 }} />
-              </IconButton>
+              <Tooltip title="View on GitHub" arrow placement="top">
+                <IconButton
+                  component={Link}
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="large"
+                  sx={{ 
+                    color: 'text.secondary', 
+                    '&:hover': { 
+                      color: 'primary.main',
+                      backgroundColor: 'action.hover',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <GitHubIcon sx={{ fontSize: 32 }} />
+                </IconButton>
+              </Tooltip>
             )}
             {project.external && (
-              <IconButton
-                component={Link}
-                href={project.external}
-                target="_blank"
-                rel="noopener noreferrer"
-                size="large"
-                sx={{ 
-                  color: 'text.secondary', 
-                  '&:hover': { 
-                    color: 'primary.main',
-                    backgroundColor: 'action.hover',
-                    transform: 'scale(1.1)',
-                  },
-                  transition: 'all 0.2s ease',
-                }}
-              >
-                <OpenInNewIcon sx={{ fontSize: 32 }} />
-              </IconButton>
+              <Tooltip title="View live site" arrow placement="top">
+                <IconButton
+                  component={Link}
+                  href={project.external}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  size="large"
+                  sx={{ 
+                    color: 'text.secondary', 
+                    '&:hover': { 
+                      color: 'primary.main',
+                      backgroundColor: 'action.hover',
+                      transform: 'scale(1.1)',
+                    },
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <OpenInNewIcon sx={{ fontSize: 32 }} />
+                </IconButton>
+              </Tooltip>
             )}
           </Stack>
         </Box>
