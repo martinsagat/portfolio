@@ -6,7 +6,7 @@ external: 'https://martinsagat.com'
 tech:
   - JavaScript
   - React
-  - Gatsby
+  - Next.js
   - GraphQL
   - Styled Components
   - AWS
@@ -14,7 +14,7 @@ tech:
 showInProjects: true
 ---
 
-A modern, responsive portfolio website built with Gatsby and React. Features include:
+A modern, responsive portfolio website built with Next.js and React. Features include:
 
 - Server-side rendering and static site generation for optimal performance
 - Responsive design with modern UI/UX principles

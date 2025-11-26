@@ -8,7 +8,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { config } from '@/lib/config';
-import HexagonLogo from '@/components/HexagonLogo';
+import { Hexagon } from '@/components/Hexagon';
 import { useThemeMode } from '@/theme/ThemeContext';
 
 export default function Nav() {
@@ -121,9 +121,47 @@ export default function Nav() {
   };
 
   const drawer = (
-    <Box sx={{ textAlign: 'center', pt: 4 }}>
+      <Box sx={{ textAlign: 'center', pt: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
-        <HexagonLogo size={50} onClick={() => { router.push('/'); setMobileOpen(false); }} />
+        <IconButton
+          onClick={() => { router.push('/'); setMobileOpen(false); }}
+          sx={{
+            padding: 0,
+            color: activeSection === '' ? 'primary.main' : 'text.secondary',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'scale(1.1)',
+              color: 'primary.main',
+            },
+          }}
+          aria-label="Home"
+        >
+          <Hexagon
+            size={50}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={4}
+          >
+            <svg
+              width={50}
+              height={50}
+              viewBox="0 0 100 100"
+              style={{ position: 'absolute', top: 0, left: 0 }}
+            >
+              <text
+                x="50"
+                y="60"
+                textAnchor="middle"
+                fontSize="40"
+                fill="currentColor"
+                fontFamily='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace'
+                fontWeight="bold"
+              >
+                M
+              </text>
+            </svg>
+          </Hexagon>
+        </IconButton>
       </Box>
       <List>
         {config.navLinks.map((link) => {
@@ -250,7 +288,44 @@ export default function Nav() {
           py: { xs: 1, md: 1.5 },
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-            <HexagonLogo size={45} onClick={() => router.push('/')} />
+            <IconButton
+              onClick={() => router.push('/')}
+              sx={{
+                padding: 0,
+                color: activeSection === '' ? 'primary.main' : 'text.secondary',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  color: 'primary.main',
+                },
+              }}
+              aria-label="Home"
+            >
+              <Hexagon
+                size={45}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={4}
+              >
+                <svg
+                  width={45}
+                  height={45}
+                  viewBox="0 0 100 100"
+                  style={{ position: 'absolute', top: 0, left: 0 }}
+                >
+                  <text
+                    x="50"
+                    y="60"
+                    textAnchor="middle"
+                    fontSize="40"
+                    fill="currentColor"
+                    fontFamily='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace'
+                    fontWeight="bold"
+                  >
+                  </text>
+                </svg>
+              </Hexagon>
+            </IconButton>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
               {config.navLinks.map((link) => {
                 const hash = link.url.split('#')[1] || '';
