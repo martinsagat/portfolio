@@ -141,26 +141,7 @@ export default function Nav() {
             fill="none"
             stroke="currentColor"
             strokeWidth={4}
-          >
-            <svg
-              width={50}
-              height={50}
-              viewBox="0 0 100 100"
-              style={{ position: 'absolute', top: 0, left: 0 }}
-            >
-              <text
-                x="50"
-                y="60"
-                textAnchor="middle"
-                fontSize="40"
-                fill="currentColor"
-                fontFamily='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace'
-                fontWeight="bold"
-              >
-                M
-              </text>
-            </svg>
-          </Hexagon>
+          />
         </IconButton>
       </Box>
       <List>
@@ -401,6 +382,7 @@ export default function Nav() {
               sx={{ 
                 display: { md: 'none' },
                 color: 'text.primary',
+                mr: { xs: 1, sm: 2 },
                 '&:hover': {
                   color: 'primary.main',
                 },

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography, Button, Stack } from '@mui/material';
+import { Box, Container, Typography, Button, Stack, Tooltip } from '@mui/material';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useThemeMode } from '@/theme/ThemeContext';
@@ -9,6 +9,28 @@ const technologies = [
   'html5', 'css3', 'js', 'node', 'react', 'graphql', 'laravel', 'net',
   'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure'
 ];
+
+const getTechDisplayName = (tech: string): string => {
+  const techNames: Record<string, string> = {
+    'html5': 'HTML5',
+    'css3': 'CSS3',
+    'js': 'JavaScript',
+    'node': 'Node.js',
+    'react': 'React',
+    'graphql': 'GraphQL',
+    'laravel': 'Laravel',
+    'net': '.NET',
+    'mysql': 'MySQL',
+    'postgresql': 'PostgreSQL',
+    'terraform': 'Terraform',
+    'git': 'Git',
+    'linux': 'Linux',
+    'mongodb': 'MongoDB',
+    'aws': 'Amazon Web Services',
+    'azure': 'Microsoft Azure',
+  };
+  return techNames[tech] || tech.toUpperCase();
+};
 
 export default function Hero() {
   const { mode } = useThemeMode();
@@ -228,44 +250,51 @@ export default function Hero() {
             }}
           >
             {techPositions.map((tech) => (
-              <Box
+              <Tooltip
                 key={tech.name}
-                sx={{
-                  position: 'absolute',
-                  left: `${tech.left}px`,
-                  top: `${tech.top}px`,
-                  width: `${tech.size}px`,
-                  height: `${tech.size}px`,
-                  borderRadius: '50%',
-                  backgroundColor: 'background.paper',
-                  border: '2px solid',
-                  borderColor: 'divider',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 1,
-                  zIndex: 1,
-                  transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  '&:hover': {
-                    borderColor: 'primary.main',
-                    backgroundColor: 'accent.light',
-                    transform: 'translateY(-8px) scale(1.1) rotate(2deg)',
-                    zIndex: 5,
-                  },
-                }}
+                title={getTechDisplayName(tech.name)}
+                arrow
+                placement="top"
               >
-                <Image
-                  src={`/content/stack/${
-                    tech.name === 'aws' && mode === 'light'
-                      ? 'aws-light.png'
-                      : `${tech.name}.png`
-                  }`}
-                  alt={tech.name}
-                  width={tech.size - 16}
-                  height={tech.size - 16}
-                  style={{ objectFit: 'contain' }}
-                />
-              </Box>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: `${tech.left}px`,
+                    top: `${tech.top}px`,
+                    width: `${tech.size}px`,
+                    height: `${tech.size}px`,
+                    borderRadius: '50%',
+                    backgroundColor: 'background.paper',
+                    border: '2px solid',
+                    borderColor: 'divider',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: 1,
+                    zIndex: 1,
+                    transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      borderColor: 'primary.main',
+                      backgroundColor: 'accent.light',
+                      transform: 'translateY(-8px) scale(1.1) rotate(2deg)',
+                      zIndex: 5,
+                    },
+                  }}
+                >
+                  <Image
+                    src={`/content/stack/${
+                      tech.name === 'aws' && mode === 'light'
+                        ? 'aws-light.png'
+                        : `${tech.name}.png`
+                    }`}
+                    alt={tech.name}
+                    width={tech.size - 16}
+                    height={tech.size - 16}
+                    style={{ objectFit: 'contain' }}
+                  />
+                </Box>
+              </Tooltip>
             ))}
           </Box>
         </Box>
