@@ -321,16 +321,17 @@ export default function Nav() {
               download
               variant="outlined"
               size="small"
-              startIcon={<DownloadIcon />}
+              startIcon={<DownloadIcon sx={{ fontSize: '1rem' }} />}
               sx={{
                 display: { xs: 'none', md: 'flex' },
                 color: 'text.secondary',
                 borderColor: 'text.secondary',
                 minWidth: 'auto',
-                px: 2,
+                px: 1.5,
+                ml: 2,
                 mr: -1,
-                py: 1,
-                fontSize: '1rem',
+                py: 0.5,
+                fontSize: '0.875rem',
                 '&:hover': {
                   color: 'primary.main',
                   borderColor: 'primary.main',

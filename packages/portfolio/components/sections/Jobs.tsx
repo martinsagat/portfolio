@@ -122,7 +122,7 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
           <Box
             sx={{
               position: 'relative',
-              backgroundColor: 'background.paper',
+              backgroundColor: theme.palette.mode === 'dark' ? '#1a2f4f' : 'background.paper',
               borderRadius: 8,
               p: { xs: 3, md: 4 },
               boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
