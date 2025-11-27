@@ -186,44 +186,6 @@ export default function Nav() {
             Resume
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton
-            onClick={() => {
-              toggleMode();
-            }}
-            sx={{ 
-              textAlign: 'center',
-              justifyContent: 'center',
-              gap: 1,
-            }}
-          >
-            {mode === 'dark' ? (
-              <LightModeIcon />
-            ) : (
-              <DarkModeIcon />
-            )}
-            <ListItemText 
-              primary={mode === 'dark' ? 'Light Mode' : 'Dark Mode'}
-              primaryTypographyProps={{
-                sx: { fontSize: '1rem' }
-              }}
-            />
-            <Switch
-              checked={mode === 'dark'}
-              onChange={toggleMode}
-              onClick={(e) => e.stopPropagation()}
-              size="small"
-              sx={{
-                '& .MuiSwitch-switchBase.Mui-checked': {
-                  color: 'primary.main',
-                },
-                '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-                  backgroundColor: 'primary.main',
-                },
-              }}
-            />
-          </ListItemButton>
-        </ListItem>
       </List>
     </Box>
   );
@@ -236,27 +198,28 @@ export default function Nav() {
         backgroundImage: trigger ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.1) 100%)' : 'none',
       }
     : {
-        backgroundColor: trigger ? 'rgba(255, 255, 255, 0.8)' : 'transparent',
-        boxShadow: trigger ? '0 4px 16px 0 rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1)' : 0,
-        border: trigger ? '1px solid rgba(0, 0, 0, 0.06)' : 'none',
-        backgroundImage: trigger ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%)' : 'none',
+        backgroundColor: trigger ? 'rgba(255, 255, 255, 0.4)' : 'rgba(255, 255, 255, 0.3)',
+        boxShadow: trigger ? '0 8px 32px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.5)' : 0,
+        border: trigger ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.2)',
+        backgroundImage: trigger ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.2) 100%)' : 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.15) 100%)',
       };
 
   return (
     <>
       <AppBar
         position="fixed"
+        elevation={0}
         sx={{
           ...glassStyles,
-          backdropFilter: trigger ? 'blur(20px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: trigger ? 'blur(20px) saturate(180%)' : 'none',
+          backdropFilter: mode === 'light' ? 'blur(20px) saturate(180%)' : (trigger ? 'blur(20px) saturate(180%)' : 'none'),
+          WebkitBackdropFilter: mode === 'light' ? 'blur(20px) saturate(180%)' : (trigger ? 'blur(20px) saturate(180%)' : 'none'),
           transition: 'all 0.3s ease',
-          borderRadius: trigger ? '9999px' : 0,
-          mt: trigger ? 2 : 0,
-          left: trigger ? 2 : 0,
-          right: trigger ? 2 : 0,
+          borderRadius: trigger ? '9999px' : (mode === 'light' ? '0 0 9999px 9999px' : 0),
+          mt: trigger ? 2 : (mode === 'light' ? 0 : 0),
+          left: trigger ? 2 : (mode === 'light' ? 0 : 0),
+          right: trigger ? 2 : (mode === 'light' ? 0 : 0),
           maxWidth: '1200px',
-          width: trigger ? 'calc(100% - 32px)' : '100%',
+          width: trigger ? 'calc(100% - 32px)' : (mode === 'light' ? '100%' : '100%'),
           mx: 'auto',
         }}
       >
@@ -275,6 +238,7 @@ export default function Nav() {
                 padding: 0,
                 color: activeSection === '' ? 'primary.main' : 'text.secondary',
                 transition: 'all 0.3s ease',
+                ml: { xs: 1, md: 0 },
                 '&:hover': {
                   transform: 'scale(1.1)',
                   color: 'primary.main',
@@ -375,6 +339,19 @@ export default function Nav() {
             >
               Resume
             </Button>
+            <IconButton
+              onClick={toggleMode}
+              sx={{
+                display: { xs: 'flex', md: 'none' },
+                color: 'text.secondary',
+                '&:hover': {
+                  color: 'primary.main',
+                },
+              }}
+              aria-label="toggle theme"
+            >
+              {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+            </IconButton>
             <IconButton
               aria-label="open drawer"
               edge="end"

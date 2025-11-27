@@ -11,8 +11,8 @@
       L 89, 31
       A 4 4 0 0 1 85, 27
       Z"
-    fill="#0A75BC"
-    stroke="#0A75BC"
+    fill="#000000"
+    stroke="#000000"
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"

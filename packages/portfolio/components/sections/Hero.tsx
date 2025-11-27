@@ -35,6 +35,7 @@ const getTechDisplayName = (tech: string): string => {
 export default function Hero() {
   const { mode } = useThemeMode();
   const [techPositions, setTechPositions] = useState<Array<{ name: string; left: number; top: number; size: number }>>([]);
+  const [clusterBounds, setClusterBounds] = useState({ minLeft: 0, maxRight: 0 });
 
   useEffect(() => {
     const fixedSize = 70; // Fixed size for all icons
@@ -113,6 +114,13 @@ export default function Hero() {
       positions.push({ name: tech, left, top, size: fixedSize });
     });
     
+    // Calculate cluster bounds for centering on small screens
+    if (positions.length > 0) {
+      const minLeft = Math.min(...positions.map(p => p.left));
+      const maxRight = Math.max(...positions.map(p => p.left + p.size));
+      setClusterBounds({ minLeft, maxRight });
+    }
+    
     setTechPositions(positions);
   }, []);
 
@@ -126,9 +134,10 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        py: { xs: 8, md: 12 },
+        pt: { xs: 4, md: 28, lg: 0 },
         overflow: 'hidden',
-        pl: { xs: 0, lg: 15 },
+        pl: { xs: 0, lg: 25 },
+        backgroundColor: mode === 'light' ? '#ffffff' : 'transparent',
       }}
     >
       <Container 
@@ -156,6 +165,7 @@ export default function Hero() {
                 color: 'primary.main',
                 fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                 mb: 2,
+                ml: { lg: 0.5 },
                 fontSize: { xs: '14px', md: '18px' },
               }}
             >
@@ -245,57 +255,74 @@ export default function Hero() {
             sx={{
               position: 'relative',
               minHeight: { xs: '300px', md: '500px' },
-              display: { xs: 'none', lg: 'block' },
               mt: { lg: 20 },
+              ml: { xs: 1 },
+              width: '100%',
+              display: 'flex',
+              justifyContent: { xs: 'center', lg: 'flex-start' },
             }}
           >
-            {techPositions.map((tech) => (
-              <Tooltip
-                key={tech.name}
-                title={getTechDisplayName(tech.name)}
-                arrow
-                placement="top"
-              >
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    left: `${tech.left}px`,
-                    top: `${tech.top}px`,
-                    width: `${tech.size}px`,
-                    height: `${tech.size}px`,
-                    borderRadius: '50%',
-                    backgroundColor: 'background.paper',
-                    border: '2px solid',
-                    borderColor: 'divider',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: 1,
-                    zIndex: 1,
-                    transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                    cursor: 'pointer',
-                    '&:hover': {
-                      borderColor: 'primary.main',
-                      backgroundColor: 'accent.light',
-                      transform: 'translateY(-8px) scale(1.1) rotate(2deg)',
-                      zIndex: 5,
-                    },
-                  }}
+            <Box
+              sx={{
+                position: 'relative',
+                width: clusterBounds.maxRight > 0 ? `${clusterBounds.maxRight}px` : 'auto',
+                margin: { xs: '0 auto', lg: 0 },
+                transform: { 
+                  xs: clusterBounds.minLeft > 0 
+                    ? `translateX(-${clusterBounds.minLeft}px)` 
+                    : 'none', 
+                  lg: 'none' 
+                },
+              }}
+            >
+              {techPositions.map((tech) => (
+                <Tooltip
+                  key={tech.name}
+                  title={getTechDisplayName(tech.name)}
+                  arrow
+                  placement="top"
                 >
-                  <Image
-                    src={`/content/stack/${
-                      tech.name === 'aws' && mode === 'light'
-                        ? 'aws-light.png'
-                        : `${tech.name}.png`
-                    }`}
-                    alt={tech.name}
-                    width={tech.size - 16}
-                    height={tech.size - 16}
-                    style={{ objectFit: 'contain' }}
-                  />
-                </Box>
-              </Tooltip>
-            ))}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      left: `${tech.left}px`,
+                      top: `${tech.top}px`,
+                      width: `${tech.size}px`,
+                      height: `${tech.size}px`,
+                      borderRadius: '50%',
+                      backgroundColor: 'background.paper',
+                      border: '2px solid',
+                      borderColor: 'divider',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: 1,
+                      zIndex: 1,
+                      transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        borderColor: 'primary.main',
+                        backgroundColor: 'accent.light',
+                        transform: 'translateY(-8px) scale(1.1) rotate(2deg)',
+                        zIndex: 5,
+                      },
+                    }}
+                  >
+                    <Image
+                      src={`/content/stack/${
+                        tech.name === 'aws' && mode === 'light'
+                          ? 'aws-light.png'
+                          : `${tech.name}.png`
+                      }`}
+                      alt={tech.name}
+                      width={tech.size - 16}
+                      height={tech.size - 16}
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </Box>
+                </Tooltip>
+              ))}
+            </Box>
           </Box>
         </Box>
       </Container>

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography, Card, CardContent, Avatar, Chip, Stack, Collapse, IconButton, Button } from '@mui/material';
+import { Box, Container, Typography, Card, CardContent, Avatar, Chip, Stack, Collapse, IconButton, Button, useTheme } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useState, useEffect } from 'react';
@@ -19,6 +19,7 @@ interface Job {
 }
 
 export default function Jobs() {
+  const theme = useTheme();
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function Jobs() {
       id="jobs"
       sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: 'background.paper',
+        backgroundColor: theme.palette.mode === 'light' ? '#f8f9fa' : 'background.paper',
       }}
     >
       <Container 
@@ -61,7 +62,9 @@ function JobCard({ job }: { job: Job }) {
 
   return (
     <Card
+      elevation={0}
       sx={{
+        boxShadow: 'none',
         '&:hover': {
           borderColor: 'divider',
           transform: 'none',
