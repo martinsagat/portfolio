@@ -187,6 +187,11 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                     borderRadius: '50%',
                     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                     flexShrink: 0,
+                    '& img': {
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain',
+                    },
                   }}
                 >
                   <Image
@@ -194,7 +199,7 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                     alt={job.company}
                     width={72}
                     height={72}
-                    style={{ objectFit: 'contain', borderRadius: '50%' }}
+                    style={{ objectFit: 'contain', borderRadius: '50%', width: '100%', height: '100%' }}
                   />
                 </Avatar>
               )}
