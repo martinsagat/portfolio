@@ -132,6 +132,9 @@ export default function Projects() {
               '&.Mui-disabled': {
                 opacity: 0.3,
               },
+              '& svg': {
+                transform: 'translateX(4px)',
+              },
             }}
           >
             <ArrowBackIosIcon />

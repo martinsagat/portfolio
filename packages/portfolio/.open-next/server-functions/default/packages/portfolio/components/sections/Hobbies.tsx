@@ -64,6 +64,7 @@ function HobbyCard({ hobby }: { hobby: Hobby }) {
       elevation={0}
       sx={{
         boxShadow: 'none',
+        userSelect: 'none',
         '&:hover': {
           borderColor: 'divider',
           transform: 'none',

@@ -167,6 +167,7 @@ export default function Hero() {
                 mb: 2,
                 ml: { lg: 0.5 },
                 fontSize: { xs: '14px', md: '18px' },
+                userSelect: 'none',
               }}
             >
               Hi, my name is
@@ -177,6 +178,7 @@ export default function Hero() {
                 mb: 2,
                 color: 'text.primary',
                 fontWeight: 700,
+                userSelect: 'none',
               }}
             >
               Martin Sagat
@@ -186,6 +188,7 @@ export default function Hero() {
               sx={{
                 mb: 3,
                 color: 'text.primary',
+                userSelect: 'none',
               }}
             >
               I build things for the web.
@@ -197,6 +200,7 @@ export default function Hero() {
                 color: 'text.secondary',
                 maxWidth: '600px',
                 mx: { xs: 'auto', lg: 0 },
+                userSelect: 'none',
               }}
             >
               I'm a{' '}
@@ -283,6 +287,7 @@ export default function Hero() {
                   placement="top"
                 >
                   <Box
+                    draggable={false}
                     sx={{
                       position: 'absolute',
                       left: `${tech.left}px`,
@@ -318,6 +323,7 @@ export default function Hero() {
                       width={tech.size - 16}
                       height={tech.size - 16}
                       style={{ objectFit: 'contain' }}
+                      draggable={false}
                     />
                   </Box>
                 </Tooltip>

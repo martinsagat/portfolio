@@ -6,4 +6,4 @@ cover: './chess.jpg'
 ---
 
 Love playing chess - it's a great way to unwind and keep my mind sharp. Always up for a game if you're interested! <br>
-[Challenge me](https://play.chess.com/rqfNm)?
+[Challenge me](https://link.chess.com/play/RhTvNc)?

@@ -58,7 +58,7 @@ export default function Jobs() {
             '&::before': {
               content: '""',
               position: 'absolute',
-              left: { xs: '24px', md: '20%' },
+              left: { xs: '24px', md: '10%' },
               top: 0,
               bottom: 0,
               width: '2px',
@@ -94,7 +94,7 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
         <Box
           sx={{
             position: 'absolute',
-            left: { xs: '16px', md: '20%' },
+            left: { xs: '16px', md: '10%' },
             top: { xs: '8px', md: '32px' },
             transform: { xs: 'none', md: 'translateX(-50%)' },
             zIndex: 2,
@@ -111,8 +111,8 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
         {/* Company Card - All on right side on desktop, positioned relative to timeline */}
         <Box
           sx={{
-            width: { xs: '100%', md: 'calc(80% - 40px)' },
-            ml: { xs: 0, md: '20%' },
+            width: { xs: '100%', md: 'calc(90% - 40px)' },
+            ml: { xs: 0, md: '10%' },
             mr: { xs: 0, md: 0 },
             pr: { xs: 0, md: 0 },
             pl: { xs: 0, md: 4 },
@@ -146,13 +146,13 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                 onClick={() => setOpen(true)}
                 sx={{
                   color: 'primary.main',
-                  border: '1.5px solid',
+                  border: '1px solid',
                   borderColor: 'primary.main',
                   borderRadius: '999px',
-                  px: 2.5,
-                  py: 1,
+                  px: 1.5,
+                  py: 0.5,
                   textTransform: 'none',
-                  fontSize: '0.875rem',
+                  fontSize: '0.75rem',
                   fontWeight: 500,
                   minWidth: 'auto',
                   '&:hover': {
