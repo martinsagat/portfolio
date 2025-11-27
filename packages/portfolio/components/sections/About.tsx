@@ -6,14 +6,15 @@ import Image from 'next/image';
 export default function About() {
   const theme = useTheme();
   return (
-    <Box
-      component="section"
-      id="about"
-      sx={{
-        py: { xs: 8, md: 12 },
-        backgroundColor: theme.palette.mode === 'light' ? '#ffffff' : 'background.default',
-      }}
-    >
+      <Box
+        component="section"
+        id="about"
+        sx={{
+          py: { xs: 8, md: 12 },
+          backgroundColor: theme.palette.mode === 'light' ? '#f8f9fa' : 'background.paper',
+          userSelect: 'none',
+        }}
+      >
       <Container 
         maxWidth="lg" 
         sx={{ 
@@ -45,6 +46,7 @@ export default function About() {
                 fill
                 sizes="(max-width: 600px) 180px, 250px"
                 style={{ objectFit: 'cover' }}
+                draggable={false}
               />
             </Avatar>
           </Box>

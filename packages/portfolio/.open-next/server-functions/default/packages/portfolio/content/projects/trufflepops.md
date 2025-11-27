@@ -5,9 +5,12 @@ github: ''
 external: 'https://trufflepops.com.au/'
 tech:
   - Web Development
+  - Mental Health
+  - Mood Tracking
+  - Journaling
   - Data Visualization
   - Privacy & Security
-showInProjects: false
+showInProjects: true
 ---
 
 A comprehensive mental health and wellness platform designed to help users understand their emotions, track their thoughts, and grow personally. TrufflePops provides a secure, private space for emotional well-being with:

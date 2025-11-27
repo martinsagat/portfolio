@@ -46,12 +46,9 @@ export default function Blog() {
         </Typography>
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(3, 1fr)',
-            },
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
             gap: 3,
           }}
         >
@@ -69,6 +66,8 @@ function PostCard({ post }: { post: Post }) {
     <Card
       elevation={0}
       sx={{
+        width: { xs: '100%', sm: 'calc(50% - 12px)', md: 'calc(33.333% - 16px)' },
+        maxWidth: { xs: '100%', sm: '400px', md: '350px' },
         boxShadow: 'none',
         '&:hover': {
           borderColor: 'divider',
@@ -78,8 +77,18 @@ function PostCard({ post }: { post: Post }) {
       }}
     >
       <CardContent>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
           <BookmarkIcon sx={{ color: 'primary.main', fontSize: 30 }} />
+          <Typography
+            variant="caption"
+            sx={{
+              color: 'text.secondary',
+              fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+              fontSize: '12px',
+            }}
+          >
+            {format(new Date(post.date), 'MMM dd, yyyy')}
+          </Typography>
         </Box>
         <Typography variant="h4" sx={{ mb: 1.5 }}>
           <Link href={post.slug} sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}>
@@ -89,7 +98,7 @@ function PostCard({ post }: { post: Post }) {
         <Box
           dangerouslySetInnerHTML={{ __html: post.htmlContent }}
           sx={{
-            mb: 2,
+            mb: 0,
             color: 'text.secondary',
             fontSize: '14px',
             lineHeight: 1.6,
@@ -102,20 +111,28 @@ function PostCard({ post }: { post: Post }) {
             },
           }}
         />
-        <Typography
-          variant="caption"
+      </CardContent>
+      {post.tags && (
+        <Box
           sx={{
-            color: 'text.secondary',
-            fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-            fontSize: '12px',
-            display: 'block',
-            mb: 1.5,
+            mt: 2,
+            pt: 2,
+            px: { xs: 2.5, md: 3 },
+            mx: { xs: 2.5, md: 3 },
+            mb: { xs: 2.5, md: 3 },
+            borderTop: '1px solid',
+            borderColor: 'divider',
           }}
         >
-          {format(new Date(post.date), 'MMM dd, yyyy')}
-        </Typography>
-        {post.tags && (
-          <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
+          <Stack 
+            direction="row" 
+            spacing={1} 
+            flexWrap="wrap" 
+            gap={1}
+            sx={{
+              justifyContent: 'center',
+            }}
+          >
             {post.tags.map((tag: string, i: number) => (
               <Chip
                 key={i}
@@ -125,17 +142,15 @@ function PostCard({ post }: { post: Post }) {
                   backgroundColor: 'accent.light',
                   color: 'primary.main',
                   fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  fontSize: '11px',
-                  '&:hover': {
-                    backgroundColor: 'primary.main',
-                    color: 'background.default',
-                  },
+                  fontSize: '0.75rem',
+                  height: '28px',
+                  fontWeight: 500,
                 }}
               />
             ))}
           </Stack>
-        )}
-      </CardContent>
+        </Box>
+      )}
     </Card>
   );
 }

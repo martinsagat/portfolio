@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography, Card, CardContent, Stack, Chip, Link } from '@mui/material';
+import { Box, Container, Typography, Card, CardContent, Stack, Chip, Link, useTheme } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
@@ -16,6 +16,7 @@ interface Post {
 }
 
 export default function Blog() {
+  const theme = useTheme();
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function Blog() {
       id="blog"
       sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: 'background.default',
+        backgroundColor: theme.palette.mode === 'light' ? '#ffffff' : 'background.default',
       }}
     >
       <Container 
@@ -66,7 +67,9 @@ export default function Blog() {
 function PostCard({ post }: { post: Post }) {
   return (
     <Card
+      elevation={0}
       sx={{
+        boxShadow: 'none',
         '&:hover': {
           borderColor: 'divider',
           transform: 'none',
@@ -78,7 +81,7 @@ function PostCard({ post }: { post: Post }) {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
           <BookmarkIcon sx={{ color: 'primary.main', fontSize: 30 }} />
         </Box>
-        <Typography variant="h3" sx={{ mb: 1.5 }}>
+        <Typography variant="h4" sx={{ mb: 1.5 }}>
           <Link href={post.slug} sx={{ color: 'inherit', textDecoration: 'none', '&:hover': { color: 'primary.main' } }}>
             {post.title}
           </Link>

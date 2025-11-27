@@ -112,7 +112,7 @@ export async function getProjects(): Promise<Project[]> {
 
   return projects
     .filter((p) => p.showInProjects !== false)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 export async function getJobs(): Promise<Job[]> {

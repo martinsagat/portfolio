@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography, Card, CardContent } from '@mui/material';
+import { Box, Container, Typography, Card, CardContent, useTheme } from '@mui/material';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
@@ -11,6 +11,7 @@ interface Hobby {
 }
 
 export default function Hobbies() {
+  const theme = useTheme();
   const [hobbies, setHobbies] = useState<Hobby[]>([]);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function Hobbies() {
       id="interests"
       sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: 'background.paper',
+        backgroundColor: theme.palette.mode === 'light' ? '#ffffff' : 'background.paper',
       }}
     >
       <Container 
@@ -60,7 +61,9 @@ export default function Hobbies() {
 function HobbyCard({ hobby }: { hobby: Hobby }) {
   return (
     <Card
+      elevation={0}
       sx={{
+        boxShadow: 'none',
         '&:hover': {
           borderColor: 'divider',
           transform: 'none',
@@ -91,7 +94,7 @@ function HobbyCard({ hobby }: { hobby: Hobby }) {
             />
           </Box>
         )}
-        <Typography variant="h3" sx={{ mb: 1.5 }}>
+        <Typography variant="h4" sx={{ mb: 1.5 }}>
           {hobby.title}
         </Typography>
         <Box

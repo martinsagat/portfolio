@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container, Typography, Card, CardContent, Stack, Chip, IconButton, Link, Tooltip } from '@mui/material';
+import { Box, Container, Typography, Card, CardContent, Stack, Chip, IconButton, Link, Tooltip, useTheme } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -57,6 +57,7 @@ export default function Projects() {
   }, [emblaApi, onSelect]);
 
   const displayedProjects = projects;
+  const theme = useTheme();
 
   return (
     <Box
@@ -64,7 +65,7 @@ export default function Projects() {
       id="projects"
       sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: 'background.paper',
+        backgroundColor: theme.palette.mode === 'light' ? '#f8f9fa' : 'background.paper',
       }}
     >
       <Container 
@@ -190,21 +191,34 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Card
+      elevation={0}
       sx={{
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         transition: 'all 0.3s ease',
+        boxShadow: 'none',
+        userSelect: 'none',
         '&:hover': {
           borderColor: 'divider',
-          transform: 'translateY(-4px)',
-          boxShadow: 4,
         },
       }}
     >
       <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-          <FolderIcon sx={{ color: 'primary.main', fontSize: 36 }} />
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+            <FolderIcon sx={{ color: 'primary.main', fontSize: 36, mt: 0.5 }} />
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: 'text.secondary',
+                fontSize: '13px',
+                lineHeight: '36px',
+              }}
+            >
+              {formatDate(project.date)}
+            </Typography>
+          </Box>
           <Stack direction="row" spacing={0.5}>
             {project.github && (
               <Tooltip title="View on GitHub" arrow placement="top">
@@ -253,7 +267,7 @@ function ProjectCard({ project }: { project: Project }) {
           </Stack>
         </Box>
         <Typography 
-          variant="h3" 
+          variant="h4" 
           sx={{ 
             mb: 0.5,
             fontWeight: 600,
@@ -281,17 +295,20 @@ function ProjectCard({ project }: { project: Project }) {
             project.title
           )}
         </Typography>
-        <Typography 
-          variant="body2" 
-          sx={{ 
-            mb: 2,
-            color: 'text.secondary',
-            fontSize: '13px',
+      </CardContent>
+      {project.tech && (
+        <Box
+          sx={{
+            px: 2,
+            pb: 2,
+            pt: 1.5,
+            borderTop: '1px solid',
+            borderColor: 'divider',
+            minHeight: '85px',
+            display: 'flex',
+            alignItems: 'flex-start',
           }}
         >
-          {formatDate(project.date)}
-        </Typography>
-        {project.tech && (
           <Stack 
             direction="row" 
             spacing={1} 
@@ -318,8 +335,8 @@ function ProjectCard({ project }: { project: Project }) {
               />
             ))}
           </Stack>
-        )}
-      </CardContent>
+        </Box>
+      )}
     </Card>
   );
 }

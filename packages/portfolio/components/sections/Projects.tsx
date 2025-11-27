@@ -69,7 +69,7 @@ export default function Projects() {
       }}
     >
       <Container 
-        maxWidth="lg" 
+        maxWidth="xl" 
         sx={{ 
           mx: 'auto',
           px: { xs: 2, sm: 3, md: 4 },
@@ -84,6 +84,7 @@ export default function Projects() {
             sx={{
               overflow: 'hidden',
               position: 'relative',
+              px: { xs: 2, sm: 3, md: 4 },
             }}
             ref={emblaRef}
           >
@@ -101,10 +102,10 @@ export default function Projects() {
                     flex: '0 0 100%',
                     minWidth: 0,
                     '@media (min-width: 600px)': {
-                      flex: '0 0 calc(50% - 12px)',
+                      flex: '0 0 calc(55% - 12px)',
                     },
                     '@media (min-width: 900px)': {
-                      flex: '0 0 calc(33.333% - 16px)',
+                      flex: '0 0 calc(38% - 16px)',
                     },
                   }}
                 >
@@ -166,6 +167,7 @@ export default function Projects() {
             textAlign: 'center',
             fontStyle: 'italic',
             color: 'text.secondary',
+            userSelect: 'none',
           }}
         >
           Due to rights and confidentiality agreements, certain commercial projects are not featured.
@@ -196,24 +198,26 @@ function ProjectCard({ project }: { project: Project }) {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        backgroundColor: 'background.paper',
+        borderRadius: 8,
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         transition: 'all 0.3s ease',
-        boxShadow: 'none',
         userSelect: 'none',
         '&:hover': {
-          borderColor: 'divider',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
+          transform: 'translateY(-2px)',
         },
       }}
     >
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-            <FolderIcon sx={{ color: 'primary.main', fontSize: 36, mt: 0.5 }} />
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: { xs: 2.5, md: 3 } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <FolderIcon sx={{ color: 'primary.main', fontSize: 36 }} />
             <Typography 
               variant="body2" 
               sx={{ 
                 color: 'text.secondary',
                 fontSize: '13px',
-                lineHeight: '36px',
               }}
             >
               {formatDate(project.date)}
@@ -269,7 +273,7 @@ function ProjectCard({ project }: { project: Project }) {
         <Typography 
           variant="h4" 
           sx={{ 
-            mb: 0.5,
+            mb: 0,
             fontWeight: 600,
             transition: 'color 0.2s ease',
           }}
@@ -299,14 +303,13 @@ function ProjectCard({ project }: { project: Project }) {
       {project.tech && (
         <Box
           sx={{
-            px: 2,
-            pb: 2,
-            pt: 1.5,
+            mt: 2,
+            pt: 2,
+            px: { xs: 2.5, md: 3 },
+            mx: { xs: 2.5, md: 3 },
+            mb: { xs: 2.5, md: 3 },
             borderTop: '1px solid',
             borderColor: 'divider',
-            minHeight: '85px',
-            display: 'flex',
-            alignItems: 'flex-start',
           }}
         >
           <Stack 
@@ -314,6 +317,9 @@ function ProjectCard({ project }: { project: Project }) {
             spacing={1} 
             flexWrap="wrap" 
             gap={1}
+            sx={{
+              justifyContent: 'center',
+            }}
           >
             {project.tech.map((tech: string, i: number) => (
               <Chip
@@ -324,13 +330,9 @@ function ProjectCard({ project }: { project: Project }) {
                   backgroundColor: 'accent.light',
                   color: 'primary.main',
                   fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  fontSize: '11px',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    backgroundColor: 'primary.main',
-                    color: 'background.default',
-                    transform: 'translateY(-1px)',
-                  },
+                  fontSize: '0.75rem',
+                  height: '28px',
+                  fontWeight: 500,
                 }}
               />
             ))}

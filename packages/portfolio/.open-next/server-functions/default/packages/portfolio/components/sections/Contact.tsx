@@ -1,15 +1,18 @@
-import { Box, Container, Typography, Button, Stack } from '@mui/material';
+'use client';
+
+import { Box, Container, Typography, Button, Stack, useTheme } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import { config } from '@/lib/config';
 
 export default function Contact() {
+  const theme = useTheme();
   return (
     <Box
       component="section"
       id="contact"
       sx={{
         py: { xs: 8, md: 12 },
-        backgroundColor: 'background.default',
+        backgroundColor: theme.palette.mode === 'light' ? '#f8f9fa' : 'background.default',
       }}
     >
       <Container 
@@ -20,16 +23,6 @@ export default function Contact() {
         }}
       >
         <Box sx={{ textAlign: 'center' }}>
-          <Typography
-            variant="h6"
-            sx={{
-              color: 'primary.main',
-              fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-              mb: 2,
-            }}
-          >
-            04. What's Next?
-          </Typography>
           <Typography variant="h2" sx={{ mb: 2 }}>
             Get In Touch
           </Typography>
