@@ -19,7 +19,7 @@ export default function Home() {
           width: '100%',
           margin: '0 auto',
           pl: { xs: 0, lg: 0 },
-          mt: { xs: -6  },
+          mt: { xs: '70px', md: 0 },
         }}
       >
         <Hero />

@@ -238,7 +238,8 @@ export default function Hero() {
               </Button>
               <Button
                 variant="outlined"
-                href="/resume.pdf"
+                href="/static/resume.pdf"
+                download
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
@@ -261,6 +262,7 @@ export default function Hero() {
               minHeight: { xs: '300px', md: '500px' },
               mt: { lg: 20 },
               ml: { xs: 1 },
+              mb: { xs: 14, md: 0 },
               width: '100%',
               display: 'flex',
               justifyContent: { xs: 'center', lg: 'flex-start' },
