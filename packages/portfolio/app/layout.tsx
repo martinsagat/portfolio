@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import ThemeProvider from '@/components/ThemeProvider';
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -10,17 +10,18 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://martinsagat.com'),
   title: "Martin Sagat - Software Engineer",
   description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",
   keywords: ["software engineer", "web developer", "full stack developer", "React", "TypeScript"],
   authors: [{ name: "Martin Sagat" }],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
   openGraph: {
     title: "Martin Sagat - Software Engineer",
     description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",
@@ -42,6 +43,21 @@ export const metadata: Metadata = {
     description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",
     creator: "@martinsagat",
   },
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true },
+};
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Martin Sagat',
+  url: 'https://martinsagat.com',
+  jobTitle: 'Senior Software Engineer',
+  sameAs: [
+    'https://github.com/martinsagat',
+    'https://www.linkedin.com/in/martinsagat',
+    'https://twitter.com/martinsagat',
+  ],
 };
 
 export default function RootLayout({
@@ -51,12 +67,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.variable} antialiased`}
-        style={{
-          fontFamily: 'var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-        }}
-      >
+      <body className={`${inter.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider>
           {children}
         </ThemeProvider>

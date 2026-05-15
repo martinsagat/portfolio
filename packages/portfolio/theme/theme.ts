@@ -1,21 +1,39 @@
-import { createTheme, Theme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import type { CSSProperties } from 'react';
 
 declare module '@mui/material/styles' {
   interface Palette {
-    accent: {
-      main: string;
-      light: string;
-      dark: string;
-    };
+    accent: { main: string; light: string; dark: string };
   }
   interface PaletteOptions {
-    accent?: {
-      main: string;
-      light: string;
-      dark: string;
-    };
+    accent?: { main: string; light: string; dark: string };
+  }
+  interface TypeBackground {
+    subtle: string;
+    elevated: string;
+  }
+  interface TypographyVariants {
+    captionMono: CSSProperties;
+  }
+  interface TypographyVariantsOptions {
+    captionMono?: CSSProperties;
+  }
+  interface Theme {
+    customShadows: { card: string; cardHover: string; modal: string };
+  }
+  interface ThemeOptions {
+    customShadows?: { card: string; cardHover: string; modal: string };
   }
 }
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    captionMono: true;
+  }
+}
+
+const monoStack =
+  'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace';
 
 const typography = {
   fontFamily: [
@@ -81,7 +99,25 @@ const typography = {
     fontWeight: 500,
     letterSpacing: '-0.01em',
   },
+  captionMono: {
+    fontFamily: monoStack,
+    fontSize: '0.75rem',
+    fontWeight: 600,
+    lineHeight: 1.4,
+    letterSpacing: '0.01em',
+  },
 };
+
+const shadowColor = (mode: 'dark' | 'light', alpha: number) =>
+  mode === 'dark'
+    ? `rgba(0, 0, 0, ${alpha * 2})`
+    : `rgba(15, 23, 42, ${alpha})`;
+
+const customShadows = (mode: 'dark' | 'light') => ({
+  card: `0 2px 8px ${shadowColor(mode, 0.08)}`,
+  cardHover: `0 4px 16px ${shadowColor(mode, 0.12)}`,
+  modal: `0 8px 32px ${shadowColor(mode, 0.12)}`,
+});
 
 const components = (mode: 'dark' | 'light') => ({
   MuiCssBaseline: {
@@ -107,18 +143,24 @@ const components = (mode: 'dark' | 'light') => ({
     },
   },
   MuiCard: {
+    defaultProps: { elevation: 0 },
     styleOverrides: {
       root: {
-        borderRadius: '24px',
-        border: '2px solid',
-        borderColor: mode === 'dark' ? 'rgba(100, 255, 218, 0.1)' : 'rgba(0, 0, 0, 0.08)',
-        backgroundColor: mode === 'dark' ? undefined : '#ffffff',
+        borderRadius: 24,
+        backgroundColor: mode === 'dark' ? '#1a2f4f' : '#ffffff',
+        border: 'none',
+        boxShadow: 'none',
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        '&:hover': {
-          borderColor: mode === 'dark' ? '#64ffda' : 'rgba(10, 124, 107, 0.3)',
-        },
       },
     },
+    variants: [
+      {
+        props: { variant: 'outlined' as const },
+        style: {
+          border: `2px solid ${mode === 'dark' ? 'rgba(100, 255, 218, 0.1)' : 'rgba(0, 0, 0, 0.08)'}`,
+        },
+      },
+    ],
   },
 });
 
@@ -136,6 +178,8 @@ export const darkTheme = createTheme({
     background: {
       default: '#0a182e',
       paper: '#112240',
+      subtle: '#112240',
+      elevated: '#1a2f4f',
     },
     text: {
       primary: '#ccd6f6',
@@ -148,6 +192,7 @@ export const darkTheme = createTheme({
     },
   },
   typography,
+  customShadows: customShadows('dark'),
   components: components('dark'),
 });
 
@@ -155,7 +200,7 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#0A75BCFF',
+      main: '#0A75BC',
       light: 'rgba(10, 124, 107, 0.1)',
       dark: '#064d42',
     },
@@ -165,6 +210,8 @@ export const lightTheme = createTheme({
     background: {
       default: '#ffffff',
       paper: '#ffffff',
+      subtle: '#f8f9fa',
+      elevated: '#ffffff',
     },
     text: {
       primary: '#0f172a',
@@ -177,10 +224,8 @@ export const lightTheme = createTheme({
     },
   },
   typography,
+  customShadows: customShadows('light'),
   components: components('light'),
 });
 
-// Keep the default export as dark theme for backward compatibility
 export const theme = darkTheme;
-
-

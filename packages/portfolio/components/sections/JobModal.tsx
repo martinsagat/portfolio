@@ -1,21 +1,11 @@
 'use client';
 
-import { Box, Typography, Avatar, Chip, Stack, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton } from '@mui/material';
+import { Box, Typography, Avatar, Stack, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Image from 'next/image';
-
-interface Job {
-  title: string;
-  company: string;
-  location: string;
-  range: string;
-  url: string;
-  logo: string;
-  tech: string[];
-  date: string;
-  htmlContent: string;
-}
+import { OutlinedCTAButton, TechChip } from '@/components/ui';
+import type { Job } from '@/lib/content';
 
 interface JobModalProps {
   open: boolean;
@@ -24,6 +14,7 @@ interface JobModalProps {
 }
 
 export default function JobModal({ open, onClose, job }: JobModalProps) {
+  const theme = useTheme();
   return (
     <Dialog
       open={open}
@@ -45,7 +36,7 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
           margin: 0,
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          boxShadow: theme.customShadows.modal,
         },
       }}
     >
@@ -73,13 +64,13 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
                 border: '2px solid',
                 borderColor: 'divider',
                 borderRadius: '50%',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                boxShadow: theme.customShadows.card,
                 flexShrink: 0,
               }}
             >
               <Image
                 src={job.logo}
-                alt={job.company}
+                alt={`${job.company} logo`}
                 width={48}
                 height={48}
                 style={{ objectFit: 'contain', borderRadius: '50%' }}
@@ -132,15 +123,7 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
 
             {/* Date and Location - Inline */}
             <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
-              <Typography
-                variant="body2"
-                sx={{
-                  color: 'primary.main',
-                  fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                }}
-              >
+              <Typography variant="captionMono" component="span" sx={{ color: 'primary.main' }}>
                 {job.range}
               </Typography>
               {job.location && (
@@ -271,19 +254,7 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
             </Typography>
             <Stack direction="row" spacing={1} flexWrap="wrap" gap={1}>
               {job.tech.map((tech: string, i: number) => (
-                <Chip
-                  key={i}
-                  label={tech}
-                  size="medium"
-                  sx={{
-                    backgroundColor: 'accent.light',
-                    color: 'primary.main',
-                    fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                    fontSize: '0.75rem',
-                    height: '28px',
-                    fontWeight: 500,
-                  }}
-                />
+                <TechChip key={i} label={tech} />
               ))}
             </Stack>
           </Box>
@@ -298,26 +269,9 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
           borderColor: 'divider',
         }}
       >
-        <Button
-          onClick={onClose}
-          variant="outlined"
-          size="small"
-          sx={{
-            color: 'primary.main',
-            borderColor: 'primary.main',
-            textTransform: 'none',
-            fontWeight: 500,
-            px: 2,
-            py: 0.75,
-            '&:hover': {
-              backgroundColor: 'primary.main',
-              color: 'background.paper',
-              borderColor: 'primary.main',
-            },
-          }}
-        >
+        <OutlinedCTAButton onClick={onClose} size="small" sx={{ px: 2, py: 0.75, fontWeight: 500 }}>
           Close
-        </Button>
+        </OutlinedCTAButton>
       </DialogActions>
     </Dialog>
   );

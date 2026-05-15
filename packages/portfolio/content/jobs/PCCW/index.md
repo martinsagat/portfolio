@@ -1,9 +1,9 @@
 ---
-date: '2024-04-01'
+date: '2024-06-01'
 title: 'Senior Software Engineer'
 company: 'PCCW Global'
 location: 'Perth, WA (Remote)'
-range: '2024 - Present'
+range: 'Jun 2024 - Dec 2025'
 url: 'https://www.pccwglobal.com/'
 logo: './pccw.png'
 tech:
