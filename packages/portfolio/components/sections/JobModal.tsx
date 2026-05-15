@@ -33,16 +33,19 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
       disableScrollLock={false}
       sx={{
         '& .MuiDialog-container': {
-          padding: { xs: 0 },
-          margin: { xs: -2, },
+          padding: { xs: 0, sm: 2 },
+          alignItems: { xs: 'flex-end', sm: 'center' },
         },
       }}
       PaperProps={{
         sx: {
-          borderRadius: 3,
-          maxHeight: '90vh',
+          borderRadius: { xs: '16px 16px 0 0', sm: 3 },
+          maxHeight: { xs: '100dvh', sm: '90vh' },
+          height: { xs: '100dvh', sm: 'auto' },
+          margin: 0,
+          display: 'flex',
+          flexDirection: 'column',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-          margin: { xs: 0, sm: 2 },
         },
       }}
     >
@@ -177,7 +180,12 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
       <DialogContent
         sx={{
           overflowY: 'auto',
+          overflowX: 'hidden',
           px: { xs: 2, sm: 3 },
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
           '& *': {
             wordBreak: 'break-word',
             overflowWrap: 'break-word',

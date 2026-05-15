@@ -84,7 +84,7 @@ export default function Projects() {
             sx={{
               overflow: 'hidden',
               position: 'relative',
-              px: { xs: 2, sm: 3, md: 4 },
+              px: { xs: 1, sm: 3, md: 4 },
             }}
             ref={emblaRef}
           >
@@ -120,7 +120,7 @@ export default function Projects() {
             disabled={prevBtnDisabled}
             sx={{
               position: 'absolute',
-              left: { xs: -16, sm: -24 },
+              left: { xs: 0, sm: -24, md: -24 },
               top: '50%',
               transform: 'translateY(-50%)',
               backgroundColor: 'background.paper',
@@ -145,7 +145,7 @@ export default function Projects() {
             disabled={nextBtnDisabled}
             sx={{
               position: 'absolute',
-              right: { xs: -16, sm: -24 },
+              right: { xs: 0, sm: -24, md: -24 },
               top: '50%',
               transform: 'translateY(-50%)',
               backgroundColor: 'background.paper',
@@ -202,31 +202,34 @@ function ProjectCard({ project }: { project: Project }) {
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: 'background.paper',
-        borderRadius: 8,
+        borderRadius: { xs: 6, md: 8 },
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
         transition: 'all 0.3s ease',
         userSelect: 'none',
         '&:hover': {
           boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
-          transform: 'translateY(-2px)',
+          transform: { xs: 'none', md: 'translateY(-2px)' },
         },
       }}
     >
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: { xs: 2.5, md: 3 } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <FolderIcon sx={{ color: 'primary.main', fontSize: 36 }} />
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: { xs: 2, sm: 2.5, md: 3 } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: { xs: 1, md: 1.5 }, gap: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 1.5 }, flex: 1, minWidth: 0 }}>
+            <FolderIcon sx={{ color: 'primary.main', fontSize: { xs: 28, md: 36 }, flexShrink: 0 }} />
             <Typography 
               variant="body2" 
               sx={{ 
                 color: 'text.secondary',
-                fontSize: '13px',
+                fontSize: { xs: '12px', md: '13px' },
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
               }}
             >
               {formatDate(project.date)}
             </Typography>
           </Box>
-          <Stack direction="row" spacing={0.5}>
+          <Stack direction="row" spacing={{ xs: 0.25, md: 0.5 }} sx={{ flexShrink: 0 }}>
             {project.github && (
               <Tooltip title="View on GitHub" arrow placement="top">
                 <IconButton
@@ -234,9 +237,11 @@ function ProjectCard({ project }: { project: Project }) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  size="large"
                   sx={{ 
-                    color: 'text.secondary', 
+                    color: 'text.secondary',
+                    padding: { xs: 0.75, md: 1 },
+                    minWidth: { xs: 36, md: 48 },
+                    height: { xs: 36, md: 48 },
                     '&:hover': { 
                       color: 'primary.main',
                       backgroundColor: 'action.hover',
@@ -245,7 +250,7 @@ function ProjectCard({ project }: { project: Project }) {
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  <GitHubIcon sx={{ fontSize: 32 }} />
+                  <GitHubIcon sx={{ fontSize: { xs: 20, md: 32 } }} />
                 </IconButton>
               </Tooltip>
             )}
@@ -256,9 +261,11 @@ function ProjectCard({ project }: { project: Project }) {
                   href={project.external}
                   target="_blank"
                   rel="noopener noreferrer"
-                  size="large"
                   sx={{ 
-                    color: 'text.secondary', 
+                    color: 'text.secondary',
+                    padding: { xs: 0.75, md: 1 },
+                    minWidth: { xs: 36, md: 48 },
+                    height: { xs: 36, md: 48 },
                     '&:hover': { 
                       color: 'primary.main',
                       backgroundColor: 'action.hover',
@@ -267,7 +274,7 @@ function ProjectCard({ project }: { project: Project }) {
                     transition: 'all 0.2s ease',
                   }}
                 >
-                  <OpenInNewIcon sx={{ fontSize: 32 }} />
+                  <OpenInNewIcon sx={{ fontSize: { xs: 20, md: 32 } }} />
                 </IconButton>
               </Tooltip>
             )}
@@ -278,6 +285,8 @@ function ProjectCard({ project }: { project: Project }) {
           sx={{ 
             mb: 0,
             fontWeight: 600,
+            fontSize: { xs: '1.25rem', sm: '1.5rem', md: '2.125rem' },
+            lineHeight: { xs: 1.4, md: 1.2 },
             transition: 'color 0.2s ease',
           }}
         >
@@ -306,22 +315,22 @@ function ProjectCard({ project }: { project: Project }) {
       {project.tech && (
         <Box
           sx={{
-            mt: 2,
-            pt: 2,
-            px: { xs: 2.5, md: 3 },
-            mx: { xs: 2.5, md: 3 },
-            mb: { xs: 2.5, md: 3 },
+            mt: { xs: 1.5, md: 2 },
+            pt: { xs: 1.5, md: 2 },
+            px: { xs: 2, md: 3 },
+            mx: { xs: 2, md: 3 },
+            mb: { xs: 2, md: 3 },
             borderTop: '1px solid',
             borderColor: 'divider',
           }}
         >
           <Stack 
             direction="row" 
-            spacing={1} 
+            spacing={{ xs: 0.5, md: 1 }} 
             flexWrap="wrap" 
-            gap={1}
+            gap={{ xs: 0.5, md: 1 }}
             sx={{
-              justifyContent: 'center',
+              justifyContent: { xs: 'flex-start', sm: 'center' },
             }}
           >
             {project.tech.map((tech: string, i: number) => (
@@ -333,9 +342,12 @@ function ProjectCard({ project }: { project: Project }) {
                   backgroundColor: 'accent.light',
                   color: 'primary.main',
                   fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  fontSize: '0.75rem',
-                  height: '28px',
+                  fontSize: { xs: '0.7rem', md: '0.75rem' },
+                  height: { xs: '24px', md: '28px' },
                   fontWeight: 500,
+                  '& .MuiChip-label': {
+                    px: { xs: 1, md: 1.5 },
+                  },
                 }}
               />
             ))}

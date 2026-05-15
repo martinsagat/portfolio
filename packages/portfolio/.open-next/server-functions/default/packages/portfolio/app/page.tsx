@@ -11,15 +11,17 @@ import { Box } from '@mui/material';
 
 export default function Home() {
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default', width: '100%' }}>
+    <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default', width: '100%', overflowX: 'hidden' }}>
       <Nav />
       <Box
         component="main"
         sx={{
           width: '100%',
+          maxWidth: '100vw',
           margin: '0 auto',
           pl: { xs: 0, lg: 0 },
-          mt: { xs: -6  },
+          mt: { xs: '70px', md: 0, lg: '-40px' },
+          overflowX: 'hidden',
         }}
       >
         <Hero />

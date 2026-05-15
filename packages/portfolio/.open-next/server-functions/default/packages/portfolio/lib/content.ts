@@ -1,7 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+
+// Get __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configure marked to return HTML string
 marked.setOptions({
@@ -35,7 +40,7 @@ function getContentDirectory(): string {
   }
   
   // Log error for debugging
-  console.error(`[Content] Content directory not found. process.cwd(): ${process.cwd()}, __dirname: ${__dirname}`);
+  console.error(`[Content] Content directory not found. process.cwd(): ${process.cwd()}`);
   console.error(`[Content] Tried paths:`, possiblePaths);
   
   // Fallback to process.cwd() even if it doesn't exist (will throw a better error)

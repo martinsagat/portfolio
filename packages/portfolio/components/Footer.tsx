@@ -53,7 +53,11 @@ export default function Footer() {
               </IconButton>
             ))}
           </Box>
-          <Typography variant="body2" color="text.secondary">
+          <Typography 
+            variant="body2" 
+            color="text.secondary"
+            sx={{ textAlign: { xs: 'center', md: 'center' } }}
+          >
             © {new Date().getFullYear()} Martin Sagat. Built with Next.js and MUI.
           </Typography>
         </Box>
@@ -61,6 +65,7 @@ export default function Footer() {
     </Box>
   );
 }
+
 
 
 

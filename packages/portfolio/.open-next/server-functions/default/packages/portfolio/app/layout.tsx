@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",
   keywords: ["software engineer", "web developer", "full stack developer", "React", "TypeScript"],
   authors: [{ name: "Martin Sagat" }],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
   openGraph: {
     title: "Martin Sagat - Software Engineer",
     description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",

@@ -38,90 +38,108 @@ export default function Hero() {
   const [clusterBounds, setClusterBounds] = useState({ minLeft: 0, maxRight: 0 });
 
   useEffect(() => {
-    const fixedSize = 70; // Fixed size for all icons
-    const colsPerRow = 4;
-    const hexWidth = 90;
-    const hexHeight = 95;
-    const padding = 20;
-    
-    // Helper function to check if two circles overlap
-    const circlesOverlap = (
-      x1: number, y1: number, r1: number,
-      x2: number, y2: number, r2: number
-    ): boolean => {
-      const dx = x1 - x2;
-      const dy = y1 - y2;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      return distance < (r1 + r2);
-    };
-    
-    const positions: Array<{ name: string; left: number; top: number; size: number }> = [];
-    
-    technologies.forEach((tech, index) => {
-      const row = Math.floor(index / colsPerRow);
-      const col = index % colsPerRow;
-      const hexOffset = row % 2 === 1 ? 0.5 : 0;
-      let left = 15 + (col + hexOffset) * hexWidth;
-      let top = 15 + row * hexHeight * 0.92;
+    const calculatePositions = () => {
+      const isSmallScreen = window.innerWidth < 600;
+      const fixedSize = isSmallScreen ? 50 : 70; // Smaller icons on mobile
+      const colsPerRow = isSmallScreen ? 3 : 4;
+      const hexWidth = isSmallScreen ? 70 : 90;
+      const hexHeight = isSmallScreen ? 75 : 95;
+      const padding = isSmallScreen ? 15 : 20;
       
-      const iconRadius = fixedSize / 2;
-      let iconCenterX = left + fixedSize / 2;
-      let iconCenterY = top + fixedSize / 2;
+      // Helper function to check if two circles overlap
+      const circlesOverlap = (
+        x1: number, y1: number, r1: number,
+        x2: number, y2: number, r2: number
+      ): boolean => {
+        const dx = x1 - x2;
+        const dy = y1 - y2;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        return distance < (r1 + r2);
+      };
       
-      // Check for overlaps with already positioned tech icons
-      let maxIterations = 20;
-      let iteration = 0;
-      while (iteration < maxIterations) {
-        let hasOverlap = false;
+      const positions: Array<{ name: string; left: number; top: number; size: number }> = [];
+      
+      // On small screens, show only 15 icons (5 rows of 3) by excluding the last one
+      const techsToShow = isSmallScreen ? technologies.slice(0, -1) : technologies;
+      
+      techsToShow.forEach((tech, index) => {
+        const row = Math.floor(index / colsPerRow);
+        const col = index % colsPerRow;
+        const hexOffset = row % 2 === 1 ? 0.5 : 0;
+        let left = 15 + (col + hexOffset) * hexWidth;
+        let top = 15 + row * hexHeight * 0.92;
         
-        // Check overlaps with other tech icons
-        for (const existingIcon of positions) {
-          const existingCenterX = existingIcon.left + existingIcon.size / 2;
-          const existingCenterY = existingIcon.top + existingIcon.size / 2;
-          const existingRadius = existingIcon.size / 2;
+        const iconRadius = fixedSize / 2;
+        let iconCenterX = left + fixedSize / 2;
+        let iconCenterY = top + fixedSize / 2;
+        
+        // Check for overlaps with already positioned tech icons
+        let maxIterations = 20;
+        let iteration = 0;
+        while (iteration < maxIterations) {
+          let hasOverlap = false;
           
-          if (circlesOverlap(iconCenterX, iconCenterY, iconRadius, existingCenterX, existingCenterY, existingRadius)) {
-            hasOverlap = true;
-            // Calculate direction away from existing icon
-            const dx = iconCenterX - existingCenterX;
-            const dy = iconCenterY - existingCenterY;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const minDistance = iconRadius + existingRadius + padding;
+          // Check overlaps with other tech icons
+          for (const existingIcon of positions) {
+            const existingCenterX = existingIcon.left + existingIcon.size / 2;
+            const existingCenterY = existingIcon.top + existingIcon.size / 2;
+            const existingRadius = existingIcon.size / 2;
             
-            if (distance > 0) {
-              // Push icon away from existing icon
-              const pushDistance = minDistance - distance;
-              const pushX = (dx / distance) * pushDistance;
-              const pushY = (dy / distance) * pushDistance;
+            if (circlesOverlap(iconCenterX, iconCenterY, iconRadius, existingCenterX, existingCenterY, existingRadius)) {
+              hasOverlap = true;
+              // Calculate direction away from existing icon
+              const dx = iconCenterX - existingCenterX;
+              const dy = iconCenterY - existingCenterY;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              const minDistance = iconRadius + existingRadius + padding;
               
-              left += pushX;
-              top += pushY;
-              iconCenterX = left + fixedSize / 2;
-              iconCenterY = top + fixedSize / 2;
-            } else {
-              // If exactly at center, push to the right
-              left += minDistance;
-              iconCenterX = left + fixedSize / 2;
+              if (distance > 0) {
+                // Push icon away from existing icon
+                const pushDistance = minDistance - distance;
+                const pushX = (dx / distance) * pushDistance;
+                const pushY = (dy / distance) * pushDistance;
+                
+                left += pushX;
+                top += pushY;
+                iconCenterX = left + fixedSize / 2;
+                iconCenterY = top + fixedSize / 2;
+              } else {
+                // If exactly at center, push to the right
+                left += minDistance;
+                iconCenterX = left + fixedSize / 2;
+              }
+              break;
             }
-            break;
           }
+          
+          if (!hasOverlap) break;
+          iteration++;
         }
-        
-        if (!hasOverlap) break;
-        iteration++;
-      }
 
-      positions.push({ name: tech, left, top, size: fixedSize });
-    });
-    
-    // Calculate cluster bounds for centering on small screens
-    if (positions.length > 0) {
-      const minLeft = Math.min(...positions.map(p => p.left));
-      const maxRight = Math.max(...positions.map(p => p.left + p.size));
-      setClusterBounds({ minLeft, maxRight });
-    }
-    
-    setTechPositions(positions);
+        positions.push({ name: tech, left, top, size: fixedSize });
+      });
+      
+      // Calculate cluster bounds for centering on small screens
+      if (positions.length > 0) {
+        const minLeft = Math.min(...positions.map(p => p.left));
+        const maxRight = Math.max(...positions.map(p => p.left + p.size));
+        // Add extra padding to ensure icons aren't cut off
+        const padding = isSmallScreen ? 20 : 30;
+        setClusterBounds({ minLeft: Math.max(0, minLeft - padding), maxRight: maxRight + padding });
+      }
+      
+      setTechPositions(positions);
+    };
+
+    calculatePositions();
+
+    // Recalculate on window resize
+    const handleResize = () => {
+      calculatePositions();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -134,7 +152,7 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        pt: { xs: 4, md: 28, lg: 0 },
+        pt: { xs: 4, md: 8, lg: 4 },
         overflow: 'hidden',
         pl: { xs: 0, lg: 25 },
         backgroundColor: mode === 'light' ? '#ffffff' : 'transparent',
@@ -146,7 +164,7 @@ export default function Hero() {
           position: 'relative', 
           zIndex: 2, 
           mx: 'auto',
-          px: { xs: 2, sm: 3, md: 4 },
+          px: { xs: 1, sm: 3, md: 4 },
         }}
       >
         <Box
@@ -179,6 +197,7 @@ export default function Hero() {
                 color: 'text.primary',
                 fontWeight: 700,
                 userSelect: 'none',
+                fontSize: { xs: '2.5rem', sm: '3rem', md: '3.75rem' },
               }}
             >
               Martin Sagat
@@ -189,6 +208,7 @@ export default function Hero() {
                 mb: 3,
                 color: 'text.primary',
                 userSelect: 'none',
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
               }}
             >
               I build things for the web.
@@ -200,6 +220,7 @@ export default function Hero() {
                 color: 'text.secondary',
                 maxWidth: '600px',
                 mx: { xs: 'auto', lg: 0 },
+                px: { xs: 2, sm: 0 },
                 userSelect: 'none',
               }}
             >
@@ -238,7 +259,8 @@ export default function Hero() {
               </Button>
               <Button
                 variant="outlined"
-                href="/resume.pdf"
+                href="/static/resume.pdf"
+                download
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
@@ -260,20 +282,24 @@ export default function Hero() {
               position: 'relative',
               minHeight: { xs: '300px', md: '500px' },
               mt: { lg: 20 },
-              ml: { xs: 1 },
+              ml: { xs: 0 },
+              mb: { xs: 14, md: 0 },
               width: '100%',
               display: 'flex',
               justifyContent: { xs: 'center', lg: 'flex-start' },
+              overflow: { xs: 'visible', sm: 'visible', md: 'hidden' },
+              px: { xs: 1, sm: 2 },
             }}
           >
             <Box
               sx={{
                 position: 'relative',
                 width: clusterBounds.maxRight > 0 ? `${clusterBounds.maxRight}px` : 'auto',
+                maxWidth: { xs: '100vw', sm: '100%', md: 'none' },
                 margin: { xs: '0 auto', lg: 0 },
                 transform: { 
                   xs: clusterBounds.minLeft > 0 
-                    ? `translateX(-${clusterBounds.minLeft}px)` 
+                    ? `translateX(${Math.max(0, -clusterBounds.minLeft)}px)` 
                     : 'none', 
                   lg: 'none' 
                 },

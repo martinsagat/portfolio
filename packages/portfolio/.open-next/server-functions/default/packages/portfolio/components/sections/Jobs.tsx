@@ -124,7 +124,7 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
               position: 'relative',
               backgroundColor: theme.palette.mode === 'dark' ? '#1a2f4f' : 'background.paper',
               borderRadius: 8,
-              p: { xs: 3, md: 4 },
+              p: { xs: 2.5, sm: 3, md: 4 },
               boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
               transition: 'all 0.3s ease',
               '&:hover': {
@@ -133,45 +133,14 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
               },
             }}
           >
-            {/* See More Button - Top Right Corner */}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: { xs: 12, md: 16 },
-                right: { xs: 12, md: 16 },
-                zIndex: 1,
-              }}
-            >
-              <Button
-                onClick={() => setOpen(true)}
-                sx={{
-                  color: 'primary.main',
-                  border: '1px solid',
-                  borderColor: 'primary.main',
-                  borderRadius: '999px',
-                  px: 1.5,
-                  py: 0.5,
-                  textTransform: 'none',
-                  fontSize: '0.75rem',
-                  fontWeight: 500,
-                  minWidth: 'auto',
-                  '&:hover': {
-                    backgroundColor: 'primary.main',
-                    color: 'background.paper',
-                  },
-                }}
-              >
-                See More
-              </Button>
-            </Box>
-
             {/* Header Section - Logo and Company Info */}
             <Box
               sx={{
                 display: 'flex',
-                gap: 3,
+                flexDirection: { xs: 'column', sm: 'row' },
+                gap: { xs: 2, sm: 3 },
                 mb: 3,
-                alignItems: 'flex-start',
+                alignItems: { xs: 'flex-start', sm: 'flex-start' },
               }}
             >
               {/* Company Logo */}
@@ -179,8 +148,8 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                 <Avatar
                   variant="circular"
                   sx={{
-                    width: { xs: 56, md: 72 },
-                    height: { xs: 56, md: 72 },
+                    width: { xs: 48, sm: 56, md: 72 },
+                    height: { xs: 48, sm: 56, md: 72 },
                     backgroundColor: 'background.paper',
                     border: '2px solid',
                     borderColor: 'divider',
@@ -205,16 +174,16 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
               )}
 
               {/* Company Info */}
-              <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Box sx={{ flex: 1, minWidth: 0, width: { xs: '100%', sm: 'auto' } }}>
                 {/* Company Name */}
                 <Typography
                   variant="h5"
                   sx={{
                     color: 'primary.main',
-                    mb: 0.5,
-                    fontSize: { xs: '1.125rem', md: '1.375rem' },
+                    fontSize: { xs: '1rem', sm: '1.125rem', md: '1.375rem' },
                     fontWeight: 700,
                     lineHeight: 1.2,
+                    mb: 0.5,
                   }}
                 >
                   <Box
@@ -239,7 +208,7 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                   variant="body1"
                   sx={{
                     mb: 1,
-                    fontSize: { xs: '0.875rem', md: '1rem' },
+                    fontSize: { xs: '0.8125rem', sm: '0.875rem', md: '1rem' },
                     fontWeight: 500,
                     color: 'text.secondary',
                     lineHeight: 1.4,
@@ -254,7 +223,7 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                   sx={{
                     color: 'primary.main',
                     fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                    fontSize: '0.75rem',
+                    fontSize: { xs: '0.7rem', sm: '0.75rem' },
                     fontWeight: 600,
                     mb: job.location ? 1 : 0,
                   }}
@@ -268,13 +237,14 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                     direction="row"
                     spacing={0.5}
                     alignItems="center"
+                    sx={{ mt: 0.5 }}
                   >
-                    <LocationOnIcon sx={{ fontSize: '0.875rem', color: 'text.secondary', opacity: 0.8 }} />
+                    <LocationOnIcon sx={{ fontSize: { xs: '0.75rem', sm: '0.875rem' }, color: 'text.secondary', opacity: 0.8 }} />
                     <Typography
                       variant="body2"
                       sx={{
                         color: 'text.secondary',
-                        fontSize: '0.75rem',
+                        fontSize: { xs: '0.7rem', sm: '0.75rem' },
                       }}
                     >
                       {job.location}
@@ -288,8 +258,9 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
             {job.tech && job.tech.length > 0 && (
               <Box
                 sx={{
-                  mt: 3,
-                  pt: 3,
+                  mt: { xs: 2, sm: 3 },
+                  pt: { xs: 2, sm: 3 },
+                  pb: 0,
                   borderTop: '1px solid',
                   borderColor: 'divider',
                 }}
@@ -300,7 +271,8 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                   flexWrap="wrap"
                   gap={1}
                   sx={{
-                    justifyContent: 'center',
+                    justifyContent: { xs: 'flex-start', sm: 'center' },
+                    mb: 2,
                   }}
                 >
                   {job.tech.map((tech: string, i: number) => (
@@ -312,13 +284,78 @@ function TimelineItem({ job, index, isLast }: { job: Job; index: number; isLast:
                         backgroundColor: 'accent.light',
                         color: 'primary.main',
                         fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                        fontSize: '0.75rem',
-                        height: '28px',
+                        fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                        height: { xs: '24px', sm: '28px' },
                         fontWeight: 500,
                       }}
                     />
                   ))}
                 </Stack>
+                
+                {/* See More Button - At the bottom */}
+                <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', pb: { xs: 0.5, sm: 1 } }}>
+                  <Button
+                    onClick={() => setOpen(true)}
+                    variant="outlined"
+                    sx={{
+                      color: 'primary.main',
+                      borderColor: 'primary.main',
+                      borderRadius: '999px',
+                      px: { xs: 3, sm: 4 },
+                      py: { xs: 0.75, sm: 1 },
+                      textTransform: 'none',
+                      fontSize: { xs: '0.875rem', sm: '0.9375rem' },
+                      fontWeight: 500,
+                      minWidth: { xs: '120px', sm: '140px' },
+                      '&:hover': {
+                        backgroundColor: 'primary.main',
+                        color: 'background.paper',
+                        borderColor: 'primary.main',
+                      },
+                    }}
+                  >
+                    See More
+                  </Button>
+                </Box>
+              </Box>
+            )}
+            
+            {/* See More Button - When there are no tech tags */}
+            {(!job.tech || job.tech.length === 0) && (
+              <Box 
+                sx={{ 
+                  mt: 3, 
+                  pt: 3, 
+                  pb: { xs: 0.5, sm: 1 },
+                  borderTop: '1px solid',
+                  borderColor: 'divider',
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  width: '100%' 
+                }}
+              >
+                <Button
+                  onClick={() => setOpen(true)}
+                  variant="outlined"
+                  sx={{
+                    color: 'primary.main',
+                    borderColor: 'primary.main',
+                    borderRadius: '999px',
+                    px: { xs: 3, sm: 4 },
+                    py: { xs: 0.75, sm: 1 },
+                    textTransform: 'none',
+                    fontSize: { xs: '0.875rem', sm: '0.9375rem' },
+                    fontWeight: 500,
+                    minWidth: { xs: '120px', sm: '140px' },
+                    '&:hover': {
+                      backgroundColor: 'primary.main',
+                      color: 'background.paper',
+                      borderColor: 'primary.main',
+                    },
+                  }}
+                >
+                  See More
+                </Button>
               </Box>
             )}
           </Box>

@@ -214,12 +214,12 @@ export default function Nav() {
           backdropFilter: mode === 'light' ? 'blur(20px) saturate(180%)' : (trigger ? 'blur(20px) saturate(180%)' : 'none'),
           WebkitBackdropFilter: mode === 'light' ? 'blur(20px) saturate(180%)' : (trigger ? 'blur(20px) saturate(180%)' : 'none'),
           transition: 'all 0.3s ease',
-          borderRadius: trigger ? '9999px' : (mode === 'light' ? '0 0 9999px 9999px' : 0),
-          mt: trigger ? 2 : (mode === 'light' ? 0 : 0),
-          left: trigger ? 2 : (mode === 'light' ? 0 : 0),
-          right: trigger ? 2 : (mode === 'light' ? 0 : 0),
+          borderRadius: trigger ? { xs: 0, md: '9999px' } : (mode === 'light' ? { xs: 0, md: '0 0 9999px 9999px' } : 0),
+          mt: trigger ? { xs: 0, md: 2 } : (mode === 'light' ? 0 : 0),
+          left: trigger ? { xs: 0, md: 2 } : (mode === 'light' ? 0 : 0),
+          right: trigger ? { xs: 0, md: 2 } : (mode === 'light' ? 0 : 0),
           maxWidth: '1200px',
-          width: trigger ? 'calc(100% - 32px)' : (mode === 'light' ? '100%' : '100%'),
+          width: trigger ? { xs: '100%', md: 'calc(100% - 32px)' } : (mode === 'light' ? '100%' : '100%'),
           mx: 'auto',
         }}
       >
