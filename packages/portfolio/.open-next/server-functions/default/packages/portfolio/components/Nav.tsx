@@ -23,7 +23,8 @@ export default function Nav() {
   });
 
   useEffect(() => {
-    const handleScroll = () => {
+    let raf = 0;
+    const update = () => {
       const sections = config.navLinks
         .map(link => {
           const hash = link.url.split('#')[1];
@@ -39,19 +40,16 @@ export default function Nav() {
         })
         .filter(Boolean) as Array<{ id: string; top: number; bottom: number }>;
 
-      // Find the section currently in view
       const navBarHeight = 80;
       const viewportMiddle = window.innerHeight / 2;
-      
+
       let currentSection = '';
-      
-      // Check if we're at the top of the page
+
       if (window.scrollY < 200) {
         setActiveSection('');
         return;
       }
 
-      // Find the section that's closest to the viewport middle
       for (const section of sections) {
         if (section.top <= viewportMiddle && section.bottom >= viewportMiddle) {
           currentSection = section.id;
@@ -59,12 +57,11 @@ export default function Nav() {
         }
       }
 
-      // If no section is in the middle, find the one closest to the top
       if (!currentSection) {
         const sortedSections = sections
           .filter(s => s.top <= navBarHeight + 100)
           .sort((a, b) => b.top - a.top);
-        
+
         if (sortedSections.length > 0) {
           currentSection = sortedSections[0].id;
         }
@@ -73,10 +70,18 @@ export default function Nav() {
       setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check on mount
+    const handleScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    };
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    update();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleDrawerToggle = () => {
@@ -251,25 +256,7 @@ export default function Nav() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={4}
-              >
-                <svg
-                  width={45}
-                  height={45}
-                  viewBox="0 0 100 100"
-                  style={{ position: 'absolute', top: 0, left: 0 }}
-                >
-                  <text
-                    x="50"
-                    y="60"
-                    textAnchor="middle"
-                    fontSize="40"
-                    fill="currentColor"
-                    fontFamily='ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace'
-                    fontWeight="bold"
-                  >
-                  </text>
-                </svg>
-              </Hexagon>
+              />
             </IconButton>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
               {config.navLinks.map((link) => {
@@ -311,7 +298,7 @@ export default function Nav() {
                   color: 'primary.main',
                 },
               }}
-              aria-label="toggle theme"
+              aria-label={mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
             >
               {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>
@@ -349,7 +336,7 @@ export default function Nav() {
                   color: 'primary.main',
                 },
               }}
-              aria-label="toggle theme"
+              aria-label={mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
             >
               {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
             </IconButton>

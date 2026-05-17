@@ -3,7 +3,7 @@ date: '2026-01-01'
 title: 'Senior Software Engineer (Sole Engineer)'
 company: 'PS Rewards'
 location: 'Perth, WA (Hybrid)'
-range: 'Jan 2026 - May 2026'
+range: 'Jan 2026 - Present'
 url: 'https://psrewards.com.au/'
 logo: './psrewards.png'
 tech:

@@ -10,6 +10,7 @@ interface HexagonProps {
   strokeWidth?: number;
   children?: React.ReactNode;
   imageSource?: string | StaticImageData; // Adjusted for Next.js
+  imageAlt?: string;
   rotation?: number;
   cornerRadius?: number;
   desaturate?: boolean;
@@ -23,6 +24,7 @@ export function Hexagon({
   strokeWidth = 1,
   children,
   imageSource,
+  imageAlt = '',
   rotation = 0,
   cornerRadius: customCornerRadius,
   desaturate = false,
@@ -147,7 +149,7 @@ export function Hexagon({
           >
             <Image
               src={imageSource}
-              alt="Hexagon content"
+              alt={imageAlt}
               fill
               sizes={`${imageSize}px`}
               style={{ objectFit: 'cover' }}

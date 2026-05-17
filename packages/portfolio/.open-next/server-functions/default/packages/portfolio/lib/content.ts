@@ -3,6 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import DOMPurify from 'isomorphic-dompurify';
+
+function renderMarkdown(content: string): string {
+  return DOMPurify.sanitize(marked(content) as string);
+}
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -31,10 +36,12 @@ function getContentDirectory(): string {
   for (const dirPath of possiblePaths) {
     try {
       if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
-        console.log(`[Content] Using content directory: ${dirPath}`);
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(`[Content] Using content directory: ${dirPath}`);
+        }
         return dirPath;
       }
-    } catch (e) {
+    } catch {
       // Continue to next path
     }
   }
@@ -103,7 +110,7 @@ export async function getProjects(): Promise<Project[]> {
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = matter(fileContents);
         
-        const htmlContent = marked(content);
+        const htmlContent = renderMarkdown(content);
 
         return {
           ...data,
@@ -138,7 +145,7 @@ export async function getJobs(): Promise<Job[]> {
       const fileContents = fs.readFileSync(indexPath, 'utf8');
       const { data, content } = matter(fileContents);
       
-      const htmlContent = marked(content);
+      const htmlContent = renderMarkdown(content);
 
       // Find logo file
       const files = fs.readdirSync(companyPath);
@@ -179,7 +186,7 @@ export async function getPosts(limit?: number): Promise<Post[]> {
       const fileContents = fs.readFileSync(indexPath, 'utf8');
       const { data, content } = matter(fileContents);
       
-      const htmlContent = marked(content);
+      const htmlContent = renderMarkdown(content);
 
       return {
         ...data,
@@ -217,7 +224,7 @@ export async function getHobbies(): Promise<Hobby[]> {
       const fileContents = fs.readFileSync(indexPath, 'utf8');
       const { data, content } = matter(fileContents);
       
-      const htmlContent = marked(content);
+      const htmlContent = renderMarkdown(content);
 
       // Find image files
       const files = fs.readdirSync(hobbyPath);

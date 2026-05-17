@@ -44,6 +44,7 @@ export default function Footer() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Visit ${social.name}`}
                 sx={{
                   color: 'text.secondary',
                   '&:hover': { color: 'primary.main' },

@@ -1,9 +1,10 @@
 'use client';
 
-import { Box, Container, Typography, Button, Stack, Tooltip } from '@mui/material';
+import { Box, Container, Typography, Stack, Tooltip } from '@mui/material';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useThemeMode } from '@/theme/ThemeContext';
+import { OutlinedCTAButton } from '@/components/ui';
 
 const technologies = [
   'html5', 'css3', 'js', 'node', 'react', 'graphql', 'laravel', 'net',
@@ -133,13 +134,17 @@ export default function Hero() {
 
     calculatePositions();
 
-    // Recalculate on window resize
+    let raf = 0;
     const handleResize = () => {
-      calculatePositions();
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(calculatePositions);
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
@@ -152,10 +157,9 @@ export default function Hero() {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        pt: { xs: 4, md: 8, lg: 4 },
+        pt: { xs: 4, md: 8 },
         overflow: 'hidden',
         pl: { xs: 0, lg: 25 },
-        backgroundColor: mode === 'light' ? '#ffffff' : 'transparent',
       }}
     >
       <Container 
@@ -240,41 +244,21 @@ export default function Hero() {
                 alignItems: 'center',
               }}
             >
-              <Button
-                variant="outlined"
+              <OutlinedCTAButton
                 href="https://www.linkedin.com/in/martinsagat/"
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{
-                  borderColor: 'primary.main',
-                  color: 'primary.main',
-                  '&:hover': {
-                    borderColor: 'primary.dark',
-                    backgroundColor: 'primary.main',
-                    color: 'background.default',
-                  },
-                }}
               >
                 Connect on LinkedIn
-              </Button>
-              <Button
-                variant="outlined"
+              </OutlinedCTAButton>
+              <OutlinedCTAButton
                 href="/static/resume.pdf"
                 download
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{
-                  borderColor: 'primary.main',
-                  color: 'primary.main',
-                  '&:hover': {
-                    borderColor: 'primary.dark',
-                    backgroundColor: 'primary.main',
-                    color: 'background.default',
-                  },
-                }}
               >
                 View Resume
-              </Button>
+              </OutlinedCTAButton>
             </Stack>
           </Box>
           <Box
@@ -295,7 +279,7 @@ export default function Hero() {
               sx={{
                 position: 'relative',
                 width: clusterBounds.maxRight > 0 ? `${clusterBounds.maxRight}px` : 'auto',
-                maxWidth: { xs: '100vw', sm: '100%', md: 'none' },
+                maxWidth: { xs: '100%', md: 'none' },
                 margin: { xs: '0 auto', lg: 0 },
                 transform: { 
                   xs: clusterBounds.minLeft > 0 
@@ -345,7 +329,7 @@ export default function Hero() {
                           ? 'aws-light.png'
                           : `${tech.name}.png`
                       }`}
-                      alt={tech.name}
+                      alt={`${getTechDisplayName(tech.name)} logo`}
                       width={tech.size - 16}
                       height={tech.size - 16}
                       style={{ objectFit: 'contain' }}
@@ -359,6 +343,7 @@ export default function Hero() {
         </Box>
       </Container>
       <Box
+        aria-hidden="true"
         sx={{
           position: 'absolute',
           bottom: 40,

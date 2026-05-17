@@ -1,77 +1,31 @@
-'use client';
-
-import { Box, Container, Typography, Card, CardContent, useTheme } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { getHobbies, type Hobby } from '@/lib/content';
+import { Section, SectionTitle } from '@/components/ui';
 
-interface Hobby {
-  title: string;
-  htmlContent: string;
-  images: string[];
-}
-
-export default function Hobbies() {
-  const theme = useTheme();
-  const [hobbies, setHobbies] = useState<Hobby[]>([]);
-
-  useEffect(() => {
-    fetch('/api/hobbies')
-      .then((res) => res.json())
-      .then((data) => setHobbies(data));
-  }, []);
-
+export default async function Hobbies() {
+  const hobbies = await getHobbies();
   return (
-    <Box
-      component="section"
-      id="interests"
-      sx={{
-        py: { xs: 8, md: 12 },
-        backgroundColor: theme.palette.mode === 'light' ? '#ffffff' : 'background.paper',
-      }}
-    >
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          mx: 'auto',
-          px: { xs: 2, sm: 3, md: 4 },
+    <Section id="interests">
+      <SectionTitle>Things I enjoy</SectionTitle>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+          gap: 3,
         }}
       >
-        <Typography variant="h2" sx={{ mb: 6, textAlign: 'center' }}>
-          Things I enjoy
-        </Typography>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              md: 'repeat(3, 1fr)',
-            },
-            gap: 3,
-          }}
-        >
-          {hobbies.map((hobby, index) => (
-            <HobbyCard key={index} hobby={hobby} />
-          ))}
-        </Box>
-      </Container>
-    </Box>
+        {hobbies.map((hobby, i) => (
+          <HobbyCard key={i} hobby={hobby} />
+        ))}
+      </Box>
+    </Section>
   );
 }
 
 function HobbyCard({ hobby }: { hobby: Hobby }) {
   return (
-    <Card
-      elevation={0}
-      sx={{
-        boxShadow: 'none',
-        userSelect: 'none',
-        '&:hover': {
-          borderColor: 'divider',
-          transform: 'none',
-          boxShadow: 'none',
-        },
-      }}
-    >
+    <Card variant="outlined" sx={{ userSelect: 'none' }}>
       <CardContent>
         {hobby.images && hobby.images.length > 0 && (
           <Box
@@ -88,9 +42,9 @@ function HobbyCard({ hobby }: { hobby: Hobby }) {
               src={hobby.images[0]}
               alt={hobby.title}
               fill
-              style={{ 
+              style={{
                 objectFit: 'cover',
-                objectPosition: hobby.title.toLowerCase() === 'climbing' ? 'top' : 'center'
+                objectPosition: hobby.title.toLowerCase() === 'climbing' ? 'top' : 'center',
               }}
             />
           </Box>
@@ -98,19 +52,16 @@ function HobbyCard({ hobby }: { hobby: Hobby }) {
         <Typography variant="h4" sx={{ mb: 1.5 }}>
           {hobby.title}
         </Typography>
-        <Box
+        <Typography
+          component="div"
+          variant="body2"
           dangerouslySetInnerHTML={{ __html: hobby.htmlContent }}
           sx={{
             color: 'text.secondary',
-            fontSize: '14px',
-            lineHeight: 1.6,
-            '& p': {
-              margin: 0,
-            },
+            '& p': { margin: 0 },
           }}
         />
       </CardContent>
     </Card>
   );
 }
-

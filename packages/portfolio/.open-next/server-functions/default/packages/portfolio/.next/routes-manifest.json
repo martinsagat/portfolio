@@ -40,30 +40,6 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
-      "page": "/api/hobbies",
-      "regex": "^/api/hobbies(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/api/hobbies(?:/)?$"
-    },
-    {
-      "page": "/api/jobs",
-      "regex": "^/api/jobs(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/api/jobs(?:/)?$"
-    },
-    {
-      "page": "/api/posts",
-      "regex": "^/api/posts(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/api/posts(?:/)?$"
-    },
-    {
-      "page": "/api/projects",
-      "regex": "^/api/projects(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/api/projects(?:/)?$"
-    },
-    {
       "page": "/favicon.ico",
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},

@@ -20,7 +20,7 @@ export default function Home() {
           maxWidth: '100vw',
           margin: '0 auto',
           pl: { xs: 0, lg: 0 },
-          mt: { xs: '70px', md: 0, lg: '-40px' },
+          mt: { xs: '70px', md: '80px', lg: 0 },
           overflowX: 'hidden',
         }}
       >
