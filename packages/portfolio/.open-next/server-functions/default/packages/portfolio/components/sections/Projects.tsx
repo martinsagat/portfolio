@@ -6,7 +6,7 @@ import { ProjectsCarousel } from './ProjectsCarousel';
 export default async function Projects() {
   const projects = (await getProjects()).slice(0, 9);
   return (
-    <Section id="projects" background="subtle" maxWidth="xl">
+    <Section id="projects" maxWidth="xl">
       <SectionTitle>Noteworthy Projects</SectionTitle>
       <ProjectsCarousel projects={projects} />
       <Typography

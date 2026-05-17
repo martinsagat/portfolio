@@ -170,7 +170,7 @@ export default function AskMartinAI() {
           {messages.length === 0 ? (
             <Stack spacing={2}>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                Hi — ask me anything about Martin&apos;s work, projects, or experience. I&apos;m
+                Hi! Ask me anything about Martin&apos;s work, projects, or experience. I&apos;m
                 grounded on the content of this site.
               </Typography>
               <Stack spacing={1}>

@@ -8,10 +8,9 @@ import { OutlinedCTAButton } from '@/components/ui';
 
 const technologies = [
   'html5', 'css3', 'js', 'node', 'react', 'graphql', 'laravel', 'net',
-  'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure'
+  'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure',
+  'claude', 'cursor', 'mcp'
 ];
-
-const aiTools = ['claude', 'cursor', 'mcp'];
 
 const getTechDisplayName = (tech: string): string => {
   const techNames: Record<string, string> = {
@@ -157,13 +156,13 @@ export default function Hero() {
       component="section"
       id="hero"
       sx={{
-        minHeight: '100vh',
+        minHeight: { xs: 'auto', md: '85vh' },
         display: 'flex',
         alignItems: { xs: 'flex-start', md: 'center' },
         justifyContent: 'center',
         position: 'relative',
         pt: { xs: 10, md: 8 },
-        pb: { xs: 0, lg: '10vh' },
+        pb: { xs: 6, md: 8 },
         overflow: 'hidden',
       }}
     >
@@ -206,7 +205,8 @@ export default function Hero() {
                 color: 'text.primary',
                 fontWeight: 700,
                 userSelect: 'none',
-                fontSize: { xs: '2.5rem', sm: '3rem', md: '3.75rem' },
+                fontSize: { xs: '2.75rem', sm: '3.5rem', md: '4.5rem' },
+                lineHeight: 1.05,
               }}
             >
               Martin Sagat
@@ -217,7 +217,8 @@ export default function Hero() {
                 mb: 3,
                 color: 'text.primary',
                 userSelect: 'none',
-                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                fontSize: { xs: '1.75rem', sm: '2.25rem', md: '3rem' },
+                lineHeight: 1.15,
               }}
             >
               I build things for the web.
@@ -345,83 +346,6 @@ export default function Hero() {
               ))}
             </Box>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            mt: { xs: 6, md: 8 },
-            pt: { xs: 4, md: 5 },
-            borderTop: '1px solid',
-            borderColor: 'divider',
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: { xs: 3, sm: 4, md: 5 },
-            width: '100%',
-          }}
-        >
-          <Typography
-            variant="overline"
-            sx={{
-              color: 'primary.main',
-              fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-              fontWeight: 600,
-              letterSpacing: '0.2em',
-              fontSize: { xs: '12px', md: '13px' },
-              userSelect: 'none',
-              lineHeight: 1,
-              textAlign: 'center',
-            }}
-          >
-            Built with AI · Force Multiplier
-          </Typography>
-          <Stack direction="row" spacing={{ xs: 2, md: 2.5 }}>
-            {aiTools.map((tool) => {
-              const size = 64;
-              return (
-                <Tooltip
-                  key={tool}
-                  title={getTechDisplayName(tool)}
-                  arrow
-                  placement="top"
-                >
-                  <Box
-                    draggable={false}
-                    sx={{
-                      width: `${size}px`,
-                      height: `${size}px`,
-                      borderRadius: '50%',
-                      backgroundColor: 'background.paper',
-                      border: '2px solid',
-                      borderColor: 'primary.main',
-                      boxShadow: (theme) =>
-                        `0 0 0 4px ${theme.palette.primary.main}1A`,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: 1,
-                      transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                      cursor: 'pointer',
-                      '&:hover': {
-                        boxShadow: (theme) =>
-                          `0 0 0 6px ${theme.palette.primary.main}33`,
-                        transform: 'translateY(-6px) scale(1.08)',
-                      },
-                    }}
-                  >
-                    <Image
-                      src={`/content/stack/${tool}.png`}
-                      alt={`${getTechDisplayName(tool)} logo`}
-                      width={size - 16}
-                      height={size - 16}
-                      style={{ objectFit: 'contain' }}
-                      draggable={false}
-                    />
-                  </Box>
-                </Tooltip>
-              );
-            })}
-          </Stack>
         </Box>
       </Container>
       <Box

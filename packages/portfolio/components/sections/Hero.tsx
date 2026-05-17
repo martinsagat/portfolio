@@ -40,16 +40,29 @@ const getTechDisplayName = (tech: string): string => {
 export default function Hero() {
   const { mode } = useThemeMode();
   const [techPositions, setTechPositions] = useState<Array<{ name: string; left: number; top: number; size: number }>>([]);
-  const [clusterBounds, setClusterBounds] = useState({ minLeft: 0, maxRight: 0 });
+  const [clusterBounds, setClusterBounds] = useState({ minLeft: 0, maxRight: 0, maxBottom: 0 });
 
   useEffect(() => {
     const calculatePositions = () => {
       const isSmallScreen = window.innerWidth < 600;
-      const fixedSize = isSmallScreen ? 50 : 70; // Smaller icons on mobile
       const colsPerRow = isSmallScreen ? 3 : 4;
-      const hexWidth = isSmallScreen ? 70 : 90;
-      const hexHeight = isSmallScreen ? 75 : 95;
-      const padding = isSmallScreen ? 15 : 20;
+      const defaultHexWidth = isSmallScreen ? 64 : 90;
+
+      // Available width inside the icon column. On lg (>=1200) the hero is two-column,
+      // so the cluster gets roughly half the container; otherwise it gets full width.
+      const safetyPad = isSmallScreen ? 32 : 80;
+      const fullAvailable = Math.max(240, window.innerWidth - safetyPad);
+      const clusterAvailable = window.innerWidth >= 1200
+        ? (fullAvailable / 2) - 24
+        : fullAvailable;
+
+      // Cap hexWidth so the natural cluster fits the available width.
+      // Cluster width ≈ 15 + (cols - 1 + 0.5) * hexWidth + fixedSize + 20 ; fixedSize ≈ 0.72 * hexWidth
+      const maxHexWidthForFit = (clusterAvailable - 35) / (colsPerRow - 0.5 + 0.72);
+      const hexWidth = Math.max(46, Math.min(defaultHexWidth, maxHexWidthForFit));
+      const fixedSize = Math.round(hexWidth * 0.72);
+      const hexHeight = Math.round(hexWidth * 1.07);
+      const padding = Math.max(6, Math.round(hexWidth * 0.18));
       
       // Helper function to check if two circles overlap
       const circlesOverlap = (
@@ -128,9 +141,14 @@ export default function Hero() {
       if (positions.length > 0) {
         const minLeft = Math.min(...positions.map(p => p.left));
         const maxRight = Math.max(...positions.map(p => p.left + p.size));
+        const maxBottom = Math.max(...positions.map(p => p.top + p.size));
         // Add extra padding to ensure icons aren't cut off
-        const padding = isSmallScreen ? 20 : 30;
-        setClusterBounds({ minLeft: Math.max(0, minLeft - padding), maxRight: maxRight + padding });
+        const boundsPadding = isSmallScreen ? 20 : 30;
+        setClusterBounds({
+          minLeft: Math.max(0, minLeft - boundsPadding),
+          maxRight: maxRight + boundsPadding,
+          maxBottom: maxBottom + boundsPadding,
+        });
       }
       
       setTechPositions(positions);
@@ -156,9 +174,9 @@ export default function Hero() {
       component="section"
       id="hero"
       sx={{
-        minHeight: { xs: 'auto', md: '85vh' },
+        minHeight: { xs: 'auto', lg: '85vh' },
         display: 'flex',
-        alignItems: { xs: 'flex-start', md: 'center' },
+        alignItems: { xs: 'flex-start', lg: 'center' },
         justifyContent: 'center',
         position: 'relative',
         pt: { xs: 10, md: 8 },
@@ -275,9 +293,10 @@ export default function Hero() {
               ml: { xs: 0 },
               mb: { xs: 4, md: 0 },
               width: '100%',
+              maxWidth: '100%',
               display: 'flex',
               justifyContent: 'center',
-              overflow: { xs: 'visible', sm: 'visible', md: 'hidden' },
+              overflow: 'hidden',
               px: { xs: 1, sm: 2 },
             }}
           >
@@ -285,6 +304,7 @@ export default function Hero() {
               sx={{
                 position: 'relative',
                 width: clusterBounds.maxRight > 0 ? `${clusterBounds.maxRight}px` : 'auto',
+                height: clusterBounds.maxBottom > 0 ? `${clusterBounds.maxBottom}px` : 'auto',
                 maxWidth: { xs: '100%', md: 'none' },
                 margin: { xs: '0 auto', lg: 0 },
                 transform: {
