@@ -5,16 +5,16 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useState } from 'react';
 import Image from 'next/image';
 import JobModal from './JobModal';
-import { OutlinedCTAButton, TechChip } from '@/components/ui';
+import { OutlinedCTAButton, Reveal, TechChip } from '@/components/ui';
 import type { Job } from '@/lib/content';
 
-export function JobTimelineItem({ job }: { job: Job }) {
+export function JobTimelineItem({ job, index = 0 }: { job: Job; index?: number }) {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
 
   return (
     <>
-      <Box sx={{ position: 'relative', pl: { xs: 8, md: 0 } }}>
+      <Reveal delay={Math.min(index, 5) * 90} sx={{ position: 'relative', pl: { xs: 8, md: 0 } }}>
         {/* Timeline Dot */}
         <Box
           sx={{
@@ -198,7 +198,7 @@ export function JobTimelineItem({ job }: { job: Job }) {
             </Box>
           </Box>
         </Box>
-      </Box>
+      </Reveal>
 
       <JobModal open={open} onClose={() => setOpen(false)} job={job} />
     </>

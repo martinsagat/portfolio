@@ -4,5 +4,6 @@
   "/api/chat/route": "/api/chat",
   "/favicon.ico/route": "/favicon.ico",
   "/icon.svg/route": "/icon.svg",
+  "/og/route": "/og",
   "/page": "/"
 }

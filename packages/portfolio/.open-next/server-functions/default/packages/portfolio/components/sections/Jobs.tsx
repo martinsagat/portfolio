@@ -6,7 +6,7 @@ import { JobTimelineItem } from './JobTimelineItem';
 export default async function Jobs() {
   const jobs = await getJobs();
   return (
-    <Section id="jobs" background="subtle" noTopPadding>
+    <Section id="jobs" background="subtle" noTopPadding reveal={false}>
       <SectionTitle>Where I&apos;ve Worked</SectionTitle>
       <Box
         sx={{
@@ -27,7 +27,7 @@ export default async function Jobs() {
       >
         <Stack spacing={4}>
           {jobs.map((job, i) => (
-            <JobTimelineItem key={i} job={job} />
+            <JobTimelineItem key={i} job={job} index={i} />
           ))}
         </Stack>
       </Box>

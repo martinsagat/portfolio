@@ -1,5 +1,6 @@
 import { Box, Container, ContainerProps, SxProps, Theme } from '@mui/material';
 import { ReactNode } from 'react';
+import { Reveal } from './Reveal';
 
 type BackgroundVariant = 'default' | 'subtle';
 
@@ -11,6 +12,7 @@ interface SectionProps {
   noTopPadding?: boolean;
   containerSx?: SxProps<Theme>;
   sx?: SxProps<Theme>;
+  reveal?: boolean;
 }
 
 export function Section({
@@ -21,7 +23,9 @@ export function Section({
   noTopPadding = false,
   containerSx,
   sx,
+  reveal = true,
 }: SectionProps) {
+  const inner = reveal ? <Reveal>{children}</Reveal> : children;
   return (
     <Box
       component="section"
@@ -38,7 +42,7 @@ export function Section({
         maxWidth={maxWidth}
         sx={{ mx: 'auto', px: { xs: 2, sm: 3, md: 4 }, ...containerSx }}
       >
-        {children}
+        {inner}
       </Container>
     </Box>
   );

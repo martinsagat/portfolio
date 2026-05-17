@@ -18,9 +18,9 @@ type ChatMessage = { role: Role; content: string };
 
 const STARTER_PROMPTS = [
   'What does Martin do?',
-  'Tell me about PS Rewards',
-  'How does he use AI in his work?',
-  'What tech does he specialize in?',
+  'What projects has Martin built?',
+  'How does Martin use AI in his work?',
+  'What tech does Martin specialize in?',
 ];
 
 export default function AskMartinAI() {
@@ -36,6 +36,12 @@ export default function AskMartinAI() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, streaming]);
+
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener('ask-martin:open', handler);
+    return () => window.removeEventListener('ask-martin:open', handler);
+  }, []);
 
   const send = useCallback(
     async (text: string) => {

@@ -25,3 +25,44 @@ a {
 section[id] {
   scroll-margin-top: 80px;
 }
+
+@keyframes aurora-drift-a {
+  0%   { transform: translate3d(-12%, -8%, 0) scale(1);   }
+  50%  { transform: translate3d(8%, 6%, 0) scale(1.15);   }
+  100% { transform: translate3d(-12%, -8%, 0) scale(1);   }
+}
+
+@keyframes aurora-drift-b {
+  0%   { transform: translate3d(10%, 4%, 0) scale(1.1);   }
+  50%  { transform: translate3d(-8%, -10%, 0) scale(0.95);}
+  100% { transform: translate3d(10%, 4%, 0) scale(1.1);   }
+}
+
+@keyframes aurora-drift-c {
+  0%   { transform: translate3d(0, 10%, 0) scale(0.9);    }
+  50%  { transform: translate3d(6%, -6%, 0) scale(1.05);  }
+  100% { transform: translate3d(0, 10%, 0) scale(0.9);    }
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translate3d(0, 16px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  animation: reveal-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    animation: none;
+    transform: none;
+  }
+}

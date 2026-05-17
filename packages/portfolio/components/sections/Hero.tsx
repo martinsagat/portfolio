@@ -4,7 +4,7 @@ import { Box, Container, Typography, Stack, Tooltip } from '@mui/material';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useThemeMode } from '@/theme/ThemeContext';
-import { OutlinedCTAButton } from '@/components/ui';
+import { Aurora, MagneticButton, OutlinedCTAButton } from '@/components/ui';
 
 const technologies = [
   'html5', 'css3', 'js', 'node', 'react', 'graphql', 'laravel', 'net',
@@ -184,11 +184,12 @@ export default function Hero() {
         overflow: 'hidden',
       }}
     >
-      <Container 
-        maxWidth="lg" 
-        sx={{ 
-          position: 'relative', 
-          zIndex: 2, 
+      <Aurora />
+      <Container
+        maxWidth="lg"
+        sx={{
+          position: 'relative',
+          zIndex: 2,
           mx: 'auto',
           px: { xs: 1, sm: 3, md: 4 },
         }}
@@ -268,21 +269,25 @@ export default function Hero() {
                 alignItems: 'center',
               }}
             >
-              <OutlinedCTAButton
-                href="https://www.linkedin.com/in/martinsagat/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Connect on LinkedIn
-              </OutlinedCTAButton>
-              <OutlinedCTAButton
-                href="/static/resume.pdf"
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Resume
-              </OutlinedCTAButton>
+              <MagneticButton>
+                <OutlinedCTAButton
+                  href="https://www.linkedin.com/in/martinsagat/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Connect on LinkedIn
+                </OutlinedCTAButton>
+              </MagneticButton>
+              <MagneticButton>
+                <OutlinedCTAButton
+                  href="/static/resume.pdf"
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Resume
+                </OutlinedCTAButton>
+              </MagneticButton>
             </Stack>
           </Box>
           <Box

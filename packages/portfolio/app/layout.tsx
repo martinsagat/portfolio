@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import ThemeProvider from '@/components/ThemeProvider';
 import AskMartinAI from '@/components/AskMartinAI';
+import CommandPalette from '@/components/CommandPalette';
 import { Inter } from "next/font/google";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-JJVG4JBLHX";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -24,15 +28,16 @@ export const metadata: Metadata = {
   keywords: ["software engineer", "web developer", "full stack developer", "React", "TypeScript"],
   authors: [{ name: "Martin Sagat" }],
   openGraph: {
-    title: "Martin Sagat - Software Engineer",
+    title: "Martin Sagat - Senior Software Engineer",
     description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",
     url: "https://martinsagat.com",
     siteName: "Martin Sagat",
     images: [
       {
-        url: "/og.png",
+        url: "/og",
         width: 1200,
         height: 630,
+        alt: "Martin Sagat — Senior Software Engineer",
       },
     ],
     locale: "en_US",
@@ -40,9 +45,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Martin Sagat - Software Engineer",
+    title: "Martin Sagat - Senior Software Engineer",
     description: "Martin Sagat is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.",
     creator: "@martinsagat",
+    images: ["/og"],
   },
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
@@ -69,6 +75,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -76,6 +94,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <AskMartinAI />
+          <CommandPalette />
         </ThemeProvider>
       </body>
     </html>
