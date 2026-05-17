@@ -27,8 +27,8 @@ export default function Home() {
         <Hero />
         <About />
         <Jobs />
-        <Blog />
         <Projects />
+        <Blog />
         <Hobbies />
         <Contact />
       </Box>

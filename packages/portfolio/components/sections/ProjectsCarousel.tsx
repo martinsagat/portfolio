@@ -1,15 +1,18 @@
 'use client';
 
-import { Box, Card, CardContent, Stack, Typography, IconButton, Link, Tooltip, useTheme } from '@mui/material';
+import { Box, Card, CardContent, Stack, Typography, IconButton, Link, Tooltip, Button, useTheme, alpha } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import FolderIcon from '@mui/icons-material/Folder';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import type { EmblaCarouselType } from 'embla-carousel';
 import { TechChip } from '@/components/ui';
+import { useThemeMode } from '@/theme/ThemeContext';
 import type { Project } from '@/lib/content';
 
 export function ProjectsCarousel({ projects }: { projects: Project[] }) {
@@ -42,6 +45,23 @@ export function ProjectsCarousel({ projects }: { projects: Project[] }) {
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
   }, [emblaApi, onSelect]);
+
+  const singleProject = projects.length === 1;
+
+  if (singleProject) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', px: { xs: 2, sm: 4, md: 6 } }}>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: { xs: '100%', sm: 560, md: 880 },
+          }}
+        >
+          <ProjectCard project={projects[0]} variant="featured" />
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ position: 'relative', px: { xs: 4, sm: 6, md: 8 } }}>
@@ -108,8 +128,12 @@ export function ProjectsCarousel({ projects }: { projects: Project[] }) {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, variant = 'default' }: { project: Project; variant?: 'default' | 'featured' }) {
   const theme = useTheme();
+  const { mode } = useThemeMode();
+  const heroImage = mode === 'dark' && project.imageDark ? project.imageDark : project.image;
+  const description = project.content?.trim();
+  const isFeatured = variant === 'featured' && !!heroImage;
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
@@ -124,7 +148,7 @@ function ProjectCard({ project }: { project: Project }) {
       sx={{
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: { xs: 'column', md: isFeatured ? 'row' : 'column' },
         boxShadow: theme.customShadows.card,
         transition: 'all 0.3s ease',
         userSelect: 'none',
@@ -134,10 +158,67 @@ function ProjectCard({ project }: { project: Project }) {
         },
       }}
     >
-      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: { xs: 2, sm: 2.5, md: 3 } }}>
+      {isFeatured && heroImage && (
+        <Box
+          sx={{
+            order: { xs: 0, md: 2 },
+            position: 'relative',
+            width: { xs: '100%', md: '40%' },
+            minHeight: { xs: 260, sm: 320, md: 'auto' },
+            backgroundColor: 'background.subtle',
+            borderBottom: { xs: '1px solid', md: 'none' },
+            borderColor: 'divider',
+            flexShrink: 0,
+          }}
+        >
+          <Image
+            src={heroImage}
+            alt={`${project.title} preview`}
+            fill
+            sizes="(max-width: 900px) 100vw, 360px"
+            style={{ objectFit: 'contain', padding: '16px' }}
+          />
+        </Box>
+      )}
+      <Box
+        sx={{
+          order: { xs: 1, md: 1 },
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minWidth: 0,
+        }}
+      >
+      <CardContent
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          p: { xs: 2, sm: 2.5, md: 3 },
+        }}
+      >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: { xs: 1, md: 1.5 }, gap: 1 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 1.5 }, flex: 1, minWidth: 0 }}>
-            <FolderIcon sx={{ color: 'primary.main', fontSize: { xs: 28, md: 36 }, flexShrink: 0 }} />
+            {project.icon ? (
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: { xs: 28, md: 36 },
+                  height: { xs: 28, md: 36 },
+                  flexShrink: 0,
+                }}
+              >
+                <Image
+                  src={project.icon}
+                  alt={`${project.title} logo`}
+                  fill
+                  sizes="36px"
+                  style={{ objectFit: 'contain' }}
+                />
+              </Box>
+            ) : (
+              <FolderIcon sx={{ color: 'primary.main', fontSize: { xs: 28, md: 36 }, flexShrink: 0 }} />
+            )}
             <Typography
               variant="body2"
               sx={{
@@ -231,6 +312,18 @@ function ProjectCard({ project }: { project: Project }) {
             project.title
           )}
         </Typography>
+        {description && (
+          <Typography
+            variant="body2"
+            sx={{
+              mt: { xs: 1.5, md: 2 },
+              color: 'text.secondary',
+              lineHeight: 1.6,
+            }}
+          >
+            {description}
+          </Typography>
+        )}
       </CardContent>
       {project.tech && project.tech.length > 0 && (
         <Box
@@ -257,6 +350,7 @@ function ProjectCard({ project }: { project: Project }) {
           </Stack>
         </Box>
       )}
+      </Box>
     </Card>
   );
 }

@@ -8,7 +8,8 @@ import { OutlinedCTAButton } from '@/components/ui';
 
 const technologies = [
   'html5', 'css3', 'js', 'node', 'react', 'graphql', 'laravel', 'net',
-  'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure'
+  'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure',
+  'claude', 'cursor', 'mcp'
 ];
 
 const getTechDisplayName = (tech: string): string => {
@@ -29,6 +30,9 @@ const getTechDisplayName = (tech: string): string => {
     'mongodb': 'MongoDB',
     'aws': 'Amazon Web Services',
     'azure': 'Microsoft Azure',
+    'claude': 'Claude Code',
+    'cursor': 'Cursor',
+    'mcp': 'Model Context Protocol',
   };
   return techNames[tech] || tech.toUpperCase();
 };
@@ -152,14 +156,14 @@ export default function Hero() {
       component="section"
       id="hero"
       sx={{
-        minHeight: '100vh',
+        minHeight: { xs: 'auto', md: '85vh' },
         display: 'flex',
-        alignItems: 'center',
+        alignItems: { xs: 'flex-start', md: 'center' },
         justifyContent: 'center',
         position: 'relative',
-        pt: { xs: 4, md: 8 },
+        pt: { xs: 10, md: 8 },
+        pb: { xs: 6, md: 8 },
         overflow: 'hidden',
-        pl: { xs: 0, lg: 25 },
       }}
     >
       <Container 
@@ -176,7 +180,7 @@ export default function Hero() {
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' },
             gap: 4,
-            alignItems: 'center',
+            alignItems: 'start',
             justifyContent: 'center',
           }}
         >
@@ -201,7 +205,8 @@ export default function Hero() {
                 color: 'text.primary',
                 fontWeight: 700,
                 userSelect: 'none',
-                fontSize: { xs: '2.5rem', sm: '3rem', md: '3.75rem' },
+                fontSize: { xs: '2.75rem', sm: '3.5rem', md: '4.5rem' },
+                lineHeight: 1.05,
               }}
             >
               Martin Sagat
@@ -212,7 +217,8 @@ export default function Hero() {
                 mb: 3,
                 color: 'text.primary',
                 userSelect: 'none',
-                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                fontSize: { xs: '1.75rem', sm: '2.25rem', md: '3rem' },
+                lineHeight: 1.15,
               }}
             >
               I build things for the web.
@@ -265,12 +271,12 @@ export default function Hero() {
             sx={{
               position: 'relative',
               minHeight: { xs: '300px', md: '500px' },
-              mt: { lg: 20 },
+              mt: { xs: 2, lg: 4 },
               ml: { xs: 0 },
-              mb: { xs: 14, md: 0 },
+              mb: { xs: 4, md: 0 },
               width: '100%',
               display: 'flex',
-              justifyContent: { xs: 'center', lg: 'flex-start' },
+              justifyContent: 'center',
               overflow: { xs: 'visible', sm: 'visible', md: 'hidden' },
               px: { xs: 1, sm: 2 },
             }}
@@ -281,11 +287,11 @@ export default function Hero() {
                 width: clusterBounds.maxRight > 0 ? `${clusterBounds.maxRight}px` : 'auto',
                 maxWidth: { xs: '100%', md: 'none' },
                 margin: { xs: '0 auto', lg: 0 },
-                transform: { 
-                  xs: clusterBounds.minLeft > 0 
-                    ? `translateX(${Math.max(0, -clusterBounds.minLeft)}px)` 
-                    : 'none', 
-                  lg: 'none' 
+                transform: {
+                  xs: clusterBounds.minLeft > 0
+                    ? `translateX(${Math.max(0, -clusterBounds.minLeft)}px)`
+                    : 'none',
+                  lg: 'none'
                 },
               }}
             >

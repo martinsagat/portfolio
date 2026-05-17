@@ -33,3 +33,4 @@ PS Rewards is a rewards and cashback platform comprising three web portals (cons
 - Integrated Stripe (checkout hardening, refunds, pending-order recovery, reconciliation), Blackhawk Network (mTLS gift-card supply), Rakuten affiliate offers, Twilio SMS, SendGrid, and Novatti webhooks
 - Patched IDOR vulnerabilities across consumer endpoints, hardened gift-card disposal against double-spend, enforced mobile verification on all orders, and shipped per-user app-version gating
 - Owned production deploys, DB migrations, cron monitoring, incident response, vulnerability remediation, and structured-log observability
+- Leveraged AI-assisted development (Claude Code, Cursor, MCP) across the entire stack from architectural design and code review to test generation and incident debugging delivering sole-engineer velocity equivalent to a small team

@@ -37,8 +37,8 @@ export default function About() {
             sx={{ color: 'text.secondary', textAlign: { xs: 'center', md: 'left' } }}
           >
             I&apos;m a Senior Software Engineer specializing in scalable web and mobile applications.
-            I blend cloud and modern web expertise with hands-on AI integration to build efficient,
-            maintainable systems that enhance user experiences and drive business impact. I&apos;m also
+            I blend cloud and modern web expertise with AI-powered engineering workflows to ship
+            efficient, maintainable systems faster without sacrificing quality. I&apos;m also
             passionate about crafting clean, intuitive UI/UX that elevates every product I work on.
           </Typography>
         </Box>

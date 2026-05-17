@@ -11,6 +11,8 @@ const technologies = [
   'mysql', 'postgresql', 'terraform', 'git', 'linux', 'mongodb', 'aws', 'azure'
 ];
 
+const aiTools = ['claude', 'cursor', 'mcp'];
+
 const getTechDisplayName = (tech: string): string => {
   const techNames: Record<string, string> = {
     'html5': 'HTML5',
@@ -29,6 +31,9 @@ const getTechDisplayName = (tech: string): string => {
     'mongodb': 'MongoDB',
     'aws': 'Amazon Web Services',
     'azure': 'Microsoft Azure',
+    'claude': 'Claude Code',
+    'cursor': 'Cursor',
+    'mcp': 'Model Context Protocol',
   };
   return techNames[tech] || tech.toUpperCase();
 };
@@ -154,12 +159,12 @@ export default function Hero() {
       sx={{
         minHeight: '100vh',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: { xs: 'flex-start', md: 'center' },
         justifyContent: 'center',
         position: 'relative',
-        pt: { xs: 4, md: 8 },
+        pt: { xs: 10, md: 8 },
+        pb: { xs: 0, lg: '10vh' },
         overflow: 'hidden',
-        pl: { xs: 0, lg: 25 },
       }}
     >
       <Container 
@@ -176,7 +181,7 @@ export default function Hero() {
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' },
             gap: 4,
-            alignItems: 'center',
+            alignItems: 'start',
             justifyContent: 'center',
           }}
         >
@@ -265,12 +270,12 @@ export default function Hero() {
             sx={{
               position: 'relative',
               minHeight: { xs: '300px', md: '500px' },
-              mt: { lg: 20 },
+              mt: { xs: 2, lg: 4 },
               ml: { xs: 0 },
-              mb: { xs: 14, md: 0 },
+              mb: { xs: 4, md: 0 },
               width: '100%',
               display: 'flex',
-              justifyContent: { xs: 'center', lg: 'flex-start' },
+              justifyContent: 'center',
               overflow: { xs: 'visible', sm: 'visible', md: 'hidden' },
               px: { xs: 1, sm: 2 },
             }}
@@ -281,11 +286,11 @@ export default function Hero() {
                 width: clusterBounds.maxRight > 0 ? `${clusterBounds.maxRight}px` : 'auto',
                 maxWidth: { xs: '100%', md: 'none' },
                 margin: { xs: '0 auto', lg: 0 },
-                transform: { 
-                  xs: clusterBounds.minLeft > 0 
-                    ? `translateX(${Math.max(0, -clusterBounds.minLeft)}px)` 
-                    : 'none', 
-                  lg: 'none' 
+                transform: {
+                  xs: clusterBounds.minLeft > 0
+                    ? `translateX(${Math.max(0, -clusterBounds.minLeft)}px)`
+                    : 'none',
+                  lg: 'none'
                 },
               }}
             >
@@ -340,6 +345,83 @@ export default function Hero() {
               ))}
             </Box>
           </Box>
+        </Box>
+        <Box
+          sx={{
+            mt: { xs: 6, md: 8 },
+            pt: { xs: 4, md: 5 },
+            borderTop: '1px solid',
+            borderColor: 'divider',
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: { xs: 3, sm: 4, md: 5 },
+            width: '100%',
+          }}
+        >
+          <Typography
+            variant="overline"
+            sx={{
+              color: 'primary.main',
+              fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+              fontWeight: 600,
+              letterSpacing: '0.2em',
+              fontSize: { xs: '12px', md: '13px' },
+              userSelect: 'none',
+              lineHeight: 1,
+              textAlign: 'center',
+            }}
+          >
+            Built with AI · Force Multiplier
+          </Typography>
+          <Stack direction="row" spacing={{ xs: 2, md: 2.5 }}>
+            {aiTools.map((tool) => {
+              const size = 64;
+              return (
+                <Tooltip
+                  key={tool}
+                  title={getTechDisplayName(tool)}
+                  arrow
+                  placement="top"
+                >
+                  <Box
+                    draggable={false}
+                    sx={{
+                      width: `${size}px`,
+                      height: `${size}px`,
+                      borderRadius: '50%',
+                      backgroundColor: 'background.paper',
+                      border: '2px solid',
+                      borderColor: 'primary.main',
+                      boxShadow: (theme) =>
+                        `0 0 0 4px ${theme.palette.primary.main}1A`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: 1,
+                      transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                      cursor: 'pointer',
+                      '&:hover': {
+                        boxShadow: (theme) =>
+                          `0 0 0 6px ${theme.palette.primary.main}33`,
+                        transform: 'translateY(-6px) scale(1.08)',
+                      },
+                    }}
+                  >
+                    <Image
+                      src={`/content/stack/${tool}.png`}
+                      alt={`${getTechDisplayName(tool)} logo`}
+                      width={size - 16}
+                      height={size - 16}
+                      style={{ objectFit: 'contain' }}
+                      draggable={false}
+                    />
+                  </Box>
+                </Tooltip>
+              );
+            })}
+          </Stack>
         </Box>
       </Container>
       <Box

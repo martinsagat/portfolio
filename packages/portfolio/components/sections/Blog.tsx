@@ -6,7 +6,7 @@ import { PostCard } from './PostCard';
 export default async function Blog() {
   const posts = await getPosts(3);
   return (
-    <Section id="blog">
+    <Section id="blog" background="subtle">
       <SectionTitle>Latest Articles</SectionTitle>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 3 }}>
         {posts.map((post, i) => (

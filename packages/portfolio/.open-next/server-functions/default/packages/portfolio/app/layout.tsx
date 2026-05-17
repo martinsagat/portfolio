@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import ThemeProvider from '@/components/ThemeProvider';
+import AskMartinAI from '@/components/AskMartinAI';
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -74,6 +75,7 @@ export default function RootLayout({
         />
         <ThemeProvider>
           {children}
+          <AskMartinAI />
         </ThemeProvider>
       </body>
     </html>

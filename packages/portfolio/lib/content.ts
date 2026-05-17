@@ -61,6 +61,9 @@ export interface Project {
   date: string;
   github?: string;
   external?: string;
+  icon?: string;
+  image?: string;
+  imageDark?: string;
   tech: string[];
   showInProjects?: boolean;
   content: string;
