@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Image from 'next/image';
 import { OutlinedCTAButton, TechChip } from '@/components/ui';
+import { useThemeMode } from '@/theme/ThemeContext';
 import type { Job } from '@/lib/content';
 
 interface JobModalProps {
@@ -15,6 +16,8 @@ interface JobModalProps {
 
 export default function JobModal({ open, onClose, job }: JobModalProps) {
   const theme = useTheme();
+  const { mode } = useThemeMode();
+  const logoSrc = mode === 'dark' && job.logoDark ? job.logoDark : job.logo;
   return (
     <Dialog
       open={open}
@@ -69,7 +72,7 @@ export default function JobModal({ open, onClose, job }: JobModalProps) {
               }}
             >
               <Image
-                src={job.logo}
+                src={logoSrc}
                 alt={`${job.company} logo`}
                 width={48}
                 height={48}

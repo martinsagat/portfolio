@@ -6,11 +6,14 @@ import { useState } from 'react';
 import Image from 'next/image';
 import JobModal from './JobModal';
 import { OutlinedCTAButton, Reveal, TechChip } from '@/components/ui';
+import { useThemeMode } from '@/theme/ThemeContext';
 import type { Job } from '@/lib/content';
 
 export function JobTimelineItem({ job, index = 0 }: { job: Job; index?: number }) {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
+  const { mode } = useThemeMode();
+  const logoSrc = mode === 'dark' && job.logoDark ? job.logoDark : job.logo;
 
   return (
     <>
@@ -80,7 +83,7 @@ export function JobTimelineItem({ job, index = 0 }: { job: Job; index?: number }
                   }}
                 >
                   <Image
-                    src={job.logo}
+                    src={logoSrc}
                     alt={`${job.company} logo`}
                     width={72}
                     height={72}

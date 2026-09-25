@@ -77,6 +77,7 @@ export interface Job {
   range: string;
   url: string;
   logo: string;
+  logoDark?: string;
   tech: string[];
   date: string;
   content: string;
@@ -150,15 +151,18 @@ export async function getJobs(): Promise<Job[]> {
       
       const htmlContent = renderMarkdown(content);
 
-      // Find logo file
+      // Find logo files; *-dark.* is the optional dark-mode variant
       const files = fs.readdirSync(companyPath);
-      const logoFile = files.find((f) => 
+      const imageFiles = files.filter((f) =>
         f.match(/\.(png|jpg|jpeg|svg)$/i) && !f.includes('index')
       );
+      const darkLogoFile = imageFiles.find((f) => /[-.]dark\./i.test(f));
+      const logoFile = imageFiles.find((f) => !/[-.]dark\./i.test(f));
 
       return {
         ...data,
         logo: logoFile ? `/content/jobs/${companyDir}/${logoFile}` : '',
+        logoDark: darkLogoFile ? `/content/jobs/${companyDir}/${darkLogoFile}` : undefined,
         content,
         htmlContent,
         date: data.date || '2024-01-01',

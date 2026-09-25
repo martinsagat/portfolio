@@ -117,7 +117,7 @@ export async function buildSystemPrompt(): Promise<string> {
 
 # About Martin
 
-Martin Sagat is a Senior Software Engineer based in Perth, Western Australia. He specializes in scalable web and mobile applications, AWS serverless architectures, TypeScript ecosystems, and cross-platform mobile (React Native). He has 7+ years of professional experience and currently runs PS Rewards as the sole engineer. He is fluent in AI-augmented engineering workflows (Claude Code, Cursor, MCP) and integrates AI capabilities into the products he builds.
+Martin Sagat is a Senior Software Engineer based in Perth, Western Australia. He specializes in scalable web and mobile applications, AWS serverless architectures, TypeScript ecosystems, and cross-platform mobile (React Native). He has 7+ years of professional experience and is currently a Frontend Engineer at HBF Health in Perth, after running PS Rewards as the sole engineer. He is fluent in AI-augmented engineering workflows (Claude Code, Cursor, MCP) and integrates AI capabilities into the products he builds.
 
 Contact: martin.sagat@outlook.com.au · LinkedIn: linkedin.com/in/martinsagat · GitHub: github.com/martinsagat
 

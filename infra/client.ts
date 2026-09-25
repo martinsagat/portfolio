@@ -8,7 +8,7 @@ export const client = new sst.aws.Nextjs('MartinSagat', {
     },
     buildCommand: 'npm run build:aws',
     dev: false,
-    path: 'packages/portfolio',
+    path: 'portfolio_v2',
     environment: {
       NEXT_PUBLIC_NODE_ENV: 'production',
       NODE_ENV: 'production',
