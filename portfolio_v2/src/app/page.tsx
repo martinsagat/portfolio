@@ -12,7 +12,7 @@ const display = Space_Grotesk({
 
 export default function Home() {
   return (
-    <div className="bg-background/95">
+    <>
     <main id="top" className="flex min-h-[calc(100svh-4.25rem)] items-center justify-center px-6 py-16 sm:px-12">
       <div className="text-center">
         <div className="mx-auto mb-8 size-32 overflow-hidden rounded-full">
@@ -69,6 +69,6 @@ export default function Home() {
     <Experience />
     <Projects />
     <Contact />
-    </div>
+    </>
   );
 }

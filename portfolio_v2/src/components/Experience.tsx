@@ -114,12 +114,9 @@ function ExperienceItem({
 
 export function Experience() {
   return (
-    <section
-      id="experience"
-      className="px-6 pt-8 pb-24 sm:px-12"
-    >
+    <section id="experience" className="px-6 pt-8 pb-24 text-center sm:px-12">
       <h2 className="text-3xl font-medium tracking-[-0.03em]">Experience</h2>
-      <ol className="mt-10">
+      <ol className="mx-auto mt-10 max-w-4xl text-left">
         {experience.map((role, index) => (
           <ExperienceItem
             key={`${role.company}-${role.range}`}
