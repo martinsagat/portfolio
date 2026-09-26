@@ -4,15 +4,23 @@ export function About() {
       <h2 className="text-3xl font-medium tracking-[-0.03em]">About Me</h2>
       <div className="mx-auto mt-6 max-w-[40rem] space-y-6 text-[1.0625rem] leading-8 text-muted">
         <p>
-          I&apos;m a <span className="text-accent">Senior Software Engineer</span> specializing in building scalable web
-          and mobile applications. With expertise in cloud technologies and modern
-          web frameworks, I create efficient, maintainable solutions that drive
-          business growth.
+          I&apos;m a <span className="text-accent">Senior Software Engineer</span> who enjoys building
+          for the web, especially mobile apps.
         </p>
         <p>
-          I care about interfaces that feel obvious, and about code that stays easy
-          to change after it ships. I use AI tools through the work for design, review,
-          tests, and debugging. I still read everything that goes out.
+          My experience spans early-stage startups and larger organisations. I&apos;ve built
+          products from initial ideas through to productionised MVPs, often working with
+          small teams where priorities change quickly and you have to figure things out
+          on the fly. I&apos;ve also worked alongside larger engineering teams, building and
+          scaling established products.
+        </p>
+        <p>
+          I enjoy both sides of the experience. I appreciate the stability and mature
+          engineering practices of larger organisations, but I also enjoy the pace and
+          freedom of early-stage startups, building things quickly, solving problems as
+          they come up, and turning an idea into something people can actually use. Seeing
+          something I&apos;ve helped build grow into a real product and eventually secure
+          funding is something I find genuinely rewarding.
         </p>
       </div>
     </section>

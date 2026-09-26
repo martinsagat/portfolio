@@ -67,11 +67,15 @@ function ExperienceItem({
       <div className={`min-w-0 sm:col-start-3 sm:row-start-1 ${isLast ? "pb-2" : "pb-8"}`}>
         <div className="flex items-start gap-4">
           <img
-            src={`${role.logo}?v=8`}
+            src={`${role.logo}?v=10`}
             alt=""
             width={64}
             height={64}
-            className="size-16 shrink-0 rounded-lg border border-logo-border object-cover"
+            className={`size-16 shrink-0 rounded-lg border object-cover ${
+              role.logo.endsWith("/extu.png") || role.logo.endsWith("/autom8.png")
+                ? "border-white/35 light:border-logo-border"
+                : "border-logo-border"
+            }`}
           />
           <div className="min-w-0 pt-1">
             <h3 className="text-xl font-medium tracking-[-0.02em]">

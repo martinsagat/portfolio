@@ -99,11 +99,11 @@ export const experience: Role[] = [
     ],
   },
   {
-    title: "Software Engineer",
+    title: "Software Engineer (Contract)",
     company: "Valorem",
     location: "Perth, WA (Remote)",
     range: "Jan 2024 – Jun 2024",
-    url: "https://www.valorem.com.au/",
+    url: "https://valoremnetworks.com.au/",
     logo: "/logos/valorem.jpg",
     summary:
       "Led a serverless payments platform on AWS, with FrankieOne fraud checks and Monoova payments.",
@@ -129,11 +129,11 @@ export const experience: Role[] = [
     ],
   },
   {
-    title: "Software Engineering Consultant",
+    title: "Software Engineering Consultant (Contract)",
     company: "Autom8",
     location: "Sydney, NSW (Remote)",
     range: "Aug 2023 – Jan 2024",
-    url: "https://icl.autom8au.com.au/",
+    url: "https://www.autom8au.com/",
     logo: "/logos/autom8.png",
     summary:
       "Split a monolith into client and backend services, and set the order of that work with the team.",
@@ -173,11 +173,11 @@ export const experience: Role[] = [
   },
   {
     title: "Software Engineer",
-    company: "OneAffiniti",
+    company: "Extu",
     location: "Sydney, NSW (Remote)",
     range: "Aug 2021 – Jan 2023",
-    url: "https://oneaffiniti.com/",
-    logo: "/logos/oneaffiniti.png",
+    url: "https://extu.com/",
+    logo: "/logos/extu.png",
     summary:
       "Built a generator that turns campaign content into static sites, for clients including [Microsoft](https://www.microsoft.com/) and [Dell](https://www.dell.com/).",
     points: [
