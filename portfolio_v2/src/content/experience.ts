@@ -27,8 +27,7 @@ export const experience: Role[] = [
     range: "Jun 2026 – Present",
     url: "https://www.hbf.com.au/",
     logo: "/logos/hbf.png",
-    summary:
-      "HBF Health is a Perth-based health insurer. I develop and integrate Updoc Telehealth in the mobile app and the myHBF member portal.",
+    summary: "HBF Health is a Perth-based private health provider.",
     points: [
       "Developed and integrated [Updoc](https://www.updoc.com.au/) Telehealth for the HBF mobile app and the [myHBF](https://my.hbf.com.au/) member portal.",
       "Integrated [Dynatrace](https://www.dynatrace.com/) tracking to monitor how members use the app and portal.",
@@ -44,8 +43,9 @@ export const experience: Role[] = [
     url: "https://psrewards.com.au/",
     logo: "/logos/psrewards.png",
     summary:
-      "PS Rewards is a rewards and cashback platform comprising three web portals (consumer, merchant, admin) and a cross-platform iOS/Android mobile app. As the sole in-house engineer, I scaled the platform from launch to 1,500 active users while owning everything from infrastructure to incident response.",
+      "PS Rewards is a rewards and cashback platform for consumers and merchants.",
     points: [
+      "As the sole in-house engineer, scaled the platform from launch to 1,500 active users, owning everything from infrastructure to incident response.",
       "Designed, built and operated the entire platform end-to-end: cloud infrastructure, UX, security and on-call operations.",
       "Architected a serverless AWS stack with Hono on Lambda/API Gateway, DynamoDB single-table design via ElectroDB, Cognito JWT auth, and OpenAPI docs; deployed across four SST stages (dev, e2e, uat, production) with CloudFront, Route 53 and EventBridge.",
       "Built three Next.js 16 / React 19 / MUI v7 portals — consumer storefront, merchant dashboard, admin console — on a Turborepo monorepo backed by TanStack Query and a shared component library.",
@@ -81,7 +81,7 @@ export const experience: Role[] = [
     url: "https://www.pccwglobal.com/",
     logo: "/logos/pccw.jpg",
     summary:
-      "PCCW Global is a telecommunications and technology solutions provider. As a Senior Software Engineer, I led application development with a focus on scalability and maintainability.",
+      "PCCW Global is a telecommunications and technology solutions provider.",
     points: [
       "Led development of enterprise applications using modern technologies and best practices, focusing on scalability and maintainability.",
       "Designed and implemented a scalable microservices architecture using Node.js and React.",
@@ -113,7 +113,7 @@ export const experience: Role[] = [
     url: "https://www.valorem.com.au/",
     logo: "/logos/valorem.jpg",
     summary:
-      "Valorem Networks provides payment platforms for workplaces, using digital automation to improve speed, flexibility, control and transparency. I worked in a small team and delivered the platform on a serverless architecture.",
+      "Valorem Networks provides payment platforms for workplaces, using digital automation to improve speed, flexibility, control and transparency.",
     points: [
       "Led development of a serverless payment platform using AWS and the SST framework.",
       "Integrated FrankieOne for fraud detection and Monoova for payment processing.",
@@ -145,7 +145,7 @@ export const experience: Role[] = [
     url: "https://icl.autom8au.com.au/",
     logo: "/logos/autom8.png",
     summary:
-      "Autom8 lets customers build custom forms, gather user data, and run rule-based processing and reporting. I consulted on the move from a monolith to separate client and backend services.",
+      "Autom8 lets customers build custom forms, gather user data, and run rule-based processing and reporting.",
     points: [
       "Led a transformation from a monolithic architecture to client and backend services.",
       "Mapped business processes and prioritised what to implement first.",
@@ -215,8 +215,7 @@ export const experience: Role[] = [
     range: "Feb 2019 – Aug 2021",
     url: "https://www.tollgroup.com/",
     logo: "/logos/toll.png",
-    summary:
-      "Toll Group is a global logistics company. I supported production systems that track high volumes of shipments.",
+    summary: "Toll Group is a global logistics company.",
     points: [
       "Supported a large-volume production tracking system, moving data from source devices into databases.",
       "After a [2020 ransomware attack](https://www.itnews.com.au/news/toll-groups-corporate-data-stolen-by-attackers-548033) that stole commercial agreements and employee data, helped bring servers back for business continuity and added security measures to prevent further leaks.",

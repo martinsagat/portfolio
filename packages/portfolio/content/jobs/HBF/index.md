@@ -12,6 +12,6 @@ logo: './hbf.png'
 #   - React
 ---
 
-HBF Health is a Perth-based health insurer. I joined in June 2026 as a Frontend Engineer.
+HBF Health is a Perth-based private health provider. I joined in June 2026 as a Frontend Engineer.
 
 <!-- TODO: replace with real detail — team, products, and 4-6 achievement bullets -->
