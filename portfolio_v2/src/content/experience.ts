@@ -27,11 +27,11 @@ export const experience: Role[] = [
     range: "Jun 2026 – Present",
     url: "https://www.hbf.com.au/",
     logo: "/logos/hbf.png",
-    summary: "HBF Health is a Perth-based private health provider.",
+    summary:
+      "Shipped [Updoc](https://www.updoc.com.au/) telehealth in the HBF app and the [myHBF](https://my.hbf.com.au/) member portal.",
     points: [
-      "Developed and integrated [Updoc](https://www.updoc.com.au/) Telehealth for the HBF mobile app and the [myHBF](https://my.hbf.com.au/) member portal.",
       "Integrated [Dynatrace](https://www.dynatrace.com/) tracking to monitor how members use the app and portal.",
-      "Publishing [Sitecore](https://www.sitecore.com/) content updates across the HBF site.",
+      "Published [Sitecore](https://www.sitecore.com/) content updates across the HBF site.",
     ],
     tech: ["React", "Next.js", "Expo", "Sitecore", "Dynatrace", "Updoc"],
   },
@@ -43,18 +43,14 @@ export const experience: Role[] = [
     url: "https://psrewards.com.au/",
     logo: "/logos/psrewards.png",
     summary:
-      "PS Rewards is a rewards and cashback platform for consumers and merchants.",
+      "Sole in-house engineer. Took the rewards platform from launch to 1,500 active users.",
     points: [
-      "As the sole in-house engineer, scaled the platform from launch to 1,500 active users, owning everything from infrastructure to incident response.",
-      "Designed, built and operated the entire platform end-to-end: cloud infrastructure, UX, security and on-call operations.",
-      "Architected a serverless AWS stack with Hono on Lambda/API Gateway, DynamoDB single-table design via ElectroDB, Cognito JWT auth, and OpenAPI docs; deployed across four SST stages (dev, e2e, uat, production) with CloudFront, Route 53 and EventBridge.",
-      "Built three Next.js 16 / React 19 / MUI v7 portals — consumer storefront, merchant dashboard, admin console — on a Turborepo monorepo backed by TanStack Query and a shared component library.",
-      "Shipped a cross-platform Expo / React Native app with Face ID biometric sign-in, push notifications with gifting triggers, typed Expo Router navigation, and EAS OTA releases across uat and production channels.",
-      "Delivered the gifting system end-to-end (email/push delivery, recipient redemption, dispose-on-claim security model), a dynamic campaign engine, and a unified catalog/cashback engine spanning Blackhawk Network and Rakuten.",
-      "Integrated Stripe (checkout hardening, refunds, pending-order recovery, reconciliation), Blackhawk Network (mTLS gift-card supply), Rakuten affiliate offers, Twilio SMS, SendGrid, and Novatti webhooks.",
-      "Patched IDOR vulnerabilities across consumer endpoints, hardened gift-card disposal against double-spend, enforced mobile verification on all orders, and shipped per-user app-version gating.",
-      "Owned production deploys, DB migrations, cron monitoring, incident response, vulnerability remediation, and structured-log observability.",
-      "Leveraged AI-assisted development (Claude Code, Cursor, MCP) across the entire stack, from architectural design and code review to test generation and incident debugging.",
+      "Architected a serverless AWS stack with Hono on Lambda, DynamoDB, and Cognito, deployed across dev, e2e, uat, and production.",
+      "Built three Next.js portals (consumer storefront, merchant dashboard, and admin console) on a Turborepo monorepo.",
+      "Shipped an Expo app with Face ID sign-in, push notifications, and over-the-air releases.",
+      "Delivered gifting end to end: email and push delivery, recipient redemption, and a dispose-on-claim model that blocks double-spend.",
+      "Integrated Stripe, Blackhawk Network gift cards, Rakuten offers, Twilio, and SendGrid.",
+      "Patched IDOR vulnerabilities on consumer endpoints and required mobile verification on orders.",
     ],
     tech: [
       "TypeScript",
@@ -81,15 +77,12 @@ export const experience: Role[] = [
     url: "https://www.pccwglobal.com/",
     logo: "/logos/pccw.jpg",
     summary:
-      "PCCW Global is a telecommunications and technology solutions provider.",
+      "Built enterprise apps on Node.js and React, including Camunda workflows and Kubernetes delivery.",
     points: [
-      "Led development of enterprise applications using modern technologies and best practices, focusing on scalability and maintainability.",
-      "Designed and implemented a scalable microservices architecture using Node.js and React.",
+      "Designed and implemented a microservices architecture using Node.js and React.",
       "Developed and maintained business process automation workflows using Camunda.",
       "Implemented CI/CD pipelines and containerization with Docker and Kubernetes.",
-      "Collaborated with cross-functional teams to deliver solutions and improve team velocity.",
       "Mentored junior developers and kept code quality consistent across the team.",
-      "Participated in architecture decisions and technical planning.",
     ],
     tech: [
       "JavaScript",
@@ -113,14 +106,12 @@ export const experience: Role[] = [
     url: "https://www.valorem.com.au/",
     logo: "/logos/valorem.jpg",
     summary:
-      "Valorem Networks provides payment platforms for workplaces, using digital automation to improve speed, flexibility, control and transparency.",
+      "Led a serverless payments platform on AWS, with FrankieOne fraud checks and Monoova payments.",
     points: [
       "Led development of a serverless payment platform using AWS and the SST framework.",
       "Integrated FrankieOne for fraud detection and Monoova for payment processing.",
       "Implemented back-end-for-frontend APIs to speed up data fetching and page loads.",
       "Built CI/CD pipelines with GitHub Actions for automated testing and deployment.",
-      "Worked with the team on code quality practices that reduced production bugs.",
-      "Took part in code reviews and gave technical guidance to teammates.",
     ],
     tech: [
       "SST",
@@ -145,12 +136,11 @@ export const experience: Role[] = [
     url: "https://icl.autom8au.com.au/",
     logo: "/logos/autom8.png",
     summary:
-      "Autom8 lets customers build custom forms, gather user data, and run rule-based processing and reporting.",
+      "Split a monolith into client and backend services, and set the order of that work with the team.",
     points: [
       "Led a transformation from a monolithic architecture to client and backend services.",
       "Mapped business processes and prioritised what to implement first.",
       "Mentored the team on the new technologies.",
-      "Created Jira tickets and tracked project progress.",
     ],
     tech: ["NodeJS", "Vue.js", "JavaScript", "TypeScript", "MySQL", "Docker"],
   },
@@ -162,7 +152,7 @@ export const experience: Role[] = [
     url: "https://landing.bigpicturemedical.com/",
     logo: "/logos/bpm.png",
     summary:
-      "Big Picture Medical is a MedTech company that digitises healthcare records.",
+      "Mapped authentication with designers and engineers, and contributed to NHS single sign-on.",
     points: [
       "Mapped user authentication end-to-end with product designers and engineers using BPMN.",
       "Contributed to SSO login through the [National Health Service (NHS)](https://www.nhs.uk/).",
@@ -189,7 +179,7 @@ export const experience: Role[] = [
     url: "https://oneaffiniti.com/",
     logo: "/logos/oneaffiniti.png",
     summary:
-      "OneAffiniti is a MarTech company focused on digital channel marketing, with clients including [Microsoft](https://www.microsoft.com/) and [Dell](https://www.dell.com/).",
+      "Built a generator that turns campaign content into static sites, for clients including [Microsoft](https://www.microsoft.com/) and [Dell](https://www.dell.com/).",
     points: [
       "Built an application that generates static websites from content designed by campaign managers, cutting compute cost and making content load faster.",
       "Introduced automated code quality checks with Git hooks and linters.",
@@ -215,7 +205,8 @@ export const experience: Role[] = [
     range: "Feb 2019 – Aug 2021",
     url: "https://www.tollgroup.com/",
     logo: "/logos/toll.png",
-    summary: "Toll Group is a global logistics company.",
+    summary:
+      "Supported a high-volume tracking system, and helped restore servers after a 2020 ransomware attack.",
     points: [
       "Supported a large-volume production tracking system, moving data from source devices into databases.",
       "After a [2020 ransomware attack](https://www.itnews.com.au/news/toll-groups-corporate-data-stolen-by-attackers-548033) that stole commercial agreements and employee data, helped bring servers back for business continuity and added security measures to prevent further leaks.",

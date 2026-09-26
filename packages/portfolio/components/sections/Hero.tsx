@@ -240,7 +240,7 @@ export default function Hero() {
                 lineHeight: 1.15,
               }}
             >
-              I build things for the web.
+              I build things for the web
             </Typography>
             <Typography
               variant="body1"

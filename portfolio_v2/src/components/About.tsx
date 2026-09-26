@@ -4,9 +4,10 @@ export function About() {
       <h2 className="text-3xl font-medium tracking-[-0.03em]">About Me</h2>
       <div className="mx-auto mt-6 max-w-[40rem] space-y-6 text-[1.0625rem] leading-8 text-muted">
         <p>
-          I&apos;m based in Perth and work as a Frontend Engineer at HBF Health. Most of
-          what I build is in TypeScript: web apps, mobile apps, and the AWS services
-          behind them.
+          I&apos;m a <span className="text-accent">Senior Software Engineer</span> specializing in building scalable web
+          and mobile applications. With expertise in cloud technologies and modern
+          web frameworks, I create efficient, maintainable solutions that drive
+          business growth.
         </p>
         <p>
           I care about interfaces that feel obvious, and about code that stays easy

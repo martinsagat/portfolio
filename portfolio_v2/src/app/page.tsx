@@ -2,6 +2,7 @@ import { Space_Grotesk } from "next/font/google";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
 import { Experience } from "@/components/Experience";
+import { GithubTiles } from "@/components/GithubTiles";
 import { Projects } from "@/components/Projects";
 
 const display = Space_Grotesk({
@@ -13,8 +14,9 @@ const display = Space_Grotesk({
 export default function Home() {
   return (
     <>
-    <main id="top" className="flex min-h-[calc(100svh-4.25rem)] items-center justify-center px-6 py-16 sm:px-12">
-      <div className="text-center">
+    <main id="top" className="relative flex min-h-[calc(100svh-4.25rem)] flex-col justify-center px-6 py-12 sm:px-12">
+      <GithubTiles />
+      <div className="relative text-center">
         <div className="mx-auto mb-8 size-32 overflow-hidden rounded-full">
           <img
             src="/me.jpg?v=7"
@@ -36,7 +38,7 @@ export default function Home() {
           <span
             className={`${display.className} mt-3 block text-[clamp(1.35rem,2.2vw,1.65rem)] leading-snug font-normal tracking-[-0.02em] text-ink`}
           >
-            I build things for web.
+            I build things for web
           </span>
         </h1>
         <p className="mt-6 flex items-center justify-center gap-1.5 text-sm text-muted">
@@ -56,12 +58,6 @@ export default function Home() {
             <circle cx="12" cy="10" r="2.25" />
           </svg>
           Perth, WA
-        </p>
-        <p className="mx-auto mt-8 max-w-[34rem] text-[1.0625rem] leading-8 text-muted">
-          I&apos;m a <span className="text-accent">Senior Software Engineer</span> specializing in building scalable web
-          and mobile applications. With expertise in cloud technologies and modern
-          web frameworks, I create efficient, maintainable solutions that drive
-          business growth.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           <a

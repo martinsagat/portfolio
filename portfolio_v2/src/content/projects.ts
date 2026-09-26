@@ -12,11 +12,11 @@ export const projects: Project[] = [
   {
     title: "Stepflow",
     description:
-      "Stepflow helps people transform their fitness journey with personalized exercise guidance, yoga routines, and workout plans tailored to their goals.",
+      "Guided workouts, yoga, and training plans matched to a person's goals.",
     url: "https://stepflow.com.au/",
     icon: "/projects/stepflow.png",
     image: "/projects/stepflow-main.png",
     imageDark: "/projects/stepflow-main-dark.png",
-    tech: ["TypeScript", "AWS", "SaaS"],
+    tech: ["TypeScript", "AWS"],
   },
 ];

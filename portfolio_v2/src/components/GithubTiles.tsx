@@ -56,12 +56,13 @@ const tiles = buildTiles();
 
 export function GithubTiles() {
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
       <div
         className="absolute inset-0 [&_svg]:h-full [&_svg]:w-full"
         dangerouslySetInnerHTML={{ __html: tiles }}
       />
-      <div className="absolute inset-0 bg-background/95" />
+      <div className="absolute inset-0 bg-background/88" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--color-background)_42%,transparent_78%)]" />
     </div>
   );
 }

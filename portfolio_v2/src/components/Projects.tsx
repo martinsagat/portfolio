@@ -3,9 +3,7 @@ import { projects } from "@/content/projects";
 export function Projects() {
   return (
     <section id="projects" className="px-6 pt-8 pb-16 text-center sm:px-12">
-      <h2 className="text-3xl font-medium tracking-[-0.03em]">
-        Noteworthy Projects
-      </h2>
+      <h2 className="text-3xl font-medium tracking-[-0.03em]">Projects</h2>
       <ul className="mx-auto mt-10 flex w-full max-w-3xl flex-col gap-6">
         {projects.map((project) => (
           <li
@@ -36,7 +34,8 @@ export function Projects() {
                 <p className="mt-4 max-w-[40rem] text-[1.0625rem] leading-7 text-muted sm:mt-5 sm:leading-8">
                   {project.description}
                 </p>
-                <ul className="mt-5 flex flex-wrap gap-2 sm:mt-6">
+                <p className="mt-5 text-sm text-accent sm:mt-6">stepflow.com.au</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
                   {project.tech.map((item) => (
                     <li
                       key={item}
@@ -67,10 +66,6 @@ export function Projects() {
           </li>
         ))}
       </ul>
-      <p className="mx-auto mt-8 max-w-3xl text-center text-sm leading-6 text-muted">
-        Due to rights and confidentiality agreements, certain commercial
-        projects are not featured.
-      </p>
     </section>
   );
 }

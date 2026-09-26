@@ -48,7 +48,8 @@ function ExperienceItem({
 }) {
   const [open, setOpen] = useState(false);
   const panelId = `${role.company}-${role.range}`.replace(/\s+/g, "-");
-  const hasDetails = role.points.length > 0 || role.tech.length > 0;
+  const hasDetails = role.summary.length > 0 || role.points.length > 0 || role.tech.length > 0;
+  const points = role.summary ? [role.summary, ...role.points] : role.points;
 
   return (
     <li className="grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-4 sm:grid-cols-[9.5rem_1.25rem_minmax(0,1fr)] sm:gap-x-4">
@@ -78,7 +79,7 @@ function ExperienceItem({
                 href={role.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-sm transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="inline-flex min-h-11 items-center rounded-sm transition-colors hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {role.company}
               </a>
@@ -90,10 +91,7 @@ function ExperienceItem({
             </p>
           </div>
         </div>
-        <div className="mt-4 sm:pl-20">
-          <p className="max-w-[40rem] text-[1.0625rem] leading-8 text-muted">
-            <RichText text={role.summary} />
-          </p>
+        <div className="sm:pl-20">
           {hasDetails ? (
             <>
               <button
@@ -102,7 +100,7 @@ function ExperienceItem({
                 aria-controls={panelId}
                 aria-label={`What I did at ${role.company}`}
                 onClick={() => setOpen((value) => !value)}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-sm text-sm text-muted transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                className="mt-1 inline-flex min-h-11 items-center gap-1.5 rounded-sm px-1 text-sm text-muted transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 <Chevron open={open} />
                 What I did
@@ -114,9 +112,9 @@ function ExperienceItem({
               >
                 <div className="min-h-0 overflow-hidden">
                   <div className="pt-4">
-                    {role.points.length > 0 ? (
+                    {points.length > 0 ? (
                       <ul className="max-w-[40rem] list-disc space-y-2 pl-5 text-[1.0625rem] leading-7 text-muted marker:text-accent">
-                        {role.points.map((point) => (
+                        {points.map((point) => (
                           <li key={point}>
                             <RichText text={point} />
                           </li>
@@ -165,8 +163,10 @@ export function Experience() {
           {education.year}
         </p>
         <div className="col-start-2 border-t border-muted/25 pt-8 sm:col-start-3 sm:row-start-1">
-          <p className="pb-3 text-sm text-muted sm:hidden">{education.year}</p>
-          <p className="text-sm text-muted">Education</p>
+          <p className="text-sm text-muted">
+            Education
+            <span className="sm:hidden"> · {education.year}</span>
+          </p>
           <div className="mt-4 flex items-start gap-4">
             <img
               src={`${education.logo}?v=1`}
