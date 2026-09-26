@@ -32,7 +32,7 @@ const socials = [
 export function Footer() {
   return (
     <footer className="border-t border-muted/20">
-      <div className="flex flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-12">
+      <div className="flex flex-col items-center gap-4 px-6 py-8 text-center sm:flex-row sm:justify-between sm:px-12">
         <p className="text-sm text-muted">
           © {new Date().getFullYear()} Martin Sagat
         </p>

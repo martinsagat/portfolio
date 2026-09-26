@@ -48,11 +48,11 @@ function ExperienceItem({
       <div className={`sm:col-start-3 sm:row-start-1 ${isLast ? "pb-2" : "pb-12"}`}>
         <div className="flex items-start gap-4">
           <img
-            src={role.logo}
+            src={`${role.logo}?v=8`}
             alt=""
-            width={48}
-            height={48}
-            className={`size-12 shrink-0 rounded-md object-contain p-1 ${role.company === "BPM" ? "bg-white" : "bg-logo"}`}
+            width={64}
+            height={64}
+            className="size-16 shrink-0 rounded-lg border border-logo-border object-cover"
           />
           <div>
             <h3 className="text-xl font-medium tracking-[-0.02em]">

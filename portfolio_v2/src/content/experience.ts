@@ -19,9 +19,13 @@ export const experience: Role[] = [
     url: "https://www.hbf.com.au/",
     logo: "/logos/hbf.png",
     summary:
-      "HBF Health is a Perth-based health insurer. I joined in June 2026 as a Frontend Engineer.",
-    points: [],
-    tech: [],
+      "HBF Health is a Perth-based health insurer. I contribute to Telehealth in the mobile app and the myHBF member portal.",
+    points: [
+      "Contributed to implementing Telehealth, through [Updoc](https://www.updoc.com.au/), in the HBF mobile app and the [myHBF](https://my.hbf.com.au/) member portal.",
+      "Integrated [Dynatrace](https://www.dynatrace.com/) tracking to monitor how members use the app and portal.",
+      "Publishing [Sitecore](https://www.sitecore.com/) content updates across the HBF site.",
+    ],
+    tech: ["React", "Next.js", "Expo", "Sitecore", "Dynatrace", "Updoc"],
   },
   {
     title: "Senior Software Engineer",

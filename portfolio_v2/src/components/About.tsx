@@ -6,8 +6,7 @@ export function About() {
         <p>
           I&apos;m based in Perth and work as a Frontend Engineer at HBF Health. Most of
           what I build is in TypeScript: web apps, mobile apps, and the AWS services
-          behind them. Before HBF I was the sole engineer at PS Rewards, where I
-          designed, shipped, and operated the platform end to end.
+          behind them.
         </p>
         <p>
           I care about interfaces that feel obvious, and about code that stays easy

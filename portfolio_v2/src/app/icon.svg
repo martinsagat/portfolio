@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 60 240 256">
+  <style>
+    .m { stroke: #f4f5f7; }
+    .s { stroke: #8eb6ff; }
+    @media (prefers-color-scheme: light) {
+      .m { stroke: #0f172a; }
+      .s { stroke: #0a75bc; }
+    }
+  </style>
+  <path class="m" d="M48 292 V68 L160 168 L272 68 V292" fill="none" stroke-width="11" stroke-linejoin="miter"/>
+  <path class="s" d="M118 196 H196 C214 196 226 208 226 224 C226 240 214 252 196 252 H124 C106 252 94 264 94 280 C94 296 106 308 124 308 H202" fill="none" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>
