@@ -6,10 +6,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "ANTHROPIC_API_KEY": {
-      "type": "sst.sst.Secret"
-      "value": string
-    }
     "MartinSagat": {
       "type": "sst.aws.Nextjs"
       "url": string
