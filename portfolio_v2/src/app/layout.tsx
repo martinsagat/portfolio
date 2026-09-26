@@ -11,8 +11,28 @@ const grotesk = Schibsted_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://martinsagat.com"),
   title: "Martin Sagat",
-  description: "Portfolio of Martin Sagat, software engineer.",
+  description: "Portfolio of Martin Sagat, Senior Software Engineer.",
+  openGraph: {
+    title: "Martin Sagat",
+    description: "Senior Software Engineer",
+    url: "https://martinsagat.com",
+    images: [
+      {
+        url: "/banner.png",
+        width: 2560,
+        height: 1440,
+        alt: "Martin Sagat, Senior Software Engineer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Martin Sagat",
+    description: "Senior Software Engineer",
+    images: ["/banner.png"],
+  },
 };
 
 const themeScript = `(function(){try{var t=localStorage.getItem("themeMode");if(t==="light"||t==="dark"){document.documentElement.dataset.theme=t}}catch(e){}})();`;
