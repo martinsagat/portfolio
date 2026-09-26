@@ -1,3 +1,12 @@
+export const education = {
+  school: "RMIT University",
+  credential: "Bachelor of Computer Science",
+  location: "Melbourne",
+  year: "2020",
+  url: "https://www.rmit.edu.au/",
+  logo: "/logos/rmit.png",
+};
+
 export type Role = {
   title: string;
   company: string;
@@ -19,9 +28,9 @@ export const experience: Role[] = [
     url: "https://www.hbf.com.au/",
     logo: "/logos/hbf.png",
     summary:
-      "HBF Health is a Perth-based health insurer. I contribute to Telehealth in the mobile app and the myHBF member portal.",
+      "HBF Health is a Perth-based health insurer. I develop and integrate Updoc Telehealth in the mobile app and the myHBF member portal.",
     points: [
-      "Contributed to implementing Telehealth, through [Updoc](https://www.updoc.com.au/), in the HBF mobile app and the [myHBF](https://my.hbf.com.au/) member portal.",
+      "Developed and integrated [Updoc](https://www.updoc.com.au/) Telehealth for the HBF mobile app and the [myHBF](https://my.hbf.com.au/) member portal.",
       "Integrated [Dynatrace](https://www.dynatrace.com/) tracking to monitor how members use the app and portal.",
       "Publishing [Sitecore](https://www.sitecore.com/) content updates across the HBF site.",
     ],
