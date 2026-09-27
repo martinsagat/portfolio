@@ -14,16 +14,16 @@ const display = Space_Grotesk({
 export default function Home() {
   return (
     <>
-    <main id="top" className="relative flex min-h-[calc(100svh-4.25rem)] flex-col justify-center px-6 py-12 sm:px-12">
+    <main id="top" className="relative flex min-h-[calc(100svh-6.5rem)] flex-col justify-center px-6 py-12 sm:px-12">
       <GithubTiles />
       <div className="relative text-center">
         <div className="mx-auto mb-8 size-32 overflow-hidden rounded-full">
           <img
-            src="/me.jpg?v=7"
+            src="/me.jpg?v=8"
             alt="Martin Sagat"
-            width={640}
-            height={641}
-            className="size-full origin-[52%_24%] scale-[2.6] object-cover"
+            width={1018}
+            height={1024}
+            className="size-full origin-[50%_46%] scale-[1.45] object-cover"
           />
         </div>
         <h1>

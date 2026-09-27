@@ -2,7 +2,7 @@ export function About() {
   return (
     <section id="about" className="px-6 pt-8 pb-8 text-center sm:px-12">
       <h2 className="text-3xl font-medium tracking-[-0.03em]">About Me</h2>
-      <div className="mx-auto mt-6 max-w-[40rem] space-y-6 text-[1.0625rem] leading-8 text-muted">
+      <div className="mx-auto mt-6 max-w-[40rem] space-y-6 text-left text-[1.0625rem] leading-8 text-muted">
         <p>
           I&apos;m a <span className="text-accent">Senior Software Engineer</span> who enjoys building
           for the web, especially mobile apps.

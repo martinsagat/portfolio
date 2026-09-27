@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { Monogram } from "@/components/EngineeringArt";
 
 const links = [
@@ -22,6 +23,7 @@ const menuLinks = [
 
 function ThemeSwitch() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const wipeId = useRef(0);
 
   useEffect(() => {
     setTheme(document.documentElement.dataset.theme === "light" ? "light" : "dark");
@@ -29,9 +31,27 @@ function ThemeSwitch() {
 
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem("themeMode", next);
-    setTheme(next);
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem("themeMode", next);
+      flushSync(() => setTheme(next));
+    };
+
+    const root = document as Document & {
+      startViewTransition?: (update: () => void) => { finished: Promise<void> };
+    };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion || !root.startViewTransition) {
+      apply();
+      return;
+    }
+
+    const id = ++wipeId.current;
+    document.documentElement.dataset.themeWipe = next === "light" ? "rtl" : "ltr";
+    const transition = root.startViewTransition(apply);
+    transition.finished.finally(() => {
+      if (wipeId.current === id) delete document.documentElement.dataset.themeWipe;
+    });
   };
 
   const toLight = theme === "dark";
@@ -41,7 +61,7 @@ function ThemeSwitch() {
       type="button"
       onClick={toggle}
       aria-label={toLight ? "Switch to light mode" : "Switch to dark mode"}
-      className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-muted/40 text-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-muted/40 text-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       {toLight ? (
         <svg viewBox="0 0 24 24" aria-hidden="true" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.75">
@@ -155,17 +175,19 @@ export function AppBar() {
       >
         <nav
           aria-label="Page"
-          className="flex items-center justify-between gap-6 px-6 py-3 sm:px-12"
+          className={`flex items-center justify-between gap-6 px-6 transition-[padding] duration-300 ease-out motion-reduce:transition-none sm:px-12 ${
+            raised ? "py-3" : "py-6"
+          }`}
         >
           <a
             href="#top"
             aria-label="Martin Sagat"
-            className="inline-flex h-11 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            className="inline-flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
             <Monogram
               viewBox="40 60 240 256"
               strokeWidth={11}
-              className={`w-auto transition-[height] duration-300 ease-out motion-reduce:transition-none ${raised ? "h-7" : "h-11"}`}
+              className={`w-auto transition-[height] duration-300 ease-out motion-reduce:transition-none ${raised ? "h-7" : "h-14"}`}
             />
           </a>
           <div className="flex items-center gap-1 sm:gap-2">
@@ -225,7 +247,7 @@ export function AppBar() {
         <nav
           id="page-menu"
           aria-label="Sections"
-          className={`absolute top-0 right-0 flex h-full w-64 flex-col gap-2 border-l border-muted/20 bg-surface px-6 pt-24 transition-translate duration-300 ease-out motion-reduce:transition-none ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+          className={`absolute top-0 right-0 flex h-full w-64 flex-col gap-2 border-l border-muted/20 bg-surface px-6 pt-28 transition-translate duration-300 ease-out motion-reduce:transition-none ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           {menuLinks.map((link) => {
             const isActive = !("external" in link) && active === link.href.slice(1);
